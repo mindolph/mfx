@@ -84,15 +84,26 @@ public class DialogDemoController {
         }
     }
 
+    String text = "This is a demo for\n TextBlockDialog";
+
     @FXML
     public void onTextBlock(ActionEvent event) {
         Node source = (Node) event.getSource();
         TextBlockDialog textBlockDialog = new TextBlockDialog(source.getScene().getWindow(),
-                "Text Block Demo", "This is a demo for\n TextBlockDialog");
+                "Text Block Demo", text, false);
         textBlockDialog.show(s -> {
-            System.out.println("done ");
+            System.out.println("done with: " + s);
+            text = s;
             return null;
         });
+    }
+
+    @FXML
+    public void onTextBlockReadonly(ActionEvent event){
+        Node source = (Node) event.getSource();
+        TextBlockDialog textBlockDialog = new TextBlockDialog(source.getScene().getWindow(),
+                "Text Block Readonly Demo", text, true);
+        textBlockDialog.show();
     }
 
     @FXML

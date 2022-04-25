@@ -36,6 +36,8 @@ public abstract class BaseDialogController<R> extends BaseController {
 
     /**
      * This result is used by outer like CustomDialogBuilder.
+     * The value of result can not be null if you choose positive actions (like OK, YES buttons), otherwise the negative
+     * logic will be executed automatically.
      */
     protected R result;
 

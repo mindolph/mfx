@@ -103,6 +103,8 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         dialog.setTitle(title);
         dialog.setHeaderText(header);
         dialog.setContentText(content);
+        dialog.setWidth(width);
+        dialog.setHeight(height);
         if (!buttonTypes.isEmpty()) dialog.getDialogPane().getButtonTypes().addAll(buttonTypes);
         for (ButtonType buttonType : super.buttonHandlerMap.keySet()) {
             Button btn = (Button) dialog.getDialogPane().lookupButton(buttonType);
@@ -163,7 +165,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             // when press ESC on a child dialog(or alert). it seems a bug which claimed already fixed:
             // https://bugs.openjdk.java.net/browse/JDK-8131151
             dialog.getDialogPane().setOnKeyPressed(keyEvent -> {
-                log.debug("Key pressed pressed: " + keyEvent.getCode());
+                log.trace("Key pressed pressed: " + keyEvent.getCode());
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     keyEvent.consume();
                     log.debug("Close the dialog");
@@ -171,7 +173,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
                 }
             });
             dialog.getDialogPane().setOnKeyReleased(keyEvent -> {
-                log.debug("Key released: " + keyEvent.getCode());
+                log.trace("Key released: " + keyEvent.getCode());
             });
             dialog.getDialogPane().getScene().getWindow().sizeToScene();// 不工作，大概是因为此时content还没加载完成
             return dialog;

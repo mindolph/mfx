@@ -12,6 +12,8 @@
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
                   <Button mnemonicParsing="false" onAction="#onText" text="Single Text" />
+                  <Button mnemonicParsing="false" onAction="#onTextBlock" text="Text Block"/>
+                  <Button layoutX="93.0" layoutY="12.0" mnemonicParsing="false" onAction="#onTextBlockReadonly" text="Text Block Readonly"/>
                 <Button mnemonicParsing="false" onAction="#onChoice" text="Choice" />
                   <Button mnemonicParsing="false" onAction="#onOptions" text="Options " />
               </items>
@@ -20,7 +22,6 @@
               <items>
                 <Button mnemonicParsing="false" onAction="#onOpenFile" text="Open File" />
                   <Button mnemonicParsing="false" onAction="#onBrowse" text="Browse" />
-                  <Button mnemonicParsing="false" onAction="#onTextBlock" text="Text Block" />
                   <Button mnemonicParsing="false" onAction="#onClosing" text="Closing" />
               </items>
             </ToolBar>

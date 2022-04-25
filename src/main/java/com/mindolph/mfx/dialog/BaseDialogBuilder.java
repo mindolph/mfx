@@ -14,6 +14,8 @@ public abstract class BaseDialogBuilder<R> {
     protected String content;
     protected Window owner;
     protected boolean resizable = false;
+    protected double width;
+    protected double height;
 
     public R content(String content) {
         this.content = content;
@@ -42,6 +44,16 @@ public abstract class BaseDialogBuilder<R> {
 
     public R resizable(boolean resizable) {
         this.resizable = resizable;
+        return (R)this;
+    }
+
+    public R width(double width) {
+        this.width = width;
+        return (R)this;
+    }
+
+    public R height(double height) {
+        this.height = height;
         return (R)this;
     }
 }
