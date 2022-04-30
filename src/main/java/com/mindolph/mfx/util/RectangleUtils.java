@@ -29,10 +29,7 @@ public class RectangleUtils {
         if (r1 == null || r2 == null) {
             return false;
         }
-        if (r1.getWidth() == r2.getWidth() && r1.getHeight() == r2.getHeight()) {
-            return true;
-        }
-        return false;
+        return r1.getWidth() == r2.getWidth() && r1.getHeight() == r2.getHeight();
     }
 
     public static Rectangle2D newWithX(Rectangle2D r, double x) {

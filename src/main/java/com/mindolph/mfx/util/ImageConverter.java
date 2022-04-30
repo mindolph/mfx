@@ -27,7 +27,12 @@ public class ImageConverter {
 
     private Double height;
 
-
+    /**
+     * Convert image from {@link BufferedImage} or {@link File} to a new {@link BufferedImage}
+     *
+     * @return
+     * @throws IOException
+     */
     public BufferedImage convert() throws IOException {
         BufferedImage image;
         if (this.image != null) {
@@ -67,7 +72,6 @@ public class ImageConverter {
         else {
             throw new RuntimeException("No conversion specified");
         }
-
         return scaledImage;
     }
 
@@ -85,31 +89,67 @@ public class ImageConverter {
         return bufferedImage;
     }
 
+    /**
+     * Input image
+     *
+     * @param awtImage
+     * @return
+     */
     public ImageConverter image(BufferedImage awtImage) {
         this.image = awtImage;
         return this;
     }
 
+    /**
+     * Read image from file.
+     *
+     * @param file
+     * @return
+     */
     public ImageConverter file(File file) {
         this.file = file;
         return this;
     }
 
+    /**
+     * Scale image
+     *
+     * @param scale
+     * @return
+     */
     public ImageConverter scale(Double scale) {
         this.scale = scale;
         return this;
     }
 
+    /**
+     * Limit the image size on either width or height.
+     *
+     * @param maxSize
+     * @return
+     */
     public ImageConverter maxSize(Double maxSize) {
         this.maxSize = maxSize;
         return this;
     }
 
+    /**
+     * new width of image.
+     *
+     * @param width
+     * @return
+     */
     public ImageConverter width(Double width) {
         this.width = width;
         return this;
     }
 
+    /**
+     * new height of image.
+     *
+     * @param height
+     * @return
+     */
     public ImageConverter height(Double height) {
         this.height = height;
         return this;
