@@ -86,16 +86,22 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
 
     /**
      * Use Swing component as dialog content.
-     * TODO should be tested more
+     *
      *
      * @param swingContent
      * @return
      */
     public CustomDialogBuilder<T> swingContent(JComponent swingContent) {
+        // TODO should be tested more
         this.swingContent = swingContent;
         return this;
     }
 
+    /**
+     * Build and return the {@link Dialog} object.
+     *
+     * @return
+     */
     public Dialog<T> build() {
         Dialog<T> dialog = new Dialog<>();
         dialog.initOwner(owner);
@@ -109,7 +115,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         for (ButtonType buttonType : super.buttonHandlerMap.keySet()) {
             Button btn = (Button) dialog.getDialogPane().lookupButton(buttonType);
             btn.addEventFilter(ActionEvent.ACTION, event -> {
-                log.debug("Clicked button: " + buttonType);
+                log.trace("Clicked button: " + buttonType);
                 event.consume();
                 Callback callback = buttonHandlerMap.get(buttonType);
                 if (callback != null) {
@@ -119,7 +125,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         }
 
         // 把按钮的选择结果转换成对话框需要的结果
-        log.debug("Set result converter for dialog");
+        log.trace("Set result converter for dialog");
         dialog.setResultConverter(buttonType -> {
             if (buttonType == null) {
                 return defaultValue;
@@ -129,12 +135,12 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
                 if (buttonType == ButtonType.OK || buttonType == ButtonType.YES
                         || buttonType == ButtonType.APPLY || buttonType == ButtonType.NEXT
                         || buttonType == ButtonType.FINISH || buttonType == ButtonType.CLOSE) {
-                    log.debug("Positive button clicked, use edited result");
+                    log.trace("Positive button clicked, use edited result");
                     this.controller.setNegative(false);
                     return controller.getResult();
                 }
                 else {
-                    log.debug("Negative button clicked, use original value as result");
+                    log.trace("Negative button clicked, use original value as result");
                     this.controller.setNegative(true);
                     return defaultValue; // return back default value if negative.
                 }
@@ -168,7 +174,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
                 log.trace("Key pressed pressed: " + keyEvent.getCode());
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     keyEvent.consume();
-                    log.debug("Close the dialog");
+                    log.trace("Close the dialog");
                     dialog.close();
                 }
             });
