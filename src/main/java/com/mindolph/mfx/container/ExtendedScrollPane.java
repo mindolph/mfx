@@ -10,10 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Advanced Scroll Pane, features:
- * scroll to a specific position.
- * Animated scroll to a specific position.
- * Get the scroll position in X or Y.
+ * Advanced Scroll Pane extends JavaFX's {@link ScrollPane},
+ * features:
+ * scroll to a specific position (in pixel).
+ * Animated scroll to a specific position (in pixel).
+ * Get the scroll position in X or Y (in pixel).
  *
  * Usage:
  *
