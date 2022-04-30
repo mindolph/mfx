@@ -25,10 +25,22 @@ public class TextUtils {
         return StringUtils.EMPTY;
     }
 
+    /**
+     * Delete all line breaks (Win, *nix like) in text.
+     *
+     * @param text
+     * @return
+     */
     public static String deleteLineBreaks(String text) {
         return StringUtils.replaceEach(text, new String[]{"\r\n", "\n"}, new String[]{StringUtils.EMPTY, StringUtils.EMPTY});
     }
 
+    /**
+     * Replace all line breaks (Win, *nix like) in text with one white space.
+     * 
+     * @param text
+     * @return
+     */
     public static String replaceLineBreaksWithWhitespace(String text) {
         return StringUtils.replaceEach(text, new String[]{"\r\n", "\n"}, new String[]{" ", " "});
     }
