@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Builder for Alert dialog.
+ *
  * @author allen
  */
 public class AlertBuilder extends BaseDialogBuilder<AlertBuilder> {
@@ -18,16 +20,32 @@ public class AlertBuilder extends BaseDialogBuilder<AlertBuilder> {
     private ButtonType[] buttonTypes;
     private Node expand;
 
+    /**
+     * @see javafx.scene.control.Alert.AlertType
+     * @param type
+     * @return
+     */
     public AlertBuilder type(Alert.AlertType type) {
         this.type = type;
         return this;
     }
 
+    /**
+     * @see ButtonType
+     * @param buttonTypes
+     * @return
+     */
     public AlertBuilder buttons(ButtonType... buttonTypes) {
         this.buttonTypes = buttonTypes;
         return this;
     }
 
+    /**
+     * Expand alert with customized node.
+     *
+     * @param expand
+     * @return
+     */
     public AlertBuilder expand(Node expand) {
         this.expand = expand;
         return this;
@@ -51,17 +69,5 @@ public class AlertBuilder extends BaseDialogBuilder<AlertBuilder> {
         });
         return alert;
     }
-
-//    public Alert show() {
-//        if (type==null){
-//
-//        }
-//        else {
-//            Alert alert = buildAlert();
-//            alert.showAndWait()
-//        }
-//        return ;
-//    }
-
 
 }
