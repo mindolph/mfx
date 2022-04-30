@@ -36,12 +36,19 @@ public class FileDialogBuilder extends BaseDialogBuilder<FileDialogBuilder> {
         return this;
     }
 
+    /**
+     * Apply file filters by extension.
+     *
+     * @param extensionFilters
+     * @return
+     */
     public FileDialogBuilder extensionFilters(FileChooser.ExtensionFilter... extensionFilters) {
         this.extensionFilters = extensionFilters;
         return this;
     }
 
     /**
+     * Set file dialog type.
      *
      * @param fileDialogType
      * @return
@@ -52,6 +59,11 @@ public class FileDialogBuilder extends BaseDialogBuilder<FileDialogBuilder> {
         return this;
     }
 
+    /**
+     * Build dialog and show.
+     * 
+     * @return selected file.
+     */
     public File buildAndShow() {
         File selectedFile = null;
         if (fileDialogType == FileDialogType.SAVE_FILE || fileDialogType == FileDialogType.OPEN_FILE) {
@@ -77,9 +89,6 @@ public class FileDialogBuilder extends BaseDialogBuilder<FileDialogBuilder> {
         }
         else {
             throw new RuntimeException("Choose a dialog type");
-        }
-        if (selectedFile == null) {
-            return null;
         }
         return selectedFile;
     }

@@ -37,7 +37,7 @@ public class TextUtils {
 
     /**
      * Replace all line breaks (Win, *nix like) in text with one white space.
-     * 
+     *
      * @param text
      * @return
      */
