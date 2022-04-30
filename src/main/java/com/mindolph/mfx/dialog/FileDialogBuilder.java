@@ -61,7 +61,7 @@ public class FileDialogBuilder extends BaseDialogBuilder<FileDialogBuilder> {
 
     /**
      * Build dialog and show.
-     * 
+     *
      * @return selected file.
      */
     public File buildAndShow() {

@@ -51,24 +51,20 @@ public class DialogFactory {
     public static File openFileDialog(Window window, File initDir) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(initDir);
-        File selectedFile = fileChooser.showOpenDialog(window);
-        if (selectedFile == null) {
-            return null;
-        }
-        return selectedFile;
+        return fileChooser.showOpenDialog(window);
     }
 
     public static File openFileDialog(Window window, File initDir, FileChooser.ExtensionFilter... extensionFilters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(initDir);
-        if (extensionFilters != null) {
-            fileChooser.getExtensionFilters().addAll(extensionFilters);
+        if (extensionFilters != null && extensionFilters.length > 0) {
+            for (FileChooser.ExtensionFilter extensionFilter : extensionFilters) {
+                if (extensionFilter != null) {
+                    fileChooser.getExtensionFilters().add(extensionFilter);
+                }
+            }
         }
-        File selectedFile = fileChooser.showOpenDialog(window);
-        if (selectedFile == null) {
-            return null;
-        }
-        return selectedFile;
+        return fileChooser.showOpenDialog(window);
     }
 
     public static File openSaveFileDialog(Window window, File initDir) {
@@ -80,24 +76,20 @@ public class DialogFactory {
         fileChooser.setTitle("Save as");
         fileChooser.setInitialDirectory(initDir);
         fileChooser.setInitialFileName(initialFileName);
-        if (extensionFilters != null) {
-            fileChooser.getExtensionFilters().addAll(extensionFilters);
+        if (extensionFilters != null && extensionFilters.length > 0) {
+            for (FileChooser.ExtensionFilter extensionFilter : extensionFilters) {
+                if (extensionFilter != null) {
+                    fileChooser.getExtensionFilters().add(extensionFilter);
+                }
+            }
         }
-        File selectedFile = fileChooser.showSaveDialog(window);
-        if (selectedFile == null) {
-            return null;
-        }
-        return selectedFile;
+        return fileChooser.showSaveDialog(window);
     }
 
     public static File openDirDialog(Window window, File initDir) {
         DirectoryChooser dirChooser = new DirectoryChooser();
         dirChooser.setInitialDirectory(initDir);
-        File selectedDir = dirChooser.showDialog(window);
-        if (selectedDir == null) {
-            return null;
-        }
-        return selectedDir;
+        return dirChooser.showDialog(window);
     }
 
 
