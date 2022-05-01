@@ -4,6 +4,8 @@ import javafx.stage.Window;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * Base builder for dialog with title, content, owner, resizable, width, height.
+ *
  * @param <R> type of the actual builder.
  * @author allen
  */
