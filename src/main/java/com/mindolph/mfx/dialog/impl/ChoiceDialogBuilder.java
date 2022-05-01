@@ -7,12 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author allen
+ * Builder for {@link ChoiceDialog} with options customized.
+ *
+ * @param <T>
+ * @see ChoiceDialog
  */
 public class ChoiceDialogBuilder<T> extends BaseInputDialogBuilder<T, ChoiceDialogBuilder<T>> {
 
     List<T> choices = new ArrayList<>();
 
+    /**
+     * add a new choice by {@link T}
+     *
+     * @param choice
+     * @return
+     */
     public ChoiceDialogBuilder<T> choice(T choice) {
         if (!choices.contains(choice)) {
             choices.add(choice);

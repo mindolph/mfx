@@ -5,6 +5,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.TextInputDialog;
 
 /**
+ * Builder for dialog with one line text.
+ *
  * @author allen
  */
 public class TextDialogBuilder extends BaseInputDialogBuilder<String, TextDialogBuilder> {
