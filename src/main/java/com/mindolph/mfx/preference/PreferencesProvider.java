@@ -1,10 +1,15 @@
 package com.mindolph.mfx.preference;
 
+import com.mindolph.mfx.util.ColorUtils;
+import com.mindolph.mfx.util.FontUtils;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 /**
@@ -81,6 +86,12 @@ public class PreferencesProvider {
         else if (value instanceof List) {
             prefs.put(key, StringUtils.join((List) value, ","));
         }
+        else if (value instanceof Font) {
+            prefs.put(key, font2str((Font) value));
+        }
+        else if (value instanceof Color) {
+            prefs.putInt(key, ColorUtils.colorRgba((Color) value));
+        }
         else {
             prefs.put(key, String.valueOf(value));
         }
@@ -100,16 +111,19 @@ public class PreferencesProvider {
     public <T> T getPreference(String key, Class<T> clazz, T defaultValue) {
         key = absoluteKey(key);
         Object val;
-        if (clazz == Integer.class) {
+        if (clazz == Integer.class || clazz == int.class) {
             val = (T) Integer.valueOf(prefs.getInt(key, -1));
         }
-        else if (clazz == Long.class) {
+        else if (clazz == Long.class || clazz == long.class) {
             val = (T) Long.valueOf(prefs.getLong(key, -1L));
         }
-        else if (clazz == Boolean.class) {
+        else if (clazz == Boolean.class || clazz == boolean.class) {
             val = (T) Boolean.valueOf(prefs.getBoolean(key, Boolean.FALSE));
         }
-        else if (clazz == Double.class) {
+        else if (clazz == Float.class || clazz == float.class) {
+            val = (T) Float.valueOf(prefs.getFloat(key, -1f));
+        }
+        else if (clazz == Double.class || clazz == double.class) {
             val = (T) Double.valueOf(prefs.getDouble(key, -1f));
         }
         else if (clazz == byte[].class) {
@@ -117,6 +131,13 @@ public class PreferencesProvider {
         }
         else if (clazz == String.class) {
             val = (T) prefs.get(key, ""); // as string
+        }
+        else if (clazz == Font.class) {
+            val = str2font(prefs.get(key, null), (Font) defaultValue);
+        }
+        else if (clazz == Color.class) {
+            int argb = prefs.getInt(key, defaultValue == null ? 0 : ColorUtils.colorRgba((Color) defaultValue));
+            val = ColorUtils.colorFromRgba(argb);
         }
         else {
             throw new RuntimeException("Not supported class type: " + clazz);
@@ -147,11 +168,17 @@ public class PreferencesProvider {
         else if (def instanceof Boolean) {
             return prefs.getBoolean(key, (Boolean) def);
         }
+        else if (def instanceof Float) {
+            return prefs.getFloat(key, (Float) def);
+        }
         else if (def instanceof Double) {
             return prefs.getDouble(key, (Double) def);
         }
         else if (def instanceof byte[]) {
             return prefs.getByteArray(key, (byte[]) def);
+        }
+        else if (def instanceof Font) {
+            return str2font(prefs.get(key, null), (Font) def);
         }
         else {
             return prefs.get(key, String.valueOf(def));
@@ -183,6 +210,14 @@ public class PreferencesProvider {
         prefs.remove(key);
     }
 
+    public void flush() {
+        try {
+            prefs.flush();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Get the {@line java.util.prefs.Preferences} instance.
      *
@@ -190,5 +225,26 @@ public class PreferencesProvider {
      */
     public Preferences getPrefs() {
         return prefs;
+    }
+
+    public static String font2str(Font font) {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(font.getFamily()).append('|').append(font.getStyle()).append('|').append(font.getSize());
+        return buffer.toString();
+    }
+
+    public static Font str2font(String text, Font defaultFont) {
+        if (text == null) {
+            return defaultFont;
+        }
+        String[] fields = StringUtils.split(text, "|");
+        if (fields.length != 3) {
+            return defaultFont;
+        }
+        try {
+            return Font.font(fields[0], FontUtils.fontWeight(fields[1]), FontUtils.fontPosture(fields[1]), Double.parseDouble(fields[2]));
+        } catch (NumberFormatException ex) {
+            return defaultFont;
+        }
     }
 }
