@@ -19,7 +19,7 @@ public class DesktopUtils {
      */
     public static void openURL(String url) {
         String osName = System.getProperty("os.name");
-        System.out.println(osName);
+        // System.out.println(osName);
         try {
             if (osName.startsWith("Mac OS")) {
 //                Class fileMgr = Class.forName("com.apple.eio.FileManager");
@@ -34,7 +34,6 @@ public class DesktopUtils {
 
             else if (osName.startsWith("Windows")) {
                 Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-                System.out.println("...");
             }
 
             else { //assume Unix or Linux
