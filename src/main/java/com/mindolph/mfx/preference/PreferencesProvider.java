@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -97,18 +98,16 @@ public class PreferencesProvider {
         }
     }
 
-    public <T> T getPreference(String key, Class<T> clazz) {
-        return getPreference(key, clazz, null);
-    }
-
     /**
-     * Get preference by Class type with default value.
+     * get preference by key and class type, return pre-defined default value if it doesn't exist.
+     * the default value for integer or long will be -1, double or float will be -1.0, string will be ''.
      *
      * @param key
      * @param clazz
+     * @param <T>
      * @return
      */
-    public <T> T getPreference(String key, Class<T> clazz, T defaultValue) {
+    public <T> T getPreference(String key, Class<T> clazz) {
         key = absoluteKey(key);
         Object val;
         if (clazz == Integer.class || clazz == int.class) {
@@ -133,11 +132,113 @@ public class PreferencesProvider {
             val = (T) prefs.get(key, ""); // as string
         }
         else if (clazz == Font.class) {
-            val = str2font(prefs.get(key, null), (Font) defaultValue);
+            val = prefs.get(key, font2str(Font.getDefault()));
         }
         else if (clazz == Color.class) {
-            int argb = prefs.getInt(key, defaultValue == null ? 0 : ColorUtils.colorRgba((Color) defaultValue));
+            int argb = prefs.getInt(key, 0);
             val = ColorUtils.colorFromRgba(argb);
+        }
+        else {
+            throw new RuntimeException("Not supported class type: " + clazz);
+        }
+        if (val == null) {
+            return null;
+        }
+        return (T) val;
+    }
+
+    /**
+     * Get preference by key and filed of target object, return field's default value if it doesn't exist.
+     *
+     * @param key
+     * @param field
+     * @param target
+     * @param <T>
+     * @return
+     * @throws IllegalAccessException
+     */
+    public <T> T getPreference(String key, Field field, Object target) throws IllegalAccessException {
+        Class<T> clazz = (Class<T>) field.getType();
+        field.setAccessible(true);
+        Object val;
+        if (clazz == Integer.class || clazz == int.class) {
+            val = prefs.getInt(key, field.getInt(target));
+        }
+        else if (clazz == Long.class || clazz == long.class) {
+            val = prefs.getLong(key, field.getLong(target));
+        }
+        else if (clazz == Boolean.class || clazz == boolean.class) {
+            val = prefs.getBoolean(key, field.getBoolean(target));
+        }
+        else if (clazz == Float.class || clazz == float.class) {
+            val = prefs.getFloat(key, field.getFloat(target));
+        }
+        else if (clazz == Double.class || clazz == double.class) {
+            val = prefs.getDouble(key, field.getDouble(target));
+        }
+        else if (clazz == byte[].class) {
+            val = prefs.getByteArray(key, (byte[]) field.get(target));
+        }
+        else if (clazz == String.class) {
+            val = prefs.get(key, (String) field.get(target));
+        }
+        else if (clazz == Font.class) {
+            val = (T) str2font(prefs.get(key, null), (Font) field.get(target));
+        }
+        else if (clazz == Color.class) {
+            int argb = prefs.getInt(key, 0);
+            val = argb == 0 ? field.get(target) : ColorUtils.colorFromRgba(argb);
+        }
+        else {
+            throw new RuntimeException("Not supported class type: " + clazz);
+        }
+        if (val == null) {
+            return null;
+        }
+        return (T) val;
+    }
+
+    /**
+     * Get preference by key and class type, return provided default value if it doesn't exist.
+     *
+     * @param key
+     * @param clazz
+     * @param defaultValue can't be null
+     * @return
+     */
+    public <T> T getPreference(String key, Class<T> clazz, T defaultValue) {
+        key = absoluteKey(key);
+        if (defaultValue == null) {
+            throw new RuntimeException("default value for %s can't be null".formatted(key));
+        }
+        Object val;
+        if (clazz == Integer.class || clazz == int.class) {
+            val = prefs.getInt(key, (Integer) defaultValue);
+        }
+        else if (clazz == Long.class || clazz == long.class) {
+            val = prefs.getLong(key, (Long) defaultValue);
+        }
+        else if (clazz == Boolean.class || clazz == boolean.class) {
+            val = prefs.getBoolean(key, (Boolean) defaultValue);
+        }
+        else if (clazz == Float.class || clazz == float.class) {
+            val = prefs.getFloat(key, (Float) defaultValue);
+        }
+        else if (clazz == Double.class || clazz == double.class) {
+            val = prefs.getDouble(key, (Double) defaultValue);
+        }
+        else if (clazz == byte[].class) {
+            val = prefs.getByteArray(key, ((byte[]) defaultValue));
+        }
+        else if (clazz == String.class) {
+            val = prefs.get(key, (String) defaultValue);
+        }
+        else if (clazz == Font.class) {
+            return (T) str2font(prefs.get(key, null), (Font) defaultValue);
+        }
+        else if (clazz == Color.class) {
+            Integer v = prefs.getInt(key, 0);
+            return v == 0 ? defaultValue : (T) ColorUtils.colorFromRgba(v);
         }
         else {
             throw new RuntimeException("Not supported class type: " + clazz);
@@ -157,7 +258,7 @@ public class PreferencesProvider {
     public <T> Object getPreference(String key, T def) {
         key = absoluteKey(key);
         if (def == null) {
-            throw new RuntimeException("Default value can't be null");
+            throw new RuntimeException("default value for %s can't be null".formatted(key));
         }
         if (def instanceof Integer) {
             return prefs.getInt(key, (Integer) def);
@@ -233,8 +334,15 @@ public class PreferencesProvider {
         return buffer.toString();
     }
 
+    /**
+     * return default font if text is blank or informal.
+     *
+     * @param text
+     * @param defaultFont
+     * @return
+     */
     public static Font str2font(String text, Font defaultFont) {
-        if (text == null) {
+        if (StringUtils.isBlank(text)) {
             return defaultFont;
         }
         String[] fields = StringUtils.split(text, "|");
