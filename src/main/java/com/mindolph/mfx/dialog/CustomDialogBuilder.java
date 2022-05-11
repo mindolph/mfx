@@ -112,6 +112,11 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         dialog.setWidth(width);
         dialog.setHeight(height);
         if (!buttonTypes.isEmpty()) dialog.getDialogPane().getButtonTypes().addAll(buttonTypes);
+        for (ButtonType buttonType : dialog.getDialogPane().getButtonTypes()) {
+            Button btn = (Button) dialog.getDialogPane().lookupButton(buttonType);
+            btn.setGraphic(super.buttonIconMap.get(buttonType));
+        }
+
         for (ButtonType buttonType : super.buttonHandlerMap.keySet()) {
             Button btn = (Button) dialog.getDialogPane().lookupButton(buttonType);
             btn.addEventFilter(ActionEvent.ACTION, event -> {
