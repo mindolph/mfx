@@ -4,12 +4,12 @@ import com.mindolph.mfx.swing.ExtendableSwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
-import javafx.util.Callback;
 
 import javax.swing.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 /**
  * @author allen
@@ -40,8 +40,8 @@ public class CustomSwingDialog extends BaseDialogController<String> implements I
     }
 
     @Override
-    public void show(Callback<String, Void> callback) {
+    public void show(Consumer<String> consumer) {
         Optional<String> optResult = dialog.showAndWait();
-        callback.call(optResult.orElse(null));
+        consumer.accept(optResult.orElse(null));
     }
 }

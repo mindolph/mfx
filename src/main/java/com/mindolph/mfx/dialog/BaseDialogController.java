@@ -2,11 +2,11 @@ package com.mindolph.mfx.dialog;
 
 import com.mindolph.mfx.BaseController;
 import javafx.scene.control.Dialog;
-import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Base controller class to implement Dialog with {@link com.mindolph.mfx.dialog.CustomDialogBuilder}.
@@ -61,19 +61,27 @@ public abstract class BaseDialogController<R> extends BaseController {
     /**
      * Show dialog and callback to caller with result object.
      *
-     * @param callback
+     * @param consumer
      */
-    public void show(Callback<R, Void> callback) {
+    public void show(Consumer<R> consumer) {
         if (dialog != null) {
             Optional<R> result = dialog.showAndWait();
             R r = result.orElse(null);
-            if (callback != null) {
-                callback.call(r);
+            if (consumer != null) {
+                consumer.accept(r);
             }
         }
     }
 
+    /**
+     *
+     * @deprecated use showAndWait()
+     */
     public R show() {
+        return this.showAndWait(); // workaround for old implementations.
+    }
+
+    public R showAndWait() {
         if (dialog != null) {
             Optional<R> result = dialog.showAndWait();
             R r = result.orElse(null);

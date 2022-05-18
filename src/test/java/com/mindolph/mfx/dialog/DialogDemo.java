@@ -12,13 +12,12 @@ public class DialogDemo extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/dialog/dialog_demo.fxml"));
         Scene scene = new Scene(root, 600, 380);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Hello Dialogs");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public static class DialogDemoLauncher {
-
         public static void main(String[] args) {
             Application.launch(DialogDemo.class, args);
         }

@@ -25,7 +25,6 @@ public class BrowseUtils {
         BrowserDialog browserDialog = new BrowserDialog(window, url);
         browserDialog.show(param -> {
             System.out.println("done browse: " + param);
-            return null;
         });
     }
 

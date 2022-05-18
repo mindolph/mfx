@@ -5,9 +5,9 @@ import com.mindolph.mfx.dialog.CustomDialogBuilder;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import javafx.util.Callback;
 
 import java.net.URL;
+import java.util.function.Consumer;
 
 /**
  * Dialog opens a URL with WebView.
@@ -35,10 +35,10 @@ public class BrowserDialog extends BaseDialogController<String> {
     }
 
     @Override
-    public void show(Callback<String, Void> callback) {
+    public void show(Consumer<String> consumer) {
         webView.getEngine().load(this.url.toString());
         dialog.setTitle(this.url.toString());
         dialog.show();
-        if (callback != null) callback.call(String.format("url %s loaded", this.url));
+        if (consumer != null) consumer.accept(String.format("url %s loaded", this.url));
     }
 }

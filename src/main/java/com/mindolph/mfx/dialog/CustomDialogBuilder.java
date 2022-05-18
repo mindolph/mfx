@@ -16,6 +16,7 @@ import org.swiftboot.util.ClasspathResourceUtils;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Build a {@link Dialog} by customizing its content with FXML and controller.
@@ -86,7 +87,6 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
 
     /**
      * Use Swing component as dialog content.
-     *
      *
      * @param swingContent
      * @return
@@ -164,16 +164,20 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
                 ((ExtendableSwingNode) node).setContent(swingContent);
             }
             else if (StringUtils.isNotBlank(fxmlUri)) {
-                FXMLLoader loader = new FXMLLoader(ClasspathResourceUtils.getResourceURI(fxmlUri));
+                URL uri = ClasspathResourceUtils.getResourceURI(fxmlUri);
+                if (uri == null) {
+                    throw new RuntimeException("can't find fxml resource: %s".formatted(fxmlUri));
+                }
+                FXMLLoader loader = new FXMLLoader(uri);
                 if (loader.getController() == null && controller != null) loader.setController(controller);
                 node = loader.load();
                 dialog.getDialogPane().setContent(node);
             }
             else {
-                throw new RuntimeException("Dialog can't be initialized");
+                throw new RuntimeException("Dialog can't be initialized, set fxml or content node");
             }
             // Handling key pressed and released events is used to avoid parent dialog being closed
-            // when press ESC on a child dialog(or alert). it seems a bug which claimed already fixed:
+            // when press ESC on a child dialog(or alert). it seems a bug which was claimed already fixed:
             // https://bugs.openjdk.java.net/browse/JDK-8131151
             dialog.getDialogPane().setOnKeyPressed(keyEvent -> {
                 log.trace("Key pressed pressed: " + keyEvent.getCode());
