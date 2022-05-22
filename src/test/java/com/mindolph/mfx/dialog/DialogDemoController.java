@@ -167,7 +167,7 @@ public class DialogDemoController {
 //                .title("Only One Dialog")
 //                .buttons(ButtonType.CLOSE)
 //                .build();
-        DialogPreventor.getIns().showDialog(dialog);
-        DialogPreventor.getIns().closeDialog(dialog);
+//        DialogPreventor.getIns().showDialog(dialog);
+//        DialogPreventor.getIns().closeDialog(dialog);
     }
 }
