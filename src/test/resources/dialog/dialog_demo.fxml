@@ -33,6 +33,11 @@
                   <Button mnemonicParsing="false" onAction="#onCustomSwingContentDialog" text="Custom Swing Content Dialog" />
               </items>
             </ToolBar>
+             <ToolBar prefHeight="40.0" prefWidth="200.0">
+                 <items>
+                     <Button mnemonicParsing="false" onAction="#onOnlyOneDialog" text="Only On Dialog" />
+                 </items>
+             </ToolBar>
          </children>
         </VBox>
     </children>

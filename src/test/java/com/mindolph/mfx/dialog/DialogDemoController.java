@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TextInputDialog;
+import javafx.stage.Modality;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -77,7 +79,6 @@ public class DialogDemoController {
             BrowserDialog browserDialog = new BrowserDialog(source.getScene().getWindow(), url);
             browserDialog.show(param -> {
                 System.out.println("done browse: " + param);
-                return null;
             });
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -94,7 +95,6 @@ public class DialogDemoController {
         textBlockDialog.show(s -> {
             System.out.println("done with: " + s);
             text = s;
-            return null;
         });
     }
 
@@ -103,13 +103,13 @@ public class DialogDemoController {
         Node source = (Node) event.getSource();
         TextBlockDialog textBlockDialog = new TextBlockDialog(source.getScene().getWindow(),
                 "Text Block Readonly Demo", text, true);
-        textBlockDialog.show();
+        textBlockDialog.showAndWait();
     }
 
     @FXML
     public void onClosing(ActionEvent event) {
         ClosingDialog dialog = new ClosingDialog();
-        dialog.show();
+        dialog.showAndWait();
     }
 
     @FXML
@@ -135,7 +135,6 @@ public class DialogDemoController {
 //        System.out.println(result);
         customDialog.show(r -> {
             System.out.println(r);
-            return null;
         });
     }
 
@@ -157,7 +156,18 @@ public class DialogDemoController {
     public void onCustomSwingContentDialog(Event event) {
         new CustomSwingDialog().show(param -> {
             System.out.println(param);
-            return null;
         });
+    }
+
+    @FXML
+    public void onOnlyOneDialog(Event event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.initModality(Modality.NONE);
+//        Dialog<Void> dialog = new CustomDialogBuilder<Void>()
+//                .title("Only One Dialog")
+//                .buttons(ButtonType.CLOSE)
+//                .build();
+        DialogPreventor.getIns().showDialog(dialog);
+        DialogPreventor.getIns().closeDialog(dialog);
     }
 }
