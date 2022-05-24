@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * scroll to a specific position (in pixel).
  * Animated scroll to a specific position (in pixel).
  * Get the scroll position in X or Y (in pixel).
- *
+ * <p>
  * Usage:
  *
  * @author allen
@@ -55,23 +55,25 @@ public class ExtendedScrollPane extends ScrollPane {
     /**
      * Scroll in animation from current position to target position in coordinate.
      *
-     * @param to The coordinate to which scroll.
+     * @param to       The coordinate to which scroll.
+     * @param callback
      */
-    public void scrollAnimate(Point2D to) {
+    public void scrollAnimate(Point2D to, Runnable callback) {
         Bounds viewportBounds = this.getViewportBounds();
         Bounds layoutBounds = this.getContent().getLayoutBounds();
         double h = to.getX() / (layoutBounds.getWidth() - viewportBounds.getWidth());
         double v = to.getY() / (layoutBounds.getHeight() - viewportBounds.getHeight());
-        scrollAnimate(h, v);
+        scrollAnimate(h, v, callback);
     }
 
     /**
      * Scroll in animation from current position to target position
      *
-     * @param h to horizontal
-     * @param v to vertical
+     * @param h        to horizontal
+     * @param v        to vertical
+     * @param callback
      */
-    public void scrollAnimate(double h, double v) {
+    public void scrollAnimate(double h, double v, Runnable callback) {
         double oh = getHvalue();
         double ov = getVvalue();
         new Thread(() -> {
@@ -91,6 +93,7 @@ public class ExtendedScrollPane extends ScrollPane {
                     e.printStackTrace();
                 }
             }
+            callback.run();
         }).start();
     }
 

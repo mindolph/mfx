@@ -40,6 +40,14 @@ public class RectangleUtils {
         return new Rectangle2D(r.getMinX(), y, r.getWidth(), r.getHeight());
     }
 
+    public static Rectangle2D newWithWidth(Rectangle2D bounds, double width) {
+        return new Rectangle2D(bounds.getMinX(), bounds.getMinY(), width, bounds.getHeight());
+    }
+
+    public static Rectangle2D newWithHeight(Rectangle2D bounds, double height) {
+        return new Rectangle2D(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), height);
+    }
+
     public static Rectangle2D newZero() {
         return new Rectangle2D(0, 0, 0, 0);
     }
