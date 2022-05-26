@@ -9,12 +9,17 @@ import java.net.URL;
  */
 public class UrlUtils {
 
+    /**
+     * Check whether the URL is valid.
+     *
+     * @param url
+     * @return
+     */
     public static boolean isValid(String url) {
         try {
             new URL(url).toURI();
             return true;
         } catch (URISyntaxException | MalformedURLException e) {
-            e.printStackTrace();
             return false;
         }
     }
