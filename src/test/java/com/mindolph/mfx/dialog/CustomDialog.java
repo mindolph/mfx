@@ -1,19 +1,41 @@
 package com.mindolph.mfx.dialog;
 
+import com.mindolph.mfx.util.FxImageUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 /**
  * @author allen
  */
 public class CustomDialog extends BaseDialogController<String> {
 
+    ButtonType customButtonType = new ButtonType("Custom Button", ButtonBar.ButtonData.LEFT);
+
+    @FXML
+    private Label label;
+
     public CustomDialog(String origin) {
         super(origin);
+        ImageView imageView;
+        try {
+            imageView = new ImageView(FxImageUtils.readImageFromResource("/case16.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         dialog = new CustomDialogBuilder<String>()
                 .title("Custom Dialog").content("自定义对话框（封装模式）")
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
+                .button(customButtonType, () -> {
+                    System.out.println("this is a custom button");
+                    label.setText("custom button clicked");
+                })
+                .icon(customButtonType, imageView)
                 .controller(CustomDialog.this)
                 .defaultValue(origin)
                 .fxmlUri("dialog/custom_dialog.fxml").build();
@@ -29,9 +51,4 @@ public class CustomDialog extends BaseDialogController<String> {
         result = "Button clicked";
     }
 
-//    @Override
-//    public void show(Callback<String, Void> callback) {
-//        Optional<String> s = dialog.showAndWait();
-//        s.ifPresent(callback::call);
-//    }
 }

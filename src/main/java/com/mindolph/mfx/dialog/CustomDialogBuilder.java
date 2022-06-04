@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.input.KeyCode;
-import javafx.util.Callback;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,17 @@ import java.net.URL;
  * Build a {@link Dialog} by customizing its content with FXML and controller.
  * The controller must inherit from {@link BaseDialogController} and the FXML MUST not be defined with controller.
  * if use {@code fxContent()} or {@code swingContent()} to load dialog content, the FXML file will be ignored.
- *
+ * example:
+ * <pre>
+ *     Dialog&lt;String&gt; dialog = new CustomDialogBuilder&lt;String&gt;()
+ *      .owner(window)
+ *      .title("dialog")
+ *      .fxmlUri("dialog.fxml")
+ *      .buttons(ButtonType.OK, ButtonType.CANCEL)
+ *      .icon(ButtonType.OK, iconOk)
+ *      .resizable(true)
+ *      .build();
+ * </pre>
  * @param <T> type of default value
  * @author allen
  * @see BaseDialogController
@@ -32,7 +41,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
     private final Logger log = LoggerFactory.getLogger(CustomDialogBuilder.class);
 
     /**
-     * Controller of this dialog, if specified, the FXML file must not be defined with controller.
+     * Controller of this dialog, if specified, the FXML file must be defined without controller.
      */
     private BaseDialogController<T> controller;
 
@@ -122,9 +131,9 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             btn.addEventFilter(ActionEvent.ACTION, event -> {
                 log.trace("Clicked button: " + buttonType);
                 event.consume();
-                Callback callback = buttonHandlerMap.get(buttonType);
-                if (callback != null) {
-                    callback.call(null);
+                Runnable supplier = buttonHandlerMap.get(buttonType);
+                if (supplier != null) {
+                    supplier.run();
                 }
             });
         }

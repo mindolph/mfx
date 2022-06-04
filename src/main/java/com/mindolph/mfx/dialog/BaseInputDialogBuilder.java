@@ -3,7 +3,6 @@ package com.mindolph.mfx.dialog;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.util.Callback;
 
 import java.util.*;
 
@@ -16,7 +15,7 @@ public abstract class BaseInputDialogBuilder<T, R> extends BaseDialogBuilder<R> 
 
     protected T defaultValue;
     protected List<ButtonType> buttonTypes = new ArrayList<>();
-    protected Map<ButtonType, Callback> buttonHandlerMap = new HashMap<>();
+    protected Map<ButtonType, Runnable> buttonHandlerMap = new HashMap<>();
     protected Map<ButtonType, Node> buttonIconMap = new HashMap<>();
 
     /**
@@ -43,12 +42,17 @@ public abstract class BaseInputDialogBuilder<T, R> extends BaseDialogBuilder<R> 
 
     /**
      * A customized button and it's callback.
-     *
+     * example:
+     * <pre>
+     *     ButtonType customButtonType = new ButtonType("Custom Button", ButtonBar.ButtonData.LEFT);
+     *     builder.button(customButtonType, () -> {
+     *     });
+     * </pre>
      * @param buttonType
      * @param callback
      * @return
      */
-    public R button(ButtonType buttonType, Callback callback) {
+    public R button(ButtonType buttonType, Runnable callback) {
         Collections.addAll(this.buttonTypes, buttonType);
         buttonHandlerMap.put(buttonType, callback);
         return (R) this;
