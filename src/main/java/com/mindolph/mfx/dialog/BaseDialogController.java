@@ -1,6 +1,8 @@
 package com.mindolph.mfx.dialog;
 
 import com.mindolph.mfx.BaseController;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,9 +61,19 @@ public abstract class BaseDialogController<R> extends BaseController {
     }
 
     /**
+     * Get Button instance by button type.
+     *
+     * @param buttonType
+     * @return
+     */
+    public Button getButton(ButtonType buttonType) {
+        return (Button) dialog.getDialogPane().lookupButton(buttonType);
+    }
+
+    /**
      * Show dialog and callback to caller with result object.
      *
-     * @param consumer
+     * @param consumer be called either positive or negative button clicked.
      */
     public void show(Consumer<R> consumer) {
         if (dialog != null) {

@@ -131,9 +131,9 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             btn.addEventFilter(ActionEvent.ACTION, event -> {
                 log.trace("Clicked button: " + buttonType);
                 event.consume();
-                Runnable supplier = buttonHandlerMap.get(buttonType);
-                if (supplier != null) {
-                    supplier.run();
+                Runnable runnable = buttonHandlerMap.get(buttonType);
+                if (runnable != null) {
+                    runnable.run();
                 }
             });
         }
