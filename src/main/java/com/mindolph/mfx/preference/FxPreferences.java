@@ -7,8 +7,10 @@ import javafx.scene.text.Font;
 import org.apache.commons.lang3.StringUtils;
 import org.swiftboot.util.pref.Converter;
 import org.swiftboot.util.pref.PreferenceManager;
+import org.swiftboot.util.pref.StringListConverter;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * Call init() before using.
@@ -24,7 +26,7 @@ public class FxPreferences {
 
     }
 
-    public static synchronized FxPreferences getIns() {
+    public static synchronized FxPreferences getInstance() {
         if (ins == null) {
             ins = new FxPreferences();
         }
@@ -66,7 +68,12 @@ public class FxPreferences {
                     return Integer.class;
                 }
             });
+            pm.addConverter(List.class, new StringListConverter());
         }
+    }
+
+    public void addConverter(Class clazz, Converter converter) {
+        pm.addConverter(clazz, converter);
     }
 
     public void savePreference(String key, Object value) {
@@ -92,6 +99,10 @@ public class FxPreferences {
 
     public <T> Object getPreference(String key, T def) {
         return pm.getPreference(key, def);
+    }
+
+    public void removePreference(String key) {
+        pm.removePreference(key);
     }
 
     public void flush() {
