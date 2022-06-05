@@ -15,6 +15,7 @@ import java.util.prefs.Preferences;
 
 /**
  * @author allen
+ * @deprecated
  */
 public class PreferencesProvider {
 
