@@ -36,7 +36,8 @@ public class FxPreferences {
     public void init(Class ownerClass) {
         if (pm == null) {
             pm = PreferenceManager.getInstance(ownerClass);
-            pm.addConverter(Font.class, new Converter<Font, String>() {
+            pm.setConverter(List.class, new StringListConverter());
+            pm.setConverter(Font.class, new Converter<Font, String>() {
                 @Override
                 public Font deserialize(String prefString) {
                     return str2font(prefString, null);
@@ -52,7 +53,7 @@ public class FxPreferences {
                     return String.class;
                 }
             });
-            pm.addConverter(Color.class, new Converter<Color, Integer>() {
+            pm.setConverter(Color.class, new Converter<Color, Integer>() {
                 @Override
                 public Color deserialize(Integer prefValue) {
                     return ColorUtils.colorFromRgba(prefValue);
@@ -68,12 +69,15 @@ public class FxPreferences {
                     return Integer.class;
                 }
             });
-            pm.addConverter(List.class, new StringListConverter());
         }
     }
 
     public void addConverter(Class clazz, Converter converter) {
-        pm.addConverter(clazz, converter);
+        pm.setConverter(clazz, converter);
+    }
+
+    public void removeConverter(Class clazz) {
+        pm.removeConverter(clazz);
     }
 
     public void savePreference(String key, Object value) {
