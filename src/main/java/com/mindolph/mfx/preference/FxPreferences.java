@@ -33,7 +33,7 @@ public class FxPreferences {
         return ins;
     }
 
-    public void init(Class ownerClass) {
+    public void init(Class<?> ownerClass) {
         if (pm == null) {
             pm = PreferenceManager.getInstance(ownerClass);
             pm.setConverter(List.class, new StringListConverter());
@@ -72,11 +72,11 @@ public class FxPreferences {
         }
     }
 
-    public void addConverter(Class clazz, Converter converter) {
+    public void addConverter(Class<?> clazz, Converter converter) {
         pm.setConverter(clazz, converter);
     }
 
-    public void removeConverter(Class clazz) {
+    public void removeConverter(Class<?> clazz) {
         pm.removeConverter(clazz);
     }
 
@@ -101,7 +101,7 @@ public class FxPreferences {
         return pm.getPreference(key, clazz);
     }
 
-    public <T> Object getPreference(String key, T def) {
+    public <T> T getPreference(String key, T def) {
         return pm.getPreference(key, def);
     }
 
