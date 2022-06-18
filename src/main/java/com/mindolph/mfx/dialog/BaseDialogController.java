@@ -82,24 +82,40 @@ public abstract class BaseDialogController<R> extends BaseController {
             if (consumer != null) {
                 consumer.accept(r);
             }
+            if (isNegative) {
+                onNegative(this.result);
+            }
+            else {
+                onPositive(this.result);
+            }
         }
     }
 
     /**
+     * Show and wait until user clicks any button.
      *
-     * @deprecated use showAndWait()
+     * @return
      */
-    public R show() {
-        return this.showAndWait(); // workaround for old implementations.
-    }
-
     public R showAndWait() {
         if (dialog != null) {
             Optional<R> result = dialog.showAndWait();
             R r = result.orElse(null);
+            if (isNegative) {
+                onNegative(this.result);
+            }
+            else {
+                onPositive(this.result);
+            }
             return r;
         }
         return null;
+    }
+
+    /**
+     * @deprecated use showAndWait()
+     */
+    public R show() {
+        return this.showAndWait(); // workaround for old implementations.
     }
 
     /**
@@ -137,10 +153,19 @@ public abstract class BaseDialogController<R> extends BaseController {
         return true;
     }
 
-    public void setNegative(boolean negative) {
+    public void onPositive(R result){}
+
+    public void onNegative(R result){}
+
+    void setNegative(boolean negative) {
         isNegative = negative;
     }
 
+    /**
+     * If any negative button clicked.
+     *
+     * @return
+     */
     public boolean isNegative() {
         return isNegative;
     }

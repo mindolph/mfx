@@ -8,9 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.swiftboot.util.pref.Converter;
 import org.swiftboot.util.pref.PreferenceManager;
 import org.swiftboot.util.pref.StringListConverter;
+import org.swiftboot.util.pref.StringSetConverter;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Call init() before using.
@@ -37,6 +39,7 @@ public class FxPreferences {
         if (pm == null) {
             pm = PreferenceManager.getInstance(ownerClass);
             pm.setConverter(List.class, new StringListConverter());
+            pm.setConverter(Set.class, new StringSetConverter());
             pm.setConverter(Font.class, new Converter<Font, String>() {
                 @Override
                 public Font deserialize(String prefString) {
