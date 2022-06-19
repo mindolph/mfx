@@ -1,6 +1,5 @@
 package com.mindolph.mfx.dialog;
 
-import com.mindolph.mfx.swing.ExtendableSwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swiftboot.util.ClasspathResourceUtils;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -57,9 +55,9 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
     private Node fxContent;
 
     /**
-     * Supports Swing component as dialog content.
-     */
-    private JComponent swingContent;
+//     * Supports Swing component as dialog content.
+//     */
+//    private JComponent swingContent;
 
     /**
      * Specify controller for dialog, only works when no controller specified in FXML file.
@@ -94,17 +92,17 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         return this;
     }
 
-    /**
-     * Use Swing component as dialog content.
-     *
-     * @param swingContent
-     * @return
-     */
-    public CustomDialogBuilder<T> swingContent(JComponent swingContent) {
-        // TODO should be tested more
-        this.swingContent = swingContent;
-        return this;
-    }
+//    /**
+//     * Use Swing component as dialog content.
+//     *
+//     * @param swingContent
+//     * @return
+//     */
+//    public CustomDialogBuilder<T> swingContent(JComponent swingContent) {
+//        // TODO should be tested more
+//        this.swingContent = swingContent;
+//        return this;
+//    }
 
     /**
      * Build and return the {@link Dialog} object.
@@ -167,11 +165,11 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             if (fxContent != null) {
                 dialog.getDialogPane().setContent(fxContent);
             }
-            else if (swingContent != null) {
-                node = new ExtendableSwingNode();
-                dialog.getDialogPane().setContent(node);
-                ((ExtendableSwingNode) node).setContent(swingContent);
-            }
+//            else if (swingContent != null) {
+//                node = new ExtendableSwingNode();
+//                dialog.getDialogPane().setContent(node);
+//                ((ExtendableSwingNode) node).setContent(swingContent);
+//            }
             else if (StringUtils.isNotBlank(fxmlUri)) {
                 URL uri = ClasspathResourceUtils.getResourceURI(fxmlUri);
                 if (uri == null) {
