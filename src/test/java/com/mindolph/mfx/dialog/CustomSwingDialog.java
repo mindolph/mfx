@@ -1,6 +1,7 @@
 package com.mindolph.mfx.dialog;
 
 import com.mindolph.mfx.swing.ExtendableSwingNode;
+import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
@@ -26,10 +27,13 @@ public class CustomSwingDialog extends BaseDialogController<String> implements I
         jButton.addActionListener(e -> {
             result = "This is a custom swing dialog";
         });
+        SwingNode swingNode = new SwingNode();
+        swingNode.setContent(jButton);
         dialog = new CustomDialogBuilder<String>()
                 .title("Custom Dialog").content("This is a custom dialog with swing content")
+                .width(400).height(150)
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
-                .swingContent(jButton)
+                .fxContent(swingNode)
                 .controller(CustomSwingDialog.this)
                 .build();
     }

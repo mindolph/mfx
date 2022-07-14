@@ -2,6 +2,7 @@ package com.mindolph.mfx.util;
 
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 
 /**
  * @author allen
@@ -18,6 +19,10 @@ public class BoundsUtils {
 
     public static String boundsInString(Bounds bounds) {
         return String.format("(%.1f, %.1f) (%.1f x %.1f)", bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+    }
+
+    public static Point2D centerPoint(Bounds b) {
+        return new Point2D(b.getCenterX(), b.getCenterY());
     }
 
     public static Bounds newWithWidth(Bounds bounds, double width) {

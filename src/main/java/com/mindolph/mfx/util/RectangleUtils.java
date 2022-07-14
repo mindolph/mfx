@@ -1,5 +1,6 @@
 package com.mindolph.mfx.util;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 
 /**
@@ -30,6 +31,10 @@ public class RectangleUtils {
             return false;
         }
         return r1.getWidth() == r2.getWidth() && r1.getHeight() == r2.getHeight();
+    }
+
+    public static Point2D centerPoint(Rectangle2D b) {
+        return new Point2D(b.getMaxX() - b.getMinX(), b.getMaxY() - b.getMinY());
     }
 
     public static Rectangle2D newWithX(Rectangle2D r, double x) {
