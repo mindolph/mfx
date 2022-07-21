@@ -18,7 +18,7 @@ import java.net.URL;
 /**
  * Build a {@link Dialog} by customizing its content with FXML and controller.
  * The controller must inherit from {@link BaseDialogController} and the FXML MUST not be defined with controller.
- * if use {@code fxContent()} or {@code swingContent()} to load dialog content, the FXML file will be ignored.
+ * if use {@code fxContent()} to load dialog content, the FXML file will be ignored.
  * example:
  * <pre>
  *     Dialog&lt;String&gt; dialog = new CustomDialogBuilder&lt;String&gt;()
@@ -55,11 +55,6 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
     private Node fxContent;
 
     /**
-//     * Supports Swing component as dialog content.
-//     */
-//    private JComponent swingContent;
-
-    /**
      * Specify controller for dialog, only works when no controller specified in FXML file.
      *
      * @param controller
@@ -91,18 +86,6 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         this.fxContent = fxContent;
         return this;
     }
-
-//    /**
-//     * Use Swing component as dialog content.
-//     *
-//     * @param swingContent
-//     * @return
-//     */
-//    public CustomDialogBuilder<T> swingContent(JComponent swingContent) {
-//        // TODO should be tested more
-//        this.swingContent = swingContent;
-//        return this;
-//    }
 
     /**
      * Build and return the {@link Dialog} object.
@@ -165,11 +148,6 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             if (fxContent != null) {
                 dialog.getDialogPane().setContent(fxContent);
             }
-//            else if (swingContent != null) {
-//                node = new ExtendableSwingNode();
-//                dialog.getDialogPane().setContent(node);
-//                ((ExtendableSwingNode) node).setContent(swingContent);
-//            }
             else if (StringUtils.isNotBlank(fxmlUri)) {
                 URL uri = ClasspathResourceUtils.getResourceURI(fxmlUri);
                 if (uri == null) {
