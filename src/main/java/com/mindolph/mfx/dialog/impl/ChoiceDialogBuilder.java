@@ -36,6 +36,10 @@ public class ChoiceDialogBuilder<T> extends BaseInputDialogBuilder<T, ChoiceDial
         dialog.setTitle(title);
         dialog.setContentText(content);
         dialog.setHeaderText(header);
+        dialog.setWidth(width);
+        dialog.setHeight(height);
+        dialog.getDialogPane().setPrefWidth(width);
+        dialog.getDialogPane().setPrefHeight(height);
         return dialog;
     }
 }

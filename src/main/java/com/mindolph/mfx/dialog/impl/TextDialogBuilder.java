@@ -26,6 +26,10 @@ public class TextDialogBuilder extends BaseInputDialogBuilder<String, TextDialog
         dialog.setContentText(content);
         dialog.setHeaderText(header);
         dialog.getEditor().setText(text);
+        dialog.setWidth(width);
+        dialog.setHeight(height);
+        dialog.getDialogPane().setPrefWidth(width);
+        dialog.getDialogPane().setPrefHeight(height);
         return dialog;
     }
 }
