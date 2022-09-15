@@ -112,13 +112,6 @@ public abstract class BaseDialogController<R> extends BaseController {
     }
 
     /**
-     * @deprecated use showAndWait()
-     */
-    public R show() {
-        return this.showAndWait(); // workaround for old implementations.
-    }
-
-    /**
      * Whether the result is different from origin value.
      * This requires the class {@link R} implements {@code equals()} and {@code hashCode()} methods.
      *
@@ -153,9 +146,11 @@ public abstract class BaseDialogController<R> extends BaseController {
         return true;
     }
 
-    public void onPositive(R result){}
+    public void onPositive(R result) {
+    }
 
-    public void onNegative(R result){}
+    public void onNegative(R result) {
+    }
 
     void setNegative(boolean negative) {
         isNegative = negative;

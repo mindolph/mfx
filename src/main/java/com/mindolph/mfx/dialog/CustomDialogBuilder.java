@@ -179,7 +179,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             return dialog;
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to create dialog");
+            throw new RuntimeException("Failed to create dialog", e);
         }
     }
 }

@@ -29,9 +29,7 @@ public class BrowserDialog extends BaseDialogController<String> {
         dialog.initModality(Modality.NONE);
 
         Window window = dialog.getDialogPane().getScene().getWindow();
-        window.setOnCloseRequest(event -> {
-            window.hide();
-        });
+        window.setOnCloseRequest(event -> window.hide());
     }
 
     @Override
