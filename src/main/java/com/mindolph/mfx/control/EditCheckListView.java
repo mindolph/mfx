@@ -105,6 +105,7 @@ public class EditCheckListView extends VBox implements Initializable {
             }
         });
         ckbSelectAll.selectedProperty().addListener(checkListener);
+        syncSelectAll();
     }
 
     private void syncSelectAll() {
@@ -148,7 +149,7 @@ public class EditCheckListView extends VBox implements Initializable {
                 .build().showAndWait();
         if (opt.isPresent()) {
             String s = opt.get();
-            listView.getItems().add(new EditCheckData(opt.get(), true));
+            listView.getItems().add(new EditCheckData(s, true));
             if (changeListener != null) changeListener.accept(listView.getItems());
         }
     }

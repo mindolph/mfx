@@ -17,7 +17,7 @@ public class EditCheckListViewDemo implements Initializable {
         editCheckListView.setTooltip("this is a tooltip");
         ObservableList<EditCheckData> items = editCheckListView.getItems();
         items.add(new EditCheckData("Option 1", true));
-        items.add(new EditCheckData("Option 2", false));
+        items.add(new EditCheckData("Option 2", true));
         items.add(new EditCheckData("Option 3", true));
     }
 }
