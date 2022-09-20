@@ -5,6 +5,7 @@ import com.mindolph.mfx.util.FxmlUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,11 +39,19 @@ public class EditCheckListView extends VBox implements Initializable {
     @FXML
     private HBox hbEditBar;
 
+    @FXML
+    private CheckBox ckbSelectAll;
+
     private Consumer<ObservableList<EditCheckData>> changeListener;
 
     private final BooleanProperty editable = new SimpleBooleanProperty(true);
 
     private String tooltip;
+
+    private ChangeListener<Boolean> checkListener = (observableValue, aBoolean, selected) -> {
+        listView.getItems().forEach(editCheckData -> editCheckData.setSelected(selected));
+        listView.refresh();
+    };
 
     public EditCheckListView() {
         FxmlUtils.loadUri("/control/edit_check_list_view.fxml", this);
@@ -71,7 +80,8 @@ public class EditCheckListView extends VBox implements Initializable {
                             cb.setSelected(item.isSelected());
                             cb.selectedProperty().addListener((observable, oldValue, newValue) -> {
                                 item.setSelected(newValue);
-                                changeListener.accept(lv.getItems());
+                                syncSelectAll();
+                                if (changeListener != null) changeListener.accept(lv.getItems());
                             });
                             Label lb = new Label();
                             lb.setText(item.getContent());
@@ -94,6 +104,15 @@ public class EditCheckListView extends VBox implements Initializable {
                 }
             }
         });
+        ckbSelectAll.selectedProperty().addListener(checkListener);
+    }
+
+    private void syncSelectAll() {
+        ckbSelectAll.selectedProperty().removeListener(checkListener); // unbind to avoid affection loop
+        Boolean allSelected = listView.getItems().stream().map(editCheckData -> editCheckData.selected)
+                .reduce(Boolean.TRUE, (Boolean aBoolean, Boolean aBoolean2) -> aBoolean & aBoolean2);
+        ckbSelectAll.setSelected(allSelected);
+        ckbSelectAll.selectedProperty().addListener(checkListener);
     }
 
     private void editItem(Node node) {
@@ -102,7 +121,7 @@ public class EditCheckListView extends VBox implements Initializable {
             Optional<String> opt = new TextDialogBuilder()
                     .width(300)
                     .owner(node.getScene().getWindow())
-                    .content(tooltip)
+                    .header(tooltip)
                     .defaultValue(selectedItem.getContent())
                     .text(selectedItem.getContent())
                     .build().showAndWait();
@@ -111,7 +130,7 @@ public class EditCheckListView extends VBox implements Initializable {
                 int selectedIndex = listView.getSelectionModel().getSelectedIndex();
                 EditCheckData item = listView.getItems().get(selectedIndex);
                 item.setContent(opt.get());
-                changeListener.accept(listView.getItems());
+                if (changeListener != null) changeListener.accept(listView.getItems());
                 listView.refresh();
             } else {
                 log.debug("illegal content");
@@ -125,19 +144,19 @@ public class EditCheckListView extends VBox implements Initializable {
         Optional<String> opt = new TextDialogBuilder()
                 .width(300)
                 .owner(node.getScene().getWindow())
-                .content(tooltip)
+                .header(tooltip)
                 .build().showAndWait();
         if (opt.isPresent()) {
             String s = opt.get();
             listView.getItems().add(new EditCheckData(opt.get(), true));
-            changeListener.accept(listView.getItems());
+            if (changeListener != null) changeListener.accept(listView.getItems());
         }
     }
 
     @FXML
     public void onBtnRemove() {
         listView.getItems().removeAll(listView.getSelectionModel().getSelectedItems());
-        changeListener.accept(listView.getItems());
+        if (changeListener != null) changeListener.accept(listView.getItems());
     }
 
     public ObservableList<EditCheckData> getItems() {

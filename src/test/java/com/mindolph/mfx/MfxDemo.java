@@ -36,6 +36,11 @@ public class MfxDemo extends Application implements Initializable {
         FxmlUtils.loadUriToStage("/container/side_tab_pane_demo.fxml").show();
     }
 
+    @FXML
+    public void onEditCheckListView() {
+        FxmlUtils.loadUriToStage("/control/edit_check_list_view_demo.fxml").show();
+    }
+
     public static class MfxDemoLauncher {
 
         public static void main(String[] args) {
