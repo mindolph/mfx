@@ -1,5 +1,6 @@
 package com.mindolph.mfx.util;
 
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
@@ -45,4 +46,26 @@ public class TextUtils {
         return StringUtils.replaceEach(text, new String[]{"\r\n", "\n"}, new String[]{" ", " "});
     }
 
+
+    /**
+     * @param text
+     * @return
+     */
+    public static String convertToWindows(String text) {
+        if (StringUtils.contains(text, "\r\n")) {
+            return text;
+        }
+        return RegExUtils.replaceAll(text, "\n", "\r\n");
+    }
+
+    /**
+     * @param text
+     * @return
+     */
+    public static String convertFromWindows(String text) {
+        if (!StringUtils.contains(text, "\r\n")) {
+            return text;
+        }
+        return RegExUtils.replaceAll(text, "\r\n", "\n");
+    }
 }
