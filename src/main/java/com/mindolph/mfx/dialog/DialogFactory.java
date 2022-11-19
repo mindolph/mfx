@@ -54,6 +54,13 @@ public class DialogFactory {
         return fileChooser.showOpenDialog(window);
     }
 
+    /**
+     *
+     * @param window
+     * @param initDir
+     * @param extensionFilters like new FileChooser.ExtensionFilter("TrueType Font(*.ttf)", "*.ttf"))
+     * @return
+     */
     public static File openFileDialog(Window window, File initDir, FileChooser.ExtensionFilter... extensionFilters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(initDir);

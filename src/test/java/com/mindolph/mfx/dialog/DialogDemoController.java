@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Modality;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -60,10 +58,16 @@ public class DialogDemoController {
                 Boolean aBoolean = get.get(i);
                 System.out.printf("#%d %s%n", i, aBoolean);
             }
-        }
-        else {
+        } else {
             System.out.println("X");
         }
+    }
+
+    @FXML
+    public void onProgress(ActionEvent event) {
+        SimpleProgressDialog simpleProgressDialog = new SimpleProgressDialog(((Node) event.getSource()).getScene().getWindow(),
+                "do something...", "do something message...");
+        simpleProgressDialog.show(s -> System.out.println("Canceled"));
     }
 
     @FXML
@@ -87,13 +91,23 @@ public class DialogDemoController {
         }
     }
 
-    String text = "This is a demo for\n TextBlockDialog";
+    String text = """
+            A mind map is a diagram used to visually organize information into a hierarchy, showing relationships among pieces of the whole.[1] It is often created around a single concept, drawn as an image in the center of a blank page, to which associated representations of ideas such as images, words and parts of words are added. Major ideas are connected directly to the central concept, and other ideas branch out from those major ideas.
+                        
+            Mind maps can also be drawn by hand, either as "notes" during a lecture, meeting or planning session, for example, or as higher quality pictures when more time is available. Mind maps are considered to be a type of spider diagram.[2] A similar concept in the 1970s was "idea sun bursting".[3]\s
+            
+            
+            
+            
+            
+            end
+            """;
 
     @FXML
     public void onTextBlock(ActionEvent event) {
         Node source = (Node) event.getSource();
         TextBlockDialog textBlockDialog = new TextBlockDialog(source.getScene().getWindow(),
-                "Text Block Demo", text, false);
+                "Text Block Demo", text, true);
         textBlockDialog.show(s -> {
             System.out.println("done with: " + s);
             text = s;
@@ -101,11 +115,19 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onTextBlockReadonly(ActionEvent event){
+    public void onTextBlockReadonly(ActionEvent event) {
         Node source = (Node) event.getSource();
         TextBlockDialog textBlockDialog = new TextBlockDialog(source.getScene().getWindow(),
                 "Text Block Readonly Demo", text, true);
         textBlockDialog.showAndWait();
+    }
+
+    @FXML
+    public void onTextBlockMessage(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        MessageTextBlockDialog messageTextBlockDialog = new MessageTextBlockDialog(source.getScene().getWindow(),
+                "Text Message Block Demo", "Message Content\n second line", text, false);
+        messageTextBlockDialog.showAndWait();
     }
 
     @FXML
@@ -163,14 +185,7 @@ public class DialogDemoController {
 
     @FXML
     public void onOnlyOneDialog() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.initModality(Modality.NONE);
-//        Dialog<Void> dialog = new CustomDialogBuilder<Void>()
-//                .title("Only One Dialog")
-//                .buttons(ButtonType.CLOSE)
-//                .build();
-//        DialogPreventor.getIns().showDialog(dialog);
-//        DialogPreventor.getIns().closeDialog(dialog);
+        CustomDialog customDialog = new CustomDialog("First Dialog");
     }
 
     @FXML

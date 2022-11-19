@@ -7,6 +7,8 @@ import javafx.scene.control.Dialog;
 import java.util.*;
 
 /**
+ * Base builder for building dialog with user input.
+ *
  * @param <T> type of default value
  * @param <R> type of actual builder
  * @author allen

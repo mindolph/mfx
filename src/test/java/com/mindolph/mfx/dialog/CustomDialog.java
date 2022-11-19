@@ -24,7 +24,7 @@ public class CustomDialog extends BaseDialogController<String> {
         super(origin);
         ImageView imageView;
         try {
-            imageView = new ImageView(FxImageUtils.readImageFromResource("/case16.png"));
+            imageView = new ImageView(FxImageUtils.readImageFromResource("/assets/icon.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
