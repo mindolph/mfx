@@ -16,7 +16,7 @@ import java.net.URL;
 public class FxUtils {
 
     /**
-     * Load dialog without specifying a controller instance, which means the fxml must has bond the controller.
+     * Load dialog without specifying a controller instance, which means the fxml must have bond the controller.
      *
      * @param fxmlResource
      * @param title
