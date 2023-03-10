@@ -7,7 +7,6 @@
     <groupId>com.mindolph</groupId>
     <artifactId>mfx</artifactId>
     <version>1.1</version>
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -107,6 +106,16 @@
             <properties>
                 <platform>win</platform>
             </properties>
+        </profile>
+        <profile>
+            <id>aliyun</id>
+            <repositories>
+                <repository>
+                    <id>aliyun</id>
+                    <name>aliyun mirror</name>
+                    <url>https://maven.aliyun.com/repository/central</url>
+                </repository>
+            </repositories>
         </profile>
     </profiles>
 
