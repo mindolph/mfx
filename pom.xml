@@ -116,6 +116,13 @@
                     <url>https://maven.aliyun.com/repository/central</url>
                 </repository>
             </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>aliyun</id>
+                    <name>aliyun mirror</name>
+                    <url>https://maven.aliyun.com/repository/central</url>
+                </pluginRepository>
+            </pluginRepositories>
         </profile>
     </profiles>
 
