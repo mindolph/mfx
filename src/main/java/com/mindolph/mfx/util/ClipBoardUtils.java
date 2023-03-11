@@ -2,7 +2,6 @@ package com.mindolph.mfx.util;
 
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 
 import java.io.File;
 import java.util.List;
@@ -52,7 +51,7 @@ public class ClipBoardUtils {
 
     /**
      * Retrieve files from system clipboard.
-     * 
+     *
      * @return
      */
     public static List<File> filesFromClipboard() {
