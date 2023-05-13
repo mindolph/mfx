@@ -30,6 +30,7 @@ import java.net.URL;
  *      .resizable(true)
  *      .build();
  * </pre>
+ *
  * @param <T> type of default value
  * @author allen
  * @see BaseDialogController
@@ -105,6 +106,9 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
         for (ButtonType buttonType : dialog.getDialogPane().getButtonTypes()) {
             Button btn = (Button) dialog.getDialogPane().lookupButton(buttonType);
             btn.setGraphic(super.buttonIconMap.get(buttonType));
+            if (defaultButton != null) {
+                btn.setDefaultButton(defaultButton == buttonType);
+            }
         }
 
         for (ButtonType buttonType : super.buttonHandlerMap.keySet()) {
@@ -130,12 +134,12 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
                 if (buttonType == ButtonType.OK || buttonType == ButtonType.YES
                         || buttonType == ButtonType.APPLY || buttonType == ButtonType.NEXT
                         || buttonType == ButtonType.FINISH || buttonType == ButtonType.CLOSE) {
-                    log.trace("Positive button clicked, use edited result");
+                    log.debug("Positive button clicked, use edited result");
                     this.controller.setNegative(false);
                     return controller.getResult();
                 }
                 else {
-                    log.trace("Negative button clicked, use original value as result");
+                    log.debug("Negative button clicked, use original value as result");
                     this.controller.setNegative(true);
                     return defaultValue; // return back default value if negative.
                 }

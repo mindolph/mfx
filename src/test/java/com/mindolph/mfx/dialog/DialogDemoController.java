@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
@@ -138,17 +139,19 @@ public class DialogDemoController {
 
     @FXML
     public void onCustom() {
-        Dialog<String> dialog = new CustomDialogBuilder<String>()
-                .title("Custom Dialog").content("自定义对话框（外部模式）")
+        Dialog<Boolean> dialog = new CustomDialogBuilder<Boolean>()
+                .title("Custom Dialog")
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
-                .controller(new BaseDialogController<String>() {
+                .defaultButton(ButtonType.CANCEL)
+                .controller(new BaseDialogController<Boolean>() {
                     @FXML
                     public void onButton() {
-                        result = "Button clicked";
+                        result = true;
                     }
                 })
+                .defaultValue(false)
                 .fxmlUri("dialog/custom_dialog.fxml").build();
-        Optional<String> r = dialog.showAndWait();
+        Optional<Boolean> r = dialog.showAndWait();
         r.ifPresent(System.out::println);
     }
 
@@ -223,5 +226,29 @@ public class DialogDemoController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void onOkCancelDialog() {
+        boolean result = new ConfirmDialogBuilder().title("OK/Cancel").content("Demo of ok/cancel dialog")
+                .ok().cancel().asDefault().showAndWait();
+        System.out.println(result);
+    }
+
+    @FXML
+    public void onYesNoDialog() {
+        // the ok() will be replaced by yes(), the first asDefault() will be overridden by second one.
+        boolean result = new ConfirmDialogBuilder().title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
+                .ok().yes().no().asDefault().cancel().asDefault().showAndWait();
+        System.out.println(result);
+    }
+
+    @FXML
+    public void onCustomAlertDialog() {
+        Alert alert = new AlertBuilder().title("custom alert").content("custom alert dialog")
+                .buttons(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL)
+                .defaultButton(ButtonType.CANCEL).build();
+        Optional<ButtonType> result = alert.showAndWait();
+        result.ifPresent(System.out::println);
     }
 }

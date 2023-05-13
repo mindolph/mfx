@@ -40,6 +40,9 @@ public abstract class BaseDialogController<R> extends BaseController {
      * This result is used by outer like CustomDialogBuilder.
      * The value of result can not be null if you choose positive actions (like OK, YES buttons), otherwise the negative
      * logic will be executed automatically.
+     * To avoid that, always set the result value other thant the default value even there is no status changes in the dialog, eg:
+     * To implement a confirmation dialog, just use Boolean as the generic type of dialog, set the default value to be 'false'
+     * when building the dialog and set the result value to be 'true' after dialog built.
      */
     protected R result;
 

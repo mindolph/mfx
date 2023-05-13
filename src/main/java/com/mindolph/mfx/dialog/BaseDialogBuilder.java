@@ -1,5 +1,6 @@
 package com.mindolph.mfx.dialog;
 
+import javafx.scene.control.ButtonType;
 import javafx.stage.Window;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,7 +19,14 @@ public abstract class BaseDialogBuilder<R> {
     protected boolean resizable = false;
     protected double width;
     protected double height;
+    protected ButtonType defaultButton;
 
+    /**
+     * unavailable if content node of dialog is set.
+     *
+     * @param content
+     * @return
+     */
     public R content(String content) {
         this.content = content;
         return (R) this;
@@ -56,6 +64,11 @@ public abstract class BaseDialogBuilder<R> {
 
     public R height(double height) {
         this.height = height;
+        return (R)this;
+    }
+
+    public R defaultButton(ButtonType buttonType) {
+        this.defaultButton = buttonType;
         return (R)this;
     }
 }

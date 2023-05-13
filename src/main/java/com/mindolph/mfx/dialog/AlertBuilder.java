@@ -2,6 +2,7 @@ package com.mindolph.mfx.dialog;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import org.slf4j.Logger;
@@ -57,6 +58,12 @@ public class AlertBuilder extends BaseDialogBuilder<AlertBuilder> {
         alert.setHeaderText(header);
         alert.getDialogPane().setExpandableContent(expand);
         alert.initOwner(owner);
+        for (ButtonType buttonType : alert.getDialogPane().getButtonTypes()) {
+            Button btn = (Button) alert.getDialogPane().lookupButton(buttonType);
+            if (defaultButton != null) {
+                btn.setDefaultButton(defaultButton == buttonType);
+            }
+        }
         alert.getDialogPane().setOnKeyPressed(keyEvent -> {
             log.debug("Alert key pressed: " + keyEvent.getText());
             if (keyEvent.getCode() == KeyCode.ESCAPE) {
