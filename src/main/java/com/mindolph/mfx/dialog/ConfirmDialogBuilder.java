@@ -17,9 +17,11 @@ import static com.mindolph.mfx.dialog.DialogFactory.DEFAULT_WINDOW;
 
 /**
  * Dialog builder to build confirmation dialog simply.
+ * If you want more customization, use {@link AlertBuilder}
  *
  * @author allen
  * @since 1.2
+ * @see AlertBuilder
  */
 public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder> {
     private static final Logger log = LoggerFactory.getLogger(ConfirmDialogBuilder.class);
@@ -78,7 +80,7 @@ public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder
         List<ButtonType> buttons = Stream.of(positiveType, negativeType, cancelType).filter(Objects::nonNull).toList();
         log.debug("%d buttons".formatted(buttons.size()));
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, buttons.toArray(new ButtonType[]{}));
-        alert.setTitle(StringUtils.isBlank(title) ? "Confirm": title);
+        alert.setTitle(DEFAULT_DLG_TITLE.equals(title) ? "Confirm": title);
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.initOwner(DEFAULT_WINDOW);

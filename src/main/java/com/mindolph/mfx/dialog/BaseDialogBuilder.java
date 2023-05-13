@@ -12,7 +12,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class BaseDialogBuilder<R> {
 
-    protected String title = "Dialog";
+    protected static final String DEFAULT_DLG_TITLE = "Dialog";
+
+    protected String title = DEFAULT_DLG_TITLE;
     protected String header;
     protected String content;
     protected Window owner;

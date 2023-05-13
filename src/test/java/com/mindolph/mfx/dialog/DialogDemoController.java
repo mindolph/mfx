@@ -230,7 +230,7 @@ public class DialogDemoController {
 
     @FXML
     public void onOkCancelDialog() {
-        boolean result = new ConfirmDialogBuilder().title("OK/Cancel").content("Demo of ok/cancel dialog")
+        boolean result = new ConfirmDialogBuilder().content("Demo of ok/cancel dialog")
                 .ok().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
