@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 
 /**
  * Base controller class to implement Dialog with {@link com.mindolph.mfx.dialog.CustomDialogBuilder}.
- * This dialog controller contains Dialog instance and use show() or show(Callback) methods.
- * Get result of the dialog through return of the show() method, the callback or getResult() method.
+ * This dialog controller contains Dialog instance and use showAndWait() or show(Callback) methods.
+ * Get result of the dialog through return of the showAndWait() method, the callback or getResult() method.
  *
  * @param <R> type of return value
  * @author allen
@@ -149,9 +149,19 @@ public abstract class BaseDialogController<R> extends BaseController {
         return true;
     }
 
+    /**
+     * Inherit to do something after positive button clicked.
+     *
+     * @param result
+     */
     public void onPositive(R result) {
     }
 
+    /**
+     * Inherit to do something after negative button clicked.
+     *
+     * @param result
+     */
     public void onNegative(R result) {
     }
 
