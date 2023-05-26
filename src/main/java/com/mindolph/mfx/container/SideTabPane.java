@@ -7,6 +7,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Side;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -92,6 +93,12 @@ public class SideTabPane extends TabPane {
     public void setTabText(Tab tab, String text) {
         Label label = tabLabelMap.get(tab);
         label.setText(text);
+    }
+
+    public void setTabIcon(Tab tab, Node node) {
+        Label label = tabLabelMap.get(tab);
+        if (label != null)
+            label.setGraphic(node);
     }
 
     public HorizontalDirection getDirection() {
