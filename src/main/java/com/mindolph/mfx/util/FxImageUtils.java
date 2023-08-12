@@ -1,6 +1,9 @@
 package com.mindolph.mfx.util;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
@@ -8,8 +11,10 @@ import javafx.scene.image.WritableImage;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author allen
@@ -31,6 +36,10 @@ public class FxImageUtils {
         return new Image(resourceAsStream);
     }
 
+    public static byte[] imageToBytes(Image image) throws IOException {
+        return AwtImageUtils.imageToBytes(SwingFXUtils.fromFXImage(image, null));
+    }
+
     /**
      * @param img
      * @return
@@ -42,7 +51,33 @@ public class FxImageUtils {
     }
 
     /**
+     * @param image
+     * @param ratio
+     * @return
+     */
+    public static Image resize(Image image, double ratio) {
+        int width = (int) (image.getWidth() * ratio);
+        int height = (int) (image.getHeight() * ratio);
+        Canvas c = new Canvas();
+        c.setWidth(width);
+        c.setHeight(height);
+        GraphicsContext gra = c.getGraphicsContext2D();
+        gra.drawImage(image, 0, 0, width, height);
+        SnapshotParameters params = new SnapshotParameters();
+        return c.snapshot(params, null);
+    }
+
+    public static void writeImage(Image image, OutputStream outputStream) throws IOException {
+        AwtImageUtils.writeImageAsPng(SwingFXUtils.fromFXImage(image, null), outputStream);
+    }
+
+    public static void writeImage(Image image, File file) throws IOException {
+        AwtImageUtils.writeImageAsPng(SwingFXUtils.fromFXImage(image, null), file);
+    }
+
+    /**
      * Convert awt {@link java.awt.Image} to javafx {@link Image}.
+     * TODO move to another class for image converting.
      *
      * @param image
      * @return
@@ -59,4 +94,5 @@ public class FxImageUtils {
         pw.setPixels(0, 0, width, height, PixelFormat.getIntArgbInstance(), pixels, 0, width);
         return fxImage;
     }
+
 }
