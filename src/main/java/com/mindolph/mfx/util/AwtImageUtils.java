@@ -4,10 +4,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * @author allen
@@ -41,6 +38,11 @@ public class AwtImageUtils {
         ByteArrayOutputStream imageBuffer = new ByteArrayOutputStream();
         writeImageAsPng(bufferedImage, imageBuffer);
         return new String(Base64.encodeBase64(imageBuffer.toByteArray()));
+    }
+
+    public static BufferedImage base64ToImage(String base64) throws IOException {
+        byte[] bytes = Base64.decodeBase64(base64);
+        return ImageIO.read(new ByteArrayInputStream(bytes));
     }
 
     public static void writeImageAsPng(BufferedImage bufferedImage, OutputStream outputStream) throws IOException {

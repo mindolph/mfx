@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Scale image in different ways from {@link BufferedImage } or {@link File}.
@@ -17,6 +18,8 @@ public class ImageConverter {
     private BufferedImage image;
 
     private File file;
+
+    private InputStream input;
 
     private Double scale;
 
@@ -40,6 +43,9 @@ public class ImageConverter {
         }
         else if (file != null && file.exists()) {
             image = ImageIO.read(file);
+        }
+        else if (input != null) {
+            image = ImageIO.read(input);
         }
         else {
             throw new RuntimeException("No image source specified");
@@ -108,6 +114,17 @@ public class ImageConverter {
      */
     public ImageConverter file(File file) {
         this.file = file;
+        return this;
+    }
+
+    /**
+     * Read image from input stream.
+     *
+     * @param input
+     * @return
+     */
+    public ImageConverter input(InputStream input) {
+        this.input = input;
         return this;
     }
 
