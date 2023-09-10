@@ -112,6 +112,16 @@ public class FxPreferences {
         pm.removePreference(key);
     }
 
+    /**
+     * Whether a preference exists.
+     *
+     * @param key
+     * @return
+     */
+    public boolean isPreferenceExist(String key) {
+        return pm.getPreference(key) != null;
+    }
+
     public void flush() {
         pm.flush();
     }
