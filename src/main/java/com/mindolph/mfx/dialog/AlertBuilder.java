@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AlertBuilder extends BaseDialogBuilder<AlertBuilder> {
 
-    private final Logger log = LoggerFactory.getLogger(AlertBuilder.class);
+    private static final Logger log = LoggerFactory.getLogger(AlertBuilder.class);
 
     private Alert.AlertType type;
     private ButtonType[] buttonTypes;

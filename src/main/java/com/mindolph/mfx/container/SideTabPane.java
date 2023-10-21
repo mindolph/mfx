@@ -24,7 +24,7 @@ import java.util.Map;
  * @author allen
  */
 public class SideTabPane extends TabPane {
-    private final Logger log = LoggerFactory.getLogger(SideTabPane.class);
+    private static final Logger log = LoggerFactory.getLogger(SideTabPane.class);
 
     private final Map<Tab, Label> tabLabelMap = new LinkedHashMap<>();
 

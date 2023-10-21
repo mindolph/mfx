@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ClosingDialog extends BaseDialogController<String> {
 
-    private final Logger log = LoggerFactory.getLogger(ClosingDialog.class);
+    private static final Logger log = LoggerFactory.getLogger(ClosingDialog.class);
 
     public ClosingDialog() {
         dialog = new CustomDialogBuilder<String>()

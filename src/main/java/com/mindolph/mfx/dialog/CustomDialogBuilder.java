@@ -37,7 +37,7 @@ import java.net.URL;
  */
 public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDialogBuilder<T>> {
 
-    private final Logger log = LoggerFactory.getLogger(CustomDialogBuilder.class);
+    private static final Logger log = LoggerFactory.getLogger(CustomDialogBuilder.class);
 
     /**
      * Controller of this dialog, if specified, the FXML file must be defined without controller.

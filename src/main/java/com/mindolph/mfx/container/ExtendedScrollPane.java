@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ExtendedScrollPane extends ScrollPane {
 
-    private final Logger log = LoggerFactory.getLogger(ExtendedScrollPane.class);
+    private static final Logger log = LoggerFactory.getLogger(ExtendedScrollPane.class);
 
     public ExtendedScrollPane() {
     }

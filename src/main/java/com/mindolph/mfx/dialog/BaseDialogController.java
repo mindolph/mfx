@@ -21,7 +21,7 @@ import java.util.function.Consumer;
  */
 public abstract class BaseDialogController<R> extends BaseController {
 
-    private final Logger log = LoggerFactory.getLogger(BaseDialogController.class);
+    private static final Logger log = LoggerFactory.getLogger(BaseDialogController.class);
 
     /**
      * The Dialog object.
