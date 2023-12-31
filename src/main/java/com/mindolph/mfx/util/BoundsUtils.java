@@ -32,4 +32,12 @@ public class BoundsUtils {
     public static Bounds newWithHeight(Bounds bounds, double height) {
         return new BoundingBox(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), height);
     }
+
+    public static Bounds newZero() {
+        return new BoundingBox(0, 0, 0, 0);
+    }
+
+    public static Bounds fromPoint(Point2D startPoint, double width, double height) {
+        return new BoundingBox(startPoint.getX(), startPoint.getY(), width, height);
+    }
 }
