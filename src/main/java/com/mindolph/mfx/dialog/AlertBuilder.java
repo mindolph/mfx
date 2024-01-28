@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Builder for Alert dialog.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class AlertBuilder extends BaseDialogBuilder<AlertBuilder> {
 

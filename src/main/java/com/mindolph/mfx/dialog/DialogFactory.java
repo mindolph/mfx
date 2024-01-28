@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Optional;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class DialogFactory {
 

@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Usage:
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ExtendedScrollPane extends ScrollPane {
 

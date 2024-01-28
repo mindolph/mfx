@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class FxUtils {
 

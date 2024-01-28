@@ -9,7 +9,7 @@ import java.net.URL;
 /**
  * The base control inherit from {@link Control}
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class BaseControl extends Control {
 

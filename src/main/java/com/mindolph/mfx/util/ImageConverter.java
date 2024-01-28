@@ -11,7 +11,7 @@ import java.io.InputStream;
 /**
  * Scale image in different ways from {@link BufferedImage } or {@link File}.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ImageConverter {
 

@@ -10,7 +10,7 @@ import static com.mindolph.mfx.util.FontUtils.fontWeight;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 class FontUtilsTest {
 

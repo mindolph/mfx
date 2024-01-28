@@ -15,7 +15,7 @@ import java.net.URL;
 /**
  * Utilize system browser or internal browser.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class BrowseUtils {
 

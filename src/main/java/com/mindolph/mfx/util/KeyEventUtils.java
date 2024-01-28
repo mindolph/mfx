@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class KeyEventUtils {
 

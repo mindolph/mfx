@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class DesktopUtils {
 

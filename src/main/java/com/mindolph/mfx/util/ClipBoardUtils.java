@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ClipBoardUtils {
 

@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Left or right side tab pane.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class SideTabPane extends TabPane {
     private static final Logger log = LoggerFactory.getLogger(SideTabPane.class);

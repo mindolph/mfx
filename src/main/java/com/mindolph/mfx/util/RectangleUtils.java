@@ -4,7 +4,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class RectangleUtils {
 

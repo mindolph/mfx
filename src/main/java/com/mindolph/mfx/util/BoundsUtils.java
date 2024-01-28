@@ -5,7 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class BoundsUtils {
 

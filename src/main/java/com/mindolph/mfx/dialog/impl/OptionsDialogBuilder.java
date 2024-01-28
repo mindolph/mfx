@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Builder for dialog with {@link CheckBox}es.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  * @see CheckBox
  */
 public class OptionsDialogBuilder extends BaseInputDialogBuilder<List<Boolean>, OptionsDialogBuilder> {

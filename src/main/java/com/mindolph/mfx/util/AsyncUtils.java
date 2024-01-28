@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /**
  * Utils for async operations on JavaFx platform.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class AsyncUtils {
 

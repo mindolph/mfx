@@ -11,7 +11,7 @@ import javafx.stage.Window;
 /**
  * Dialog shows text block.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class TextBlockDialog extends BaseDialogController<String> {
 

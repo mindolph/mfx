@@ -3,7 +3,7 @@ package com.mindolph.mfx.util;
 import javafx.geometry.Point2D;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class PointUtils {
 

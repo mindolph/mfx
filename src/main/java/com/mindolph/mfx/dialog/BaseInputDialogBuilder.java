@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @param <T> type of default value
  * @param <R> type of actual builder
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public abstract class BaseInputDialogBuilder<T, R> extends BaseDialogBuilder<R> {
 

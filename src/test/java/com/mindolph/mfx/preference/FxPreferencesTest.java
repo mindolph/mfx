@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 class FxPreferencesTest {
     public static final String MFX_PREFERENCE_LIST_TEST = "com.mindolph.mfx.preference.list.test";

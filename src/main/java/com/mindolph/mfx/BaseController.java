@@ -5,7 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public abstract class BaseController {
 
