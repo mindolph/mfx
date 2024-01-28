@@ -8,7 +8,7 @@ import java.io.File;
 /**
  * Dialog builder that creates file open/save dialog and  dir open dialog.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class FileDialogBuilder extends BaseDialogBuilder<FileDialogBuilder> {
 

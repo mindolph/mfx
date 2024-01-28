@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Some useful utils for converting awt geometry classes to fx geometry classes and vice versa.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class AwtConvertUtils {
     public static Rectangle2D awtRectangle2D2Rectangle2D(java.awt.geom.Rectangle2D rect) {

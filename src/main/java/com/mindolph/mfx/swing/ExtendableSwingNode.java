@@ -9,7 +9,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ExtendableSwingNode extends SwingNode {
 

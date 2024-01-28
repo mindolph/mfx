@@ -6,7 +6,7 @@ import javafx.scene.text.FontWeight;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class FontUtils {
 

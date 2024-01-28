@@ -16,7 +16,7 @@ import java.util.function.Consumer;
  * Get result of the dialog through return of the showAndWait() method, the callback or getResult() method.
  *
  * @param <R> type of return value
- * @author allen
+ * @author mindolph.com@gmail.com
  * @see com.mindolph.mfx.dialog.CustomDialogBuilder
  */
 public abstract class BaseDialogController<R> extends BaseController {

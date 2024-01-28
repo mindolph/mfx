@@ -4,7 +4,7 @@ package com.mindolph.mfx.util;
  * Hold object for lambda.
  * TODO This should be moved to more basic module.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ObjectHolder<T> {
 

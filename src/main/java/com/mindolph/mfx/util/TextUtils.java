@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class TextUtils {
 

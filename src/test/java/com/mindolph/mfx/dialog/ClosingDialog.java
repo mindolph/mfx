@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * test closing a dialog of a parent dialog.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ClosingDialog extends BaseDialogController<String> {
 

@@ -32,7 +32,7 @@ import java.net.URL;
  * </pre>
  *
  * @param <T> type of default value
- * @author allen
+ * @author mindolph.com@gmail.com
  * @see BaseDialogController
  */
 public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDialogBuilder<T>> {

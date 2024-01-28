@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 /**
  * An editable list view with checkbox items.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class EditCheckListView extends VBox implements Initializable {
 

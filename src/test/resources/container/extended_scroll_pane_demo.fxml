@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import com.mindolph.mfx.container.ExtendedScrollPane?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.container.ExtendedScrollPaneDemoController">
+    <children>
+        <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+              <items>
+                  <Button mnemonicParsing="false" text="ScrollPane" />
+              </items>
+            </ToolBar>
+            <Pane VBox.vgrow="ALWAYS">
+               <children>
+                  <ExtendedScrollPane fx:id="scrollPane" prefHeight="516.5" prefViewportHeight="500.0" prefViewportWidth="500.0" prefWidth="516.5">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <Canvas fx:id="canvas" height="1000.0" width="1000.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ExtendedScrollPane>
+               </children>
+            </Pane>
+            <Label fx:id="label" />
+         </children>
+        </VBox>
+    </children>
+</AnchorPane>

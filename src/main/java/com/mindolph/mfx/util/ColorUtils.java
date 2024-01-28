@@ -3,7 +3,7 @@ package com.mindolph.mfx.util;
 import javafx.scene.paint.Color;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ColorUtils {
 

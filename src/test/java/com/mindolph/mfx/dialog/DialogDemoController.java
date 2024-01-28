@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class DialogDemoController {
 

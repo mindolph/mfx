@@ -19,7 +19,7 @@ import static com.mindolph.mfx.dialog.DialogFactory.DEFAULT_WINDOW;
  * Dialog builder to build confirmation dialog simply.
  * If you want more customization, use {@link AlertBuilder}
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  * @since 1.2
  * @see AlertBuilder
  */

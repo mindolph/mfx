@@ -1,5 +1,8 @@
 package com.mindolph.mfx.control;
 
+/**
+ *
+ */
 public class EditCheckData {
     String content;
     boolean selected;

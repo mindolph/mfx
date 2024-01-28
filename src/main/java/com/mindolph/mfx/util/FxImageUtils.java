@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class FxImageUtils {
 
@@ -36,11 +36,20 @@ public class FxImageUtils {
         return new Image(resourceAsStream);
     }
 
+    /**
+     * Convert JavaFX Image object to bytes(by converting to BufferedImage first)
+     *
+     * @param image
+     * @return
+     * @throws IOException
+     */
     public static byte[] imageToBytes(Image image) throws IOException {
         return AwtImageUtils.imageToBytes(SwingFXUtils.fromFXImage(image, null));
     }
 
     /**
+     * Convert JavaFX Image object to base64 string (by converting to BufferedImage first)
+     *
      * @param img
      * @return
      * @throws IOException
@@ -51,6 +60,8 @@ public class FxImageUtils {
     }
 
     /**
+     * Resize JavaFX Image as WritableImage.
+     *
      * @param image
      * @param ratio
      * @return
@@ -67,10 +78,24 @@ public class FxImageUtils {
         return c.snapshot(params, null);
     }
 
+    /**
+     * Write JavaFX Image as PNG file to output stream.
+     *
+     * @param image
+     * @param outputStream
+     * @throws IOException
+     */
     public static void writeImage(Image image, OutputStream outputStream) throws IOException {
         AwtImageUtils.writeImageAsPng(SwingFXUtils.fromFXImage(image, null), outputStream);
     }
 
+    /**
+     * Write JavaFX Image as PNG file.
+     *
+     * @param image
+     * @param file
+     * @throws IOException
+     */
     public static void writeImage(Image image, File file) throws IOException {
         AwtImageUtils.writeImageAsPng(SwingFXUtils.fromFXImage(image, null), file);
     }

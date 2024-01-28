@@ -7,7 +7,7 @@ import javafx.scene.control.TextInputDialog;
 /**
  * Builder for dialog with one line text.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class TextDialogBuilder extends BaseInputDialogBuilder<String, TextDialogBuilder> {
 

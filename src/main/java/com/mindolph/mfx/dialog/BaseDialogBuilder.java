@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * Base builder for building dialog with title, content, owner, resizable, width, height.
  *
  * @param <R> type of the actual builder.
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public abstract class BaseDialogBuilder<R> {
 

@@ -15,7 +15,7 @@ import java.util.Iterator;
 import static javax.imageio.ImageWriteParam.MODE_COPY_FROM_METADATA;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ConvertImageTest {
 

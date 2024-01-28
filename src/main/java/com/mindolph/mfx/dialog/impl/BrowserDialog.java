@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 /**
  * Dialog opens a URL with WebView.
  *
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class BrowserDialog extends BaseDialogController<String> {
 

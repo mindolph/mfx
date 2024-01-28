@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class CustomWithSwingDialog extends BaseDialogController<String> implements Initializable {
 

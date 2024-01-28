@@ -4,10 +4,9 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static com.mindolph.mfx.util.ColorUtils.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 class ColorUtilsTest {
 

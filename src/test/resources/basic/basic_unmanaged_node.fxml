@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.basic.UnmanagedNodeController">
+   <children>
+      <StackPane fx:id="stackPane" layoutX="95.0" layoutY="74.0" prefHeight="250.0" prefWidth="403.0" style="-fx-border-color: black;">
+         <children>
+            <Button fx:id="button" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="This Button is in unmanaged StackPane" />
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

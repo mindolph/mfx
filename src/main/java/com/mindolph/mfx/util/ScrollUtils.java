@@ -4,7 +4,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.ScrollPane;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class ScrollUtils {
 

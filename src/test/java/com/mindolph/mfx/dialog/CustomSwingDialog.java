@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 /**
- * @author allen
+ * @author mindolph.com@gmail.com
  */
 public class CustomSwingDialog extends BaseDialogController<String> implements Initializable {
 

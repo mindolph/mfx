@@ -1,3 +1,9 @@
+v 1.2.4
+* more utils method for Bounds.
+
+v 1.2.3
+* optimize logging performance.
+
 v 1.2.2
 * add `isPreferenceExist()` method to class `FxPreferences`.
 
