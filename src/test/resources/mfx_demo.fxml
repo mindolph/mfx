@@ -14,6 +14,7 @@
               <items>
                   <Button mnemonicParsing="false" onAction="#onSideTabPane" text="SideTabPane" />
                   <Button mnemonicParsing="false" onAction="#onEditCheckListView" text="EditCheckListView" />
+                  <Button mnemonicParsing="false" onAction="#onDrawingDemo" text="Drawing" />
               </items>
             </ToolBar>
             <Label fx:id="label" />
