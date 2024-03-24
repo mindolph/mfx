@@ -1,6 +1,8 @@
-package com.mindolph.mfx.drawing;
+package com.mindolph.mfx.drawing.component;
 
 
+import com.mindolph.mfx.drawing.*;
+import com.mindolph.mfx.drawing.constant.StrokeType;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
@@ -13,18 +15,18 @@ import java.util.*;
  */
 public class Component implements Drawable {
 
-    Layer layer;
+    protected Layer layer;
 
-    Component parent;
+    protected Component parent;
 
-    Collection<Component> children;
+    protected Collection<Component> children;
 
     /**
      * Relative to parent unless no parent.
      */
-    Rectangle2D bounds;
+    protected Rectangle2D bounds;
 
-    Rectangle2D absoluteBounds;
+    protected Rectangle2D absoluteBounds;
 
     public Component() {
     }
@@ -39,19 +41,19 @@ public class Component implements Drawable {
         this.absoluteBounds = new Rectangle2D(x, y, width, height);
     }
 
-    public Component(Layer layer, Rectangle2D bounds) {
-        this.layer = layer;
-        this.bounds = bounds;
-        this.absoluteBounds = bounds; // TODO
-        this.layer.add(this);
-    }
-
-    public Component(Layer layer, double x, double y, double width, double height) {
-        this.layer = layer;
-        this.bounds = new Rectangle2D(x, y, width, height);
-        this.absoluteBounds = new Rectangle2D(x, y, width, height);
-        this.layer.add(this);
-    }
+//    public Component(Layer layer, Rectangle2D bounds) {
+//        this.layer = layer;
+//        this.bounds = bounds;
+//        this.absoluteBounds = bounds; // TODO
+//        this.layer.add(this);
+//    }
+//
+//    public Component(Layer layer, double x, double y, double width, double height) {
+//        this.layer = layer;
+//        this.bounds = new Rectangle2D(x, y, width, height);
+//        this.absoluteBounds = new Rectangle2D(x, y, width, height);
+//        this.layer.add(this);
+//    }
 
 
     @Override

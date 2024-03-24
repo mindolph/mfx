@@ -1,5 +1,6 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.drawing.constant.StrokeType;
 import com.mindolph.mfx.util.GeometryConvertUtils;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;

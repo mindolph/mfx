@@ -1,5 +1,6 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.drawing.constant.StrokeType;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

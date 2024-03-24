@@ -1,4 +1,4 @@
-package com.mindolph.mfx.drawing;
+package com.mindolph.mfx.drawing.component;
 
 import javafx.geometry.Rectangle2D;
 
@@ -12,7 +12,7 @@ public class Group extends Component {
         super(bounds);
     }
 
-    public Group(Rectangle2D bounds, Layer layer) {
-        super(layer, bounds);
-    }
+//    public Group(Rectangle2D bounds, Layer layer) {
+//        super(layer, bounds);
+//    }
 }

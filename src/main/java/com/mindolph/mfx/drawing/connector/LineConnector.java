@@ -1,5 +1,8 @@
-package com.mindolph.mfx.drawing;
+package com.mindolph.mfx.drawing.connector;
 
+import com.mindolph.mfx.drawing.Context;
+import com.mindolph.mfx.drawing.Graphics;
+import com.mindolph.mfx.drawing.component.Component;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
@@ -16,13 +19,13 @@ public class LineConnector extends Connector{
         super(from, to, x1, y1, x2, y2);
     }
 
-    public LineConnector(Layer layer, Component from, Component to, Point2D pointFrom, Point2D pointTo) {
-        super(layer, from, to, pointFrom, pointTo);
-    }
-
-    public LineConnector(Layer layer, Component from, Component to) {
-        super(layer, from, to);
-    }
+//    public LineConnector(Layer layer, Component from, Component to, Point2D pointFrom, Point2D pointTo) {
+//        super(layer, from, to, pointFrom, pointTo);
+//    }
+//
+//    public LineConnector(Layer layer, Component from, Component to) {
+//        super(layer, from, to);
+//    }
 
     @Override
     public void draw(Graphics g, Context context) {

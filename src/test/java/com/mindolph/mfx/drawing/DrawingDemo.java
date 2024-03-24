@@ -1,5 +1,6 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.drawing.connector.BezierConnector;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -86,8 +87,8 @@ public class DrawingDemo implements Initializable {
         layerCanvas.add(connector);
 
         // #3 out of clip bounds of canvas, this should NOT display.
-        Circle c3 = new Circle(l2, 601, 50, 100, 100);
-        layerCanvas.add(c3);
+        Circle c3 = new Circle(601, 50, 100, 100);
+        layerCanvas.add(l2, c3);
         layerCanvas.updateAllBounds();
     }
 

@@ -1,4 +1,4 @@
-package com.mindolph.mfx.drawing;
+package com.mindolph.mfx.drawing.constant;
 
 public enum StrokeType {
     SOLID,

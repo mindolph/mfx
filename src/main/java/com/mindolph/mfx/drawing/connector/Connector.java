@@ -1,5 +1,8 @@
-package com.mindolph.mfx.drawing;
+package com.mindolph.mfx.drawing.connector;
 
+import com.mindolph.mfx.drawing.*;
+import com.mindolph.mfx.drawing.component.Component;
+import com.mindolph.mfx.drawing.constant.StrokeType;
 import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -50,21 +53,21 @@ public class Connector implements Drawable {
         this.updateTo(1f);
     }
 
-    public Connector(Layer layer, Component from, Component to, Point2D pointFrom, Point2D pointTo) {
-        this.layer = layer;
-        this.from = from;
-        this.to = to;
-        this.pointFrom = pointFrom;
-        this.pointTo = pointTo;
-        this.updateFrom(1f);
-        this.updateTo(1f);
-    }
-
-    public Connector(Layer layer, Component from, Component to) {
-        this.layer = layer;
-        this.from = from;
-        this.to = to;
-    }
+//    public Connector(Layer layer, Component from, Component to, Point2D pointFrom, Point2D pointTo) {
+//        this.layer = layer;
+//        this.from = from;
+//        this.to = to;
+//        this.pointFrom = pointFrom;
+//        this.pointTo = pointTo;
+//        this.updateFrom(1f);
+//        this.updateTo(1f);
+//    }
+//
+//    public Connector(Layer layer, Component from, Component to) {
+//        this.layer = layer;
+//        this.from = from;
+//        this.to = to;
+//    }
 
     private void updateFrom(double scale) {
         double x = pointFrom.getX();
@@ -75,9 +78,9 @@ public class Connector implements Drawable {
         else {
             // x, y are relative
             if (x > from.getWidth() || y > from.getHeight()) {
-                throw new RuntimeException("point %s,%s is not within the bounds(%s) of component".formatted(x, y, RectangleUtils.rectangleInStr(from.bounds)));
+                throw new RuntimeException("point %s,%s is not within the bounds(%s) of component".formatted(x, y, RectangleUtils.rectangleInStr(from.getBounds())));
             }
-            Rectangle2D b = from.absoluteBounds;
+            Rectangle2D b = from.getAbsoluteBounds();
             this.absolutePointFrom = new Point2D(b.getMinX() + x * scale, b.getMinY() + y * scale);
         }
     }
@@ -91,9 +94,9 @@ public class Connector implements Drawable {
         else {
             // x, y are relative
             if (x > to.getWidth() || y > to.getHeight()) {
-                throw new RuntimeException("point %s,%s is not within the bounds(%s) of component".formatted(x, y, RectangleUtils.rectangleInStr(to.bounds)));
+                throw new RuntimeException("point %s,%s is not within the bounds(%s) of component".formatted(x, y, RectangleUtils.rectangleInStr(to.getBounds())));
             }
-            Rectangle2D b = to.absoluteBounds;
+            Rectangle2D b = to.getAbsoluteBounds();
             System.out.println("## " + RectangleUtils.rectangleInStr(b));
             this.absolutePointTo = new Point2D(b.getMinX() + x * scale, b.getMinY() + y * scale);
         }

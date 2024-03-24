@@ -1,5 +1,7 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.drawing.component.Component;
+import com.mindolph.mfx.drawing.connector.Connector;
 import com.mindolph.mfx.util.PointUtils;
 import com.mindolph.mfx.util.RectangleUtils;
 
