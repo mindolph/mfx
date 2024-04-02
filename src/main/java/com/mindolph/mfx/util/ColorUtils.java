@@ -28,15 +28,16 @@ public class ColorUtils {
 
     /**
      * @param fxColor
-     * @param opacity
-     * @return 0-1
+     * @param opacity 0-1
+     * @return
      */
     public static Color colorWithOpacity(Color fxColor, double opacity) {
         if (fxColor == null) return null;
-        int r = (int) (fxColor.getRed() * 255);
-        int g = (int) (fxColor.getGreen() * 255);
-        int b = (int) (fxColor.getBlue() * 255);
-        return Color.rgb(r, g, b, opacity);
+        return new Color(fxColor.getRed(), fxColor.getGreen(), fxColor.getBlue(), opacity);
+//        int r = (int) (fxColor.getRed() * 255);
+//        int g = (int) (fxColor.getGreen() * 255);
+//        int b = (int) (fxColor.getBlue() * 255);
+//        return Color.rgb(r, g, b, opacity);
     }
 
     public static Color colorFromRgba(int value) {
