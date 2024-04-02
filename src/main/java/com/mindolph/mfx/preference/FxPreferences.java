@@ -92,20 +92,44 @@ public class FxPreferences {
         if (flush) pm.flush();
     }
 
+    public Object getPreference(String key) {
+        return pm.getPreference(key);
+    }
+
+    public Object getPreferenceAlias(String key, String alias) {
+        return pm.getPreferenceAlias(key, alias);
+    }
+
     public <T> T getPreference(String key, Class<T> clazz, T defaultValue) {
         return pm.getPreference(key, clazz, defaultValue);
     }
 
-    public <T> T getPreference(String key, Field field, Object target) throws IllegalAccessException {
+    public <T> T getPreferenceAlias(String key, String alias, Class<T> clazz, T defaultValue) {
+        return pm.getPreferenceAlias(key, alias, clazz, defaultValue);
+    }
+
+    public <T> T getPreference(String key, Field field, Object target) {
         return pm.getPreference(key, field, target);
+    }
+
+    public <T> T getPreferenceAlias(String key, String alias, Field field, Object target) {
+        return pm.getPreferenceAlias(key, alias, field, target);
     }
 
     public <T> T getPreference(String key, Class<T> clazz) {
         return pm.getPreference(key, clazz);
     }
 
+    public <T> T getPreferenceAlias(String key, String alias, Class<T> clazz) {
+        return pm.getPreferenceAlias(key, alias, clazz);
+    }
+
     public <T> T getPreference(String key, T def) {
         return pm.getPreference(key, def);
+    }
+
+    public <T> T getPreferenceAlias(String key, String alias, T def) {
+        return pm.getPreferenceAlias(key, alias, def);
     }
 
     public void removePreference(String key) {
