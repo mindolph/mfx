@@ -1,3 +1,8 @@
+v 1.2.5
+* add `getPreferenceAlias()` methods to `FxPreferences` class.
+* Add new `GeometryConvertUtils` class
+* some refactors
+
 v 1.2.4
 * more utils method for Bounds.
 

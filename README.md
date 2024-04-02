@@ -8,3 +8,5 @@ including:
 * Extension for preferences saving and reading.
 * SideTabPane is a panel with tabs in left or right side;
 * Some useful utils for fx development.
+
+here is the [changelogs](changelogs.md)
