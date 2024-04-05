@@ -1,6 +1,8 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.drawing.component.TextComp;
 import com.mindolph.mfx.drawing.connector.BezierConnector;
+import com.mindolph.mfx.drawing.constant.TextAlign;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
@@ -86,14 +88,19 @@ public class DrawingDemo implements Initializable {
         BezierConnector connector = new BezierConnector(c1, c2, 100, 50, 0, 100);
         layerCanvas.add(connector);
 
-        // #3 out of clip bounds of canvas, this should NOT display.
+        // #4 out of clip bounds of canvas, this should NOT display.
         Circle c3 = new Circle(601, 50, 100, 100);
         layerCanvas.add(l2, c3);
+
+        // #5 text component
+        TextComp textComp = new TextComp(0, 300, 200, 20);
+        textComp.updateText("Text component that extends the bounds.\nmultiple line also can be handled");
+        textComp.setTextAlign(TextAlign.CENTER);
+        layerCanvas.add(l2, textComp);
         layerCanvas.updateAllBounds();
     }
 
     private void draw() {
-
         // # drawing
         this.canvas.getGraphicsContext2D().clearRect(canvasBounds.getMinX(), canvasBounds.getMinY(), canvasBounds.getWidth(), canvasBounds.getHeight());
         this.g.drawRect(canvasBounds, Color.BLUE, null);

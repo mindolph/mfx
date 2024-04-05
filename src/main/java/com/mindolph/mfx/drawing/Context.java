@@ -4,8 +4,19 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 
 /**
+ *
  */
 public interface Context {
+
+    /**
+     * Scale value, minimal is 1.
+     *
+     * @param value
+     * @return
+     */
+    default double safeScale(double value) {
+        return safeScale(value, 1);
+    }
 
     default double safeScale(double value, double minimal) {
         double result = this.getScale() * value;
