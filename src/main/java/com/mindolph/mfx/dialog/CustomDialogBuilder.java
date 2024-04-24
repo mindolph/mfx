@@ -14,6 +14,7 @@ import org.swiftboot.util.ClasspathResourceUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.function.Consumer;
 
 /**
  * Build a {@link Dialog} by customizing its content with FXML and controller.
@@ -116,9 +117,9 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             btn.addEventFilter(ActionEvent.ACTION, event -> {
                 log.trace("Clicked button: " + buttonType);
                 event.consume();
-                Runnable runnable = buttonHandlerMap.get(buttonType);
-                if (runnable != null) {
-                    runnable.run();
+                Consumer<Dialog<T>> callback = buttonHandlerMap.get(buttonType);
+                if (callback != null) {
+                    callback.accept(dialog);
                 }
             });
         }
@@ -182,7 +183,6 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             dialog.getDialogPane().getScene().getWindow().sizeToScene();// 不工作，大概是因为此时content还没加载完成
             return dialog;
         } catch (IOException e) {
-            e.printStackTrace();
             throw new RuntimeException("Failed to create dialog", e);
         }
     }

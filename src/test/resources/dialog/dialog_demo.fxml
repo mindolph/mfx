@@ -55,6 +55,8 @@
                     <items>
                         <Button mnemonicParsing="false" onAction="#onOkCancelDialog" text="OK/Cancel dialog"/>
                         <Button mnemonicParsing="false" onAction="#onYesNoDialog" text="Yes/No/Cancel dialog"/>
+                        <Button mnemonicParsing="false" onAction="#onPositiveNegativeDialog" text="Positive/Negative dialog"/>
+
                     </items>
                 </ToolBar>
                 <ToolBar prefHeight="40.0" prefWidth="200.0">

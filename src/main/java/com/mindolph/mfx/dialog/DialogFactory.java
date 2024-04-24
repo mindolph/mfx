@@ -55,7 +55,6 @@ public class DialogFactory {
     }
 
     /**
-     *
      * @param window
      * @param initDir
      * @param extensionFilters like new FileChooser.ExtensionFilter("TrueType Font(*.ttf)", "*.ttf"))

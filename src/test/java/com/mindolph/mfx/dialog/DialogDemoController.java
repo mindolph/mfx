@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
@@ -142,6 +143,10 @@ public class DialogDemoController {
         Dialog<Boolean> dialog = new CustomDialogBuilder<Boolean>()
                 .title("Custom Dialog")
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
+                .button(new ButtonType("I'v done", ButtonBar.ButtonData.OK_DONE), booleanDialog -> {
+                    booleanDialog.setResult(true);
+                    booleanDialog.close();
+                })
                 .defaultButton(ButtonType.CANCEL)
                 .controller(new BaseDialogController<Boolean>() {
                     @FXML
@@ -242,6 +247,14 @@ public class DialogDemoController {
                 .ok().yes().no().asDefault().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
+
+    @FXML
+    public void onPositiveNegativeDialog() {
+        boolean result = new ConfirmDialogBuilder().title("Positive/Negative").content("Demo of Positive/Negative dialog")
+                .positive("I'm in").asDefault().negative("I quit").asDefault().showAndWait();
+        System.out.println(result);
+    }
+
 
     @FXML
     public void onCustomAlertDialog() {
