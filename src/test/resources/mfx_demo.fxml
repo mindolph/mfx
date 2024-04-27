@@ -6,18 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.MfxDemo">
-    <children>
-        <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <ToolBar prefHeight="40.0" prefWidth="200.0">
-              <items>
-                  <Button mnemonicParsing="false" onAction="#onSideTabPane" text="SideTabPane" />
-                  <Button mnemonicParsing="false" onAction="#onEditCheckListView" text="EditCheckListView" />
-              </items>
-            </ToolBar>
-            <Label fx:id="label" />
-         </children>
-        </VBox>
-    </children>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindolph.mfx.MfxDemo">
+    <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0"
+          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onSideTabPane" text="SideTabPane"/>
+            <Button mnemonicParsing="false" onAction="#onEditCheckListView" text="EditCheckListView"/>
+        </ToolBar>
+        <Label fx:id="label"/>
+    </VBox>
 </AnchorPane>

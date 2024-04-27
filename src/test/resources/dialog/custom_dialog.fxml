@@ -5,9 +5,9 @@
 
 
 <?import javafx.scene.control.Label?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button layoutX="62.0" layoutY="54.0" mnemonicParsing="false" onAction="#onButton" text="Click me to generate result for positive buttons" />
-      <Label fx:id="label" text="Wait for custom button"/>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <Button layoutX="62.0" layoutY="54.0" mnemonicParsing="false" onAction="#onButton"
+           text="Click me to generate result for positive buttons"/>
+   <Label fx:id="label" text="Wait for custom button"/>
 </AnchorPane>

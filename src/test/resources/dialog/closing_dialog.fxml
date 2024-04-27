@@ -4,7 +4,5 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <Button layoutX="62.0" layoutY="54.0" mnemonicParsing="false" onAction="#onButton" text="Show info dialog"/>
-    </children>
+    <Button layoutX="62.0" layoutY="54.0" mnemonicParsing="false" onAction="#onButton" text="Show info dialog"/>
 </AnchorPane>

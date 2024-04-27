@@ -236,7 +236,7 @@ public class DialogDemoController {
 
     @FXML
     public void onOkCancelDialog() {
-        boolean result = new ConfirmDialogBuilder().content("Demo of ok/cancel dialog")
+        Boolean result = new ConfirmDialogBuilder().content("Demo of ok/cancel dialog")
                 .ok().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
@@ -244,14 +244,14 @@ public class DialogDemoController {
     @FXML
     public void onYesNoDialog() {
         // the ok() will be replaced by yes(), the first asDefault() will be overridden by second one.
-        boolean result = new ConfirmDialogBuilder().title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
+        Boolean result = new ConfirmDialogBuilder().title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
                 .ok().yes().no().asDefault().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
 
     @FXML
     public void onPositiveNegativeDialog() {
-        boolean result = new ConfirmDialogBuilder().title("Positive/Negative").content("Demo of Positive/Negative dialog")
+        Boolean result = new ConfirmDialogBuilder().title("Positive/Negative").content("Demo of Positive/Negative dialog")
                 .positive("I'm in").asDefault().negative("I quit").asDefault().showAndWait();
         System.out.println(result);
     }

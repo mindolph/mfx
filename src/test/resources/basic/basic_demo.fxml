@@ -5,17 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.basic.BasicDemoController">
-    <children>
-        <VBox layoutX="50.0" layoutY="31.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <ToolBar prefHeight="40.0" prefWidth="200.0">
-              <items>
-                  <Button mnemonicParsing="false" onAction="#onUnmanagedNode" text="Unmanaged Node" />
-                  <Button mnemonicParsing="false" onAction="#onAsyncCall" text="Async Call" />
-              </items>
-            </ToolBar>
-         </children>
-        </VBox>
-    </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindolph.mfx.basic.BasicDemoController">
+    <VBox layoutX="50.0" layoutY="31.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
+          AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onUnmanagedNode" text="Unmanaged Node"/>
+            <Button mnemonicParsing="false" onAction="#onAsyncCall" text="Async Call"/>
+        </ToolBar>
+    </VBox>
 </AnchorPane>
