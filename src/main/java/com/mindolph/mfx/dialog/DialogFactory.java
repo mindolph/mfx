@@ -1,6 +1,7 @@
 package com.mindolph.mfx.dialog;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -148,6 +149,58 @@ public class DialogFactory {
             return ButtonType.YES == buttonType.get();
         }
         return null;
+    }
+
+    /**
+     * Confirmation dialog for multi operations,
+     * like copy&paste multi files to another folder that might contain files with same name,
+     * you might need to ask for overridden for each file or confirm the operation for all files.
+     *
+     * @param title
+     * @param msg
+     * @return
+     */
+    public static MultiConfirmation multiConfirmDialog(String title, String msg) {
+        AlertBuilder builder = new AlertBuilder().owner(DEFAULT_WINDOW)
+                .type(Alert.AlertType.CONFIRMATION)
+                .title(title)
+                .content(msg);
+
+        ButtonType yesToAll = new ButtonType("Yest to all", ButtonBar.ButtonData.YES);
+        ButtonType noToAll = new ButtonType("No to all", ButtonBar.ButtonData.NO);
+
+        builder.buttons(ButtonType.CANCEL, ButtonType.NO, noToAll, ButtonType.YES, yesToAll)
+                .defaultButton(ButtonType.CANCEL);
+
+        Alert alert = builder.build();
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.isPresent()) {
+            if (buttonType.get() == yesToAll) {
+                return MultiConfirmation.YES_TO_ALL;
+            }
+            else if (buttonType.get() == noToAll) {
+                return MultiConfirmation.NO_TO_ALL;
+            }
+            else if (buttonType.get() == ButtonType.YES) {
+                return MultiConfirmation.YES;
+            }
+            else if (buttonType.get() == ButtonType.NO) {
+                return MultiConfirmation.NO;
+            }
+        }
+        return null;
+    }
+
+    public enum MultiConfirmation {
+        YES, YES_TO_ALL, NO, NO_TO_ALL;
+
+        public static boolean isPositive(MultiConfirmation multiConfirmation) {
+            return YES == multiConfirmation || YES_TO_ALL == multiConfirmation;
+        }
+
+        public static boolean isNegative(MultiConfirmation multiConfirmation) {
+            return NO == multiConfirmation || NO_TO_ALL == multiConfirmation;
+        }
     }
 
 }

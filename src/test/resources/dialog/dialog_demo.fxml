@@ -7,64 +7,47 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.mindolph.mfx.dialog.DialogDemoController">
-    <children>
-        <VBox layoutX="50.0" layoutY="31.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
-              AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-            <children>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onText" text="Single Text"/>
-                        <Button mnemonicParsing="false" onAction="#onTextBlock" text="Text Block"/>
-                        <Button layoutX="93.0" layoutY="12.0" mnemonicParsing="false" onAction="#onTextBlockReadonly"
-                                text="Text Block Readonly"/>
-                        <Button layoutX="196.0" layoutY="13.0" mnemonicParsing="false" onAction="#onTextBlockMessage"
-                                text="Message Text Block"/>
-                    </items>
-                </ToolBar>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onChoice" text="Choice"/>
-                        <Button mnemonicParsing="false" onAction="#onOptions" text="Options "/>
-                        <Button mnemonicParsing="false" onAction="#onProgress" text="Progress"/>
-                    </items>
-                </ToolBar>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onOpenFile" text="Open File"/>
-                        <Button mnemonicParsing="false" onAction="#onBrowse" text="Browse"/>
-                        <Button mnemonicParsing="false" onAction="#onClosing" text="Closing"/>
-                    </items>
-                </ToolBar>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onCustom" text="Custom"/>
-                        <Button mnemonicParsing="false" onAction="#onCustomDialog" text="Custom Dialog"/>
-                        <Button mnemonicParsing="false" onAction="#onCustomWithSwingContent"
-                                text="Custom With Swing Content"/>
-                        <Button mnemonicParsing="false" onAction="#onCustomSwingContentDialog"
-                                text="Custom Swing Content Dialog"/>
-                    </items>
-                </ToolBar>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onOnlyOneDialog" text="Only One Dialog"/>
-                        <Button mnemonicParsing="false" onAction="#onDialogWithBigImage" text="Dialog With Big Image"/>
-                    </items>
-                </ToolBar>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onOkCancelDialog" text="OK/Cancel dialog"/>
-                        <Button mnemonicParsing="false" onAction="#onYesNoDialog" text="Yes/No/Cancel dialog"/>
-                        <Button mnemonicParsing="false" onAction="#onPositiveNegativeDialog" text="Positive/Negative dialog"/>
-
-                    </items>
-                </ToolBar>
-                <ToolBar prefHeight="40.0" prefWidth="200.0">
-                    <items>
-                        <Button mnemonicParsing="false" onAction="#onCustomAlertDialog" text="Custom Alert Dialog"/>
-                    </items>
-                </ToolBar>
-            </children>
-        </VBox>
-    </children>
+    <VBox layoutX="50.0" layoutY="31.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
+          AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onText" text="Single Text"/>
+            <Button mnemonicParsing="false" onAction="#onTextBlock" text="Text Block"/>
+            <Button layoutX="93.0" layoutY="12.0" mnemonicParsing="false" onAction="#onTextBlockReadonly"
+                    text="Text Block Readonly"/>
+            <Button layoutX="196.0" layoutY="13.0" mnemonicParsing="false" onAction="#onTextBlockMessage"
+                    text="Message Text Block"/>
+        </ToolBar>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onChoice" text="Choice"/>
+            <Button mnemonicParsing="false" onAction="#onOptions" text="Options "/>
+            <Button mnemonicParsing="false" onAction="#onProgress" text="Progress"/>
+        </ToolBar>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onOpenFile" text="Open File"/>
+            <Button mnemonicParsing="false" onAction="#onBrowse" text="Browse"/>
+            <Button mnemonicParsing="false" onAction="#onClosing" text="Closing"/>
+        </ToolBar>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onCustom" text="Custom"/>
+            <Button mnemonicParsing="false" onAction="#onCustomDialog" text="Custom Dialog"/>
+            <Button mnemonicParsing="false" onAction="#onCustomWithSwingContent"
+                    text="Custom With Swing Content"/>
+            <Button mnemonicParsing="false" onAction="#onCustomSwingContentDialog"
+                    text="Custom Swing Content Dialog"/>
+        </ToolBar>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onOnlyOneDialog" text="Only One Dialog"/>
+            <Button mnemonicParsing="false" onAction="#onDialogWithBigImage" text="Dialog With Big Image"/>
+        </ToolBar>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onOkCancelDialog" text="OK/Cancel dialog"/>
+            <Button mnemonicParsing="false" onAction="#onYesNoDialog" text="Yes/No/Cancel dialog"/>
+            <Button mnemonicParsing="false" onAction="#onPositiveNegativeDialog"
+                    text="Positive/Negative dialog"/>
+        </ToolBar>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#onCustomAlertDialog" text="Custom Alert Dialog"/>
+            <Button mnemonicParsing="false" onAction="#onMultiConfirmDialog" text="Multi Confirm Dialog"/>
+        </ToolBar>
+    </VBox>
 </AnchorPane>

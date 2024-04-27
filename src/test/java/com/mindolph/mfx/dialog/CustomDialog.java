@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 
 /**
+ * for testing CustomDialogBuilder
+ *
  * @author mindolph.com@gmail.com
  */
 public class CustomDialog extends BaseDialogController<String> {

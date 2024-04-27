@@ -1,3 +1,8 @@
+
+v 1.3.0
+* add `positive()` and `negative()` to `ConfirmDialogBuilder` for customizing button displaying text. 
+* add `multiConfirmDialog()` to `DialogFactory` to support confirmation for multiple operations.
+
 v 1.2.5
 * add `getPreferenceAlias()` methods to `FxPreferences` class.
 * Add new `GeometryConvertUtils` class
