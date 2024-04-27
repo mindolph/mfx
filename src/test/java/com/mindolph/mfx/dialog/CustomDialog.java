@@ -11,11 +11,13 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 
 /**
+ * for testing CustomDialogBuilder
+ *
  * @author mindolph.com@gmail.com
  */
 public class CustomDialog extends BaseDialogController<String> {
 
-    ButtonType customButtonType = new ButtonType("Custom Button", ButtonBar.ButtonData.LEFT);
+    ButtonType customButtonType = new ButtonType("Custom Button", ButtonBar.ButtonData.RIGHT);
 
     @FXML
     private Label label;
@@ -31,9 +33,10 @@ public class CustomDialog extends BaseDialogController<String> {
         dialog = new CustomDialogBuilder<String>()
                 .title("Custom Dialog").content("自定义对话框（封装模式）")
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
-                .button(customButtonType, () -> {
+                .button(customButtonType, dialog -> {
                     System.out.println("this is a custom button");
                     label.setText("custom button clicked");
+                    dialog.close();
                 })
                 .icon(customButtonType, imageView)
                 .controller(CustomDialog.this)

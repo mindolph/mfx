@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Base builder for building dialog with user input.
@@ -17,7 +18,7 @@ public abstract class BaseInputDialogBuilder<T, R> extends BaseDialogBuilder<R> 
 
     protected T defaultValue;
     protected List<ButtonType> buttonTypes = new ArrayList<>();
-    protected Map<ButtonType, Runnable> buttonHandlerMap = new HashMap<>();
+    protected Map<ButtonType, Consumer<Dialog<T>>> buttonHandlerMap = new HashMap<>();
     protected Map<ButtonType, Node> buttonIconMap = new HashMap<>();
 
     /**
@@ -54,7 +55,7 @@ public abstract class BaseInputDialogBuilder<T, R> extends BaseDialogBuilder<R> 
      * @param callback
      * @return
      */
-    public R button(ButtonType buttonType, Runnable callback) {
+    public R button(ButtonType buttonType, Consumer<Dialog<T>> callback) {
         Collections.addAll(this.buttonTypes, buttonType);
         buttonHandlerMap.put(buttonType, callback);
         return (R) this;

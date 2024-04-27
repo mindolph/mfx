@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
@@ -59,7 +60,8 @@ public class DialogDemoController {
                 Boolean aBoolean = get.get(i);
                 System.out.printf("#%d %s%n", i, aBoolean);
             }
-        } else {
+        }
+        else {
             System.out.println("X");
         }
     }
@@ -96,11 +98,11 @@ public class DialogDemoController {
             A mind map is a diagram used to visually organize information into a hierarchy, showing relationships among pieces of the whole.[1] It is often created around a single concept, drawn as an image in the center of a blank page, to which associated representations of ideas such as images, words and parts of words are added. Major ideas are connected directly to the central concept, and other ideas branch out from those major ideas.
                         
             Mind maps can also be drawn by hand, either as "notes" during a lecture, meeting or planning session, for example, or as higher quality pictures when more time is available. Mind maps are considered to be a type of spider diagram.[2] A similar concept in the 1970s was "idea sun bursting".[3]\s
-            
-            
-            
-            
-            
+                        
+                        
+                        
+                        
+                        
             end
             """;
 
@@ -142,6 +144,10 @@ public class DialogDemoController {
         Dialog<Boolean> dialog = new CustomDialogBuilder<Boolean>()
                 .title("Custom Dialog")
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
+                .button(new ButtonType("I'v done", ButtonBar.ButtonData.OK_DONE), booleanDialog -> {
+                    booleanDialog.setResult(true);
+                    booleanDialog.close();
+                })
                 .defaultButton(ButtonType.CANCEL)
                 .controller(new BaseDialogController<Boolean>() {
                     @FXML
@@ -230,7 +236,7 @@ public class DialogDemoController {
 
     @FXML
     public void onOkCancelDialog() {
-        boolean result = new ConfirmDialogBuilder().content("Demo of ok/cancel dialog")
+        Boolean result = new ConfirmDialogBuilder().content("Demo of ok/cancel dialog")
                 .ok().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
@@ -238,17 +244,31 @@ public class DialogDemoController {
     @FXML
     public void onYesNoDialog() {
         // the ok() will be replaced by yes(), the first asDefault() will be overridden by second one.
-        boolean result = new ConfirmDialogBuilder().title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
+        Boolean result = new ConfirmDialogBuilder().title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
                 .ok().yes().no().asDefault().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
 
     @FXML
+    public void onPositiveNegativeDialog() {
+        Boolean result = new ConfirmDialogBuilder().title("Positive/Negative").content("Demo of Positive/Negative dialog")
+                .positive("I'm in").asDefault().negative("I quit").asDefault().showAndWait();
+        System.out.println(result);
+    }
+
+
+    @FXML
     public void onCustomAlertDialog() {
-        Alert alert = new AlertBuilder().title("custom alert").content("custom alert dialog")
+        Alert alert = new AlertBuilder().title("Custom Alert").content("custom alert dialog")
                 .buttons(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL)
                 .defaultButton(ButtonType.CANCEL).build();
         Optional<ButtonType> result = alert.showAndWait();
         result.ifPresent(System.out::println);
+    }
+
+    @FXML
+    public void onMultiConfirmDialog() {
+        DialogFactory.MultiConfirmation confirm = DialogFactory.multiConfirmDialog("Multi Confirm", "Confirmation for multi operations");
+        System.out.println(confirm);
     }
 }

@@ -2,9 +2,9 @@ package com.mindolph.mfx.dialog;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +20,8 @@ import static com.mindolph.mfx.dialog.DialogFactory.DEFAULT_WINDOW;
  * If you want more customization, use {@link AlertBuilder}
  *
  * @author mindolph.com@gmail.com
- * @since 1.2
  * @see AlertBuilder
+ * @since 1.2
  */
 public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder> {
     private static final Logger log = LoggerFactory.getLogger(ConfirmDialogBuilder.class);
@@ -30,9 +30,22 @@ public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder
     private ButtonType cancelType;
     private ButtonType defaultButton;
 
+    // for building process
     private ButtonType currentButton;
 
     public ConfirmDialogBuilder() {
+    }
+
+    public ConfirmDialogBuilder positive(String text) {
+        positiveType = new ButtonType(text, ButtonData.OK_DONE);
+        currentButton = positiveType;
+        return this;
+    }
+
+    public ConfirmDialogBuilder negative(String text) {
+        negativeType = new ButtonType(text, ButtonData.CANCEL_CLOSE);
+        currentButton = positiveType;
+        return this;
     }
 
     public ConfirmDialogBuilder finish() {
@@ -76,11 +89,15 @@ public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder
         return this;
     }
 
-    public boolean showAndWait() {
+    /**
+     *
+     * @return positive buttons return True, negative buttons return False, cancel or close buttons return null.
+     */
+    public Boolean showAndWait() {
         List<ButtonType> buttons = Stream.of(positiveType, negativeType, cancelType).filter(Objects::nonNull).toList();
         log.debug("%d buttons".formatted(buttons.size()));
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, buttons.toArray(new ButtonType[]{}));
-        alert.setTitle(DEFAULT_DLG_TITLE.equals(title) ? "Confirm": title);
+        alert.setTitle(DEFAULT_DLG_TITLE.equals(title) ? "Confirm" : title);
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.initOwner(DEFAULT_WINDOW);
@@ -102,10 +119,22 @@ public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder
         });
 
         Optional<ButtonType> buttonType = alert.showAndWait();
-        return buttonType.isPresent() &&
-                (ButtonType.FINISH == buttonType.get()
-                        ||ButtonType.YES == buttonType.get()
-                        || ButtonType.OK == buttonType.get());
+
+        if (buttonType.isPresent()) {
+            ButtonData buttonData = buttonType.get().getButtonData();
+            if (buttonData == ButtonData.CANCEL_CLOSE) {
+                return null;
+            }
+            return ButtonData.FINISH == buttonData
+                    || ButtonData.YES == buttonData
+                    || ButtonData.OK_DONE == buttonData
+                    || ButtonData.RIGHT == buttonData
+                    || ButtonData.NEXT_FORWARD == buttonData
+                    || ButtonData.APPLY == buttonData;
+        }
+        else {
+            return null;
+        }
     }
 
 }
