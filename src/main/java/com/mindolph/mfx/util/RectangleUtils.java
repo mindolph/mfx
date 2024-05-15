@@ -45,6 +45,10 @@ public class RectangleUtils {
         return new Rectangle2D(r.getMinX(), y, r.getWidth(), r.getHeight());
     }
 
+    public static Rectangle2D newWithXY(Rectangle2D r, double x, double y){
+        return new Rectangle2D(x, y, r.getWidth(), r.getHeight());
+    }
+
     public static Rectangle2D newWithWidth(Rectangle2D bounds, double width) {
         return new Rectangle2D(bounds.getMinX(), bounds.getMinY(), width, bounds.getHeight());
     }
