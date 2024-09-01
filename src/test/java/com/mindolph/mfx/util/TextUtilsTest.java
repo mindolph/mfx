@@ -26,4 +26,16 @@ class TextUtilsTest {
         String test = "xxx\nyyy\r\nzzz";
         Assertions.assertEquals("xxx yyy zzz", TextUtils.replaceLineBreaksWithWhitespace(test));
     }
+
+    @Test
+    void countInStartingStr() {
+        String test = "abccc";
+        Assertions.assertEquals(1, TextUtils.countInStarting(test, "ab"));
+        test = "abababccc";
+        Assertions.assertEquals(3, TextUtils.countInStarting(test, "ab"));
+        test = "aaabbb";
+        Assertions.assertEquals(3, TextUtils.countInStarting(test, "a"));
+        //
+        Assertions.assertEquals(0, TextUtils.countInStarting(test, ""));
+    }
 }
