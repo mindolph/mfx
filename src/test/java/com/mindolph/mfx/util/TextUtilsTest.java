@@ -26,4 +26,44 @@ class TextUtilsTest {
         String test = "xxx\nyyy\r\nzzz";
         Assertions.assertEquals("xxx yyy zzz", TextUtils.replaceLineBreaksWithWhitespace(test));
     }
+
+    @Test
+    void countInStartingStr() {
+        String test = "abccc";
+        Assertions.assertEquals(1, TextUtils.countInStarting(test, "ab"));
+        test = "abababccc";
+        Assertions.assertEquals(3, TextUtils.countInStarting(test, "ab"));
+        test = "aaabbb";
+        Assertions.assertEquals(3, TextUtils.countInStarting(test, "a"));
+        //
+        Assertions.assertEquals(0, TextUtils.countInStarting(test, ""));
+    }
+
+
+    @Test
+    public void countInStartingChar() {
+        Assertions.assertEquals(0, TextUtils.countInStarting("aaabbb", 'x'));
+        Assertions.assertEquals(3, TextUtils.countInStarting("aaabbb", 'a'));
+        Assertions.assertEquals(3, TextUtils.countInStarting("aaabbbaaa", 'a'));
+    }
+
+    @Test
+    public void countIndent() {
+        // standard(4)
+        Assertions.assertEquals(0, TextUtils.countIndent(" str", 4));
+        Assertions.assertEquals(1, TextUtils.countIndent("\tstr", 4));
+        Assertions.assertEquals(1, TextUtils.countIndent("    str", 4));
+        Assertions.assertEquals(2, TextUtils.countIndent("    \tstr", 4));
+        Assertions.assertEquals(2, TextUtils.countIndent("        str", 4));
+        Assertions.assertEquals(2, TextUtils.countIndent("\t\tstr", 4));
+        Assertions.assertEquals(3, TextUtils.countIndent("    \t    str", 4));
+        Assertions.assertEquals(3, TextUtils.countIndent("\t    \tstr", 4));
+        Assertions.assertEquals(1, TextUtils.countIndent("    str ", 4));
+        Assertions.assertEquals(1, TextUtils.countIndent("    str \t", 4));
+
+        //
+        Assertions.assertEquals(2, TextUtils.countIndent("    str", 2));
+        Assertions.assertEquals(4, TextUtils.countIndent("    str", 1));
+        Assertions.assertEquals(6, TextUtils.countIndent("\t    \tstr", 1));
+    }
 }

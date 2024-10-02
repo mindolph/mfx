@@ -56,21 +56,21 @@ public abstract class BaseDialogBuilder<R> {
 
     public R resizable(boolean resizable) {
         this.resizable = resizable;
-        return (R)this;
+        return (R) this;
     }
 
     public R width(double width) {
         this.width = width;
-        return (R)this;
+        return (R) this;
     }
 
     public R height(double height) {
         this.height = height;
-        return (R)this;
+        return (R) this;
     }
 
     public R defaultButton(ButtonType buttonType) {
         this.defaultButton = buttonType;
-        return (R)this;
+        return (R) this;
     }
 }
