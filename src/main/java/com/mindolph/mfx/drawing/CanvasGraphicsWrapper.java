@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 /**
- *
+ * @since 2.0
  */
 public class CanvasGraphicsWrapper implements Graphics {
 

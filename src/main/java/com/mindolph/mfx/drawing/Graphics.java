@@ -8,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 
+/**
+ * @since 2.0
+ */
 public interface Graphics {
     Graphics copy();
 

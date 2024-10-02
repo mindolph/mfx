@@ -1,5 +1,10 @@
 package com.mindolph.mfx.drawing;
 
+/**
+ * Base context class for drawing on canvas.
+ *
+ * @since 2.0
+ */
 public class BaseContext implements Context {
 
     private boolean debugMode;

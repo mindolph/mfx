@@ -2,12 +2,15 @@ package com.mindolph.mfx.drawing;
 
 import com.mindolph.mfx.drawing.component.Component;
 import com.mindolph.mfx.drawing.connector.Connector;
+import javafx.geometry.Point2D;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * High level canvas that manages layers to draw different components.
+ *
+ * @since 2.0
  */
 public class LayerCanvas {
 
@@ -67,6 +70,14 @@ public class LayerCanvas {
         for (Layer layer : layers) {
             layer.draw(this.g, this.context);
         }
+    }
+
+    public List<Drawable> getElements(Point2D point) {
+        List<Drawable> drawables = new LinkedList<>();
+        for (Layer layer : layers) {
+            drawables.addAll(layer.getElements(point));
+        }
+        return drawables;
     }
 
 }

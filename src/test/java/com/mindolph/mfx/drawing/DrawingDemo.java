@@ -5,6 +5,7 @@ import com.mindolph.mfx.drawing.connector.BezierConnector;
 import com.mindolph.mfx.drawing.constant.TextAlign;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -14,6 +15,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @since 2.0
+ */
 public class DrawingDemo implements Initializable {
 
     @FXML
@@ -33,6 +37,15 @@ public class DrawingDemo implements Initializable {
         context.setTest(false);
         this.init();
         this.draw();
+
+        // detecting mouse click and find drawable elements under the mouse.
+        canvas.setOnMouseClicked(mouseEvent -> {
+            Point2D mousePoint = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+            List<Drawable> elements = layerCanvas.getElements(mousePoint);
+            for (Drawable element : elements) {
+                System.out.println(element);
+            }
+        });
     }
 
     @FXML

@@ -4,12 +4,15 @@ import com.mindolph.mfx.drawing.component.Component;
 import com.mindolph.mfx.drawing.connector.Connector;
 import com.mindolph.mfx.util.PointUtils;
 import com.mindolph.mfx.util.RectangleUtils;
+import javafx.geometry.Point2D;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Layer that determine drawing order.
+ *
+ * @since 2.0
  */
 public class Layer {
 
@@ -51,4 +54,13 @@ public class Layer {
         }
     }
 
+    public List<Drawable> getElements(Point2D point) {
+        List<Drawable> elements = new LinkedList<>();
+        for (Drawable drawable : drawables) {
+            if (drawable.getAbsoluteBounds().contains(point)) {
+                elements.add(drawable);
+            }
+        }
+        return elements;
+    }
 }
