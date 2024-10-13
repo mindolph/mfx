@@ -9,7 +9,6 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.List;
@@ -43,6 +42,7 @@ public class DrawingDemo implements Initializable {
             Point2D mousePoint = new Point2D(mouseEvent.getX(), mouseEvent.getY());
             List<Drawable> elements = layerCanvas.getElements(mousePoint);
             for (Drawable element : elements) {
+                element.setActivated(true);
                 System.out.println(element);
             }
         });
@@ -116,7 +116,6 @@ public class DrawingDemo implements Initializable {
     private void draw() {
         // # drawing
         this.canvas.getGraphicsContext2D().clearRect(canvasBounds.getMinX(), canvasBounds.getMinY(), canvasBounds.getWidth(), canvasBounds.getHeight());
-        this.g.drawRect(canvasBounds, Color.BLUE, null);
         layerCanvas.drawLayers();
     }
 }

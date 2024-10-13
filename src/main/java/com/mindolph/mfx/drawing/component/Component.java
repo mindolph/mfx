@@ -3,6 +3,7 @@ package com.mindolph.mfx.drawing.component;
 
 import com.mindolph.mfx.drawing.*;
 import com.mindolph.mfx.drawing.constant.StrokeType;
+import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
@@ -12,6 +13,7 @@ import java.util.*;
 /**
  * Anything drawing on canvas is Component, any component has its parent component and subcomponents.
  * The bounds of a component is always relative to its parent component unless no parent at all.
+ * @since 2.0
  */
 public class Component implements Drawable {
 
@@ -27,6 +29,8 @@ public class Component implements Drawable {
     protected Rectangle2D bounds;
 
     protected Rectangle2D absoluteBounds;
+
+    protected boolean activated;
 
     public Component() {
     }
@@ -94,6 +98,22 @@ public class Component implements Drawable {
                 child.updateBounds(c);
             }
         }
+    }
+
+    public void moveTo(Point2D point) {
+        this.moveTo(point.getX(), point.getY());
+    }
+
+    public void moveTo(double x, double y) {
+        this.bounds = RectangleUtils.newWithXY(this.bounds, x, y);
+    }
+
+    public void moveTo(Rectangle2D bounds) {
+        this.bounds = bounds;
+    }
+
+    public void moveTo(double x, double y, double width, double height) {
+        this.bounds = new Rectangle2D(x, y, width, height);
     }
 
     private double calcMaxSubComponentWidth() {
@@ -175,6 +195,16 @@ public class Component implements Drawable {
         return children;
     }
 
+    @Override
+    public boolean isActivated() {
+        return activated;
+    }
+
+    @Override
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
     /**
      * TODO performance optimization needed.
      *
@@ -190,4 +220,8 @@ public class Component implements Drawable {
         }
         return got;
     }
+
+//    public void setContext(Context context) {
+//        this.context = context;
+//    }
 }

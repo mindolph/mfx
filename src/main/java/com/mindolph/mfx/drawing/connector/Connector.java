@@ -10,8 +10,10 @@ import javafx.scene.paint.Color;
 
 /**
  *
+ * @since 2.0
  */
 public class Connector implements Drawable {
+
     protected Layer layer;
 
     protected Component from;
@@ -29,6 +31,8 @@ public class Connector implements Drawable {
      */
     protected Point2D pointTo;
     protected Point2D absolutePointTo;
+
+    protected boolean activated;
 
     public Connector(Component from, Component to) {
         this.from = from;
@@ -147,5 +151,15 @@ public class Connector implements Drawable {
 
     public Point2D getAbsolutePointTo() {
         return absolutePointTo;
+    }
+
+    @Override
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
+    @Override
+    public boolean isActivated() {
+        return activated;
     }
 }

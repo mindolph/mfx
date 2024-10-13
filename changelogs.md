@@ -1,4 +1,7 @@
 
+v2.0
+* new Drawing apis for drawing pre-defined components on JavaFX Canvas.
+
 v 1.3.0
 * add `positive()` and `negative()` to `ConfirmDialogBuilder` for customizing button displaying text. 
 * add `multiConfirmDialog()` to `DialogFactory` to support confirmation for multiple operations.

@@ -13,6 +13,11 @@ public interface Drawable {
 
     Layer getLayer();
 
+    /**
+     * Update bounds from context, like scaling etc.
+     *
+     * @param c
+     */
     void updateBounds(Context c);
 
     /**
@@ -26,4 +31,8 @@ public interface Drawable {
      * @return
      */
     Rectangle2D getAbsoluteBounds();
+
+    void setActivated(boolean activated);
+
+    boolean isActivated();
 }

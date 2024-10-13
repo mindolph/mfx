@@ -3,6 +3,8 @@ package com.mindolph.mfx.drawing;
 import com.mindolph.mfx.drawing.component.Component;
 import com.mindolph.mfx.drawing.connector.Connector;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +59,50 @@ public class LayerCanvas {
 //        }
 //    }
 
+    public void moveTo(Drawable drawable, Point2D point) {
+        if (!allDrawables.contains(drawable)) {
+            throw new IllegalStateException("Can't move drawable that is not in this canvas");
+        }
+        if (drawable instanceof Component c) {
+            c.moveTo(point);
+            c.updateBounds(this.context);
+        }
+    }
+
+    public void moveTo(Drawable drawable, double x, double y) {
+        if (!allDrawables.contains(drawable)) {
+            throw new IllegalStateException("Can't move drawable that is not in this canvas");
+        }
+        if (drawable instanceof Component c) {
+            c.moveTo(x, y);
+            c.updateBounds(this.context);
+        }
+    }
+
+    public void moveTo(Drawable drawable, Rectangle2D rectangle) {
+        if (!allDrawables.contains(drawable)) {
+            throw new IllegalStateException("Can't move drawable that is not in this canvas");
+        }
+        if (drawable instanceof Component c) {
+            c.moveTo(rectangle);
+            c.updateBounds(this.context);
+        }
+    }
+
+    public void moveTo(Drawable drawable, double x, double y, double width, double height) {
+        if (!allDrawables.contains(drawable)) {
+            throw new IllegalStateException("Can't move drawable that is not in this canvas");
+        }
+        if (drawable instanceof Component c) {
+            c.moveTo(x, y, width, height);
+            c.updateBounds(this.context);
+        }
+    }
+
+    public void clearActivation() {
+        layers.forEach(Layer::clearActivation);
+    }
+
     public void updateAllBounds() {
         for (Drawable drawable : allDrawables.stream().filter(d -> d instanceof Component).toList()) {
             drawable.updateBounds(this.context);
@@ -67,6 +113,9 @@ public class LayerCanvas {
     }
 
     public void drawLayers() {
+        if (this.context.isDebugMode()) {
+            g.drawRect(g.getClipBounds(), Color.BLUE, null);
+        }
         for (Layer layer : layers) {
             layer.draw(this.g, this.context);
         }
@@ -80,4 +129,7 @@ public class LayerCanvas {
         return drawables;
     }
 
+    public Layer getBaseLayer() {
+        return baseLayer;
+    }
 }
