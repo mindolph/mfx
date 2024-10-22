@@ -8,6 +8,13 @@ import javafx.scene.control.ScrollPane;
  */
 public class ScrollUtils {
 
+    /**
+     *
+     * @param scrollPane
+     * @param x X in horizontal
+     * @param y Y in vertical
+     * @return
+     */
     public static String scrollTo(ScrollPane scrollPane, double x, double y) {
         Bounds viewportBounds = scrollPane.getViewportBounds();
         Bounds layoutBounds = scrollPane.getContent().getLayoutBounds();
@@ -15,6 +22,6 @@ public class ScrollUtils {
         double v = y / (layoutBounds.getHeight() - viewportBounds.getHeight());
         scrollPane.setHvalue(h);
         scrollPane.setVvalue(v);
-        return String.format("%.4f, %.4f", h, v);
+        return String.format("h%.4f, v%.4f", h, v);
     }
 }

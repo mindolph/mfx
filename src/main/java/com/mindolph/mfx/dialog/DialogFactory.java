@@ -74,10 +74,26 @@ public class DialogFactory {
         return fileChooser.showOpenDialog(window);
     }
 
+    /**
+     * Open a file system dialog to select an existing file without file filters to save with default file name.
+     *
+     * @param window
+     * @param initDir
+     * @return
+     */
     public static File openSaveFileDialog(Window window, File initDir) {
         return openSaveFileDialog(window, initDir, "", null);
     }
 
+    /**
+     * Open a file system dialog to select an existing file with filters or specify a file name to save with.
+     *
+     * @param window target window
+     * @param initDir dir that the dialog popup with.
+     * @param initialFileName initial name for file that save to.
+     * @param extensionFilters file filters for limit accepted files by extension.
+     * @return
+     */
     public static File openSaveFileDialog(Window window, File initDir, String initialFileName, FileChooser.ExtensionFilter... extensionFilters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save as");

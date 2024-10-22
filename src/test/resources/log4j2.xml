@@ -5,7 +5,7 @@
 
     <xi:include href="log4j2-appenders.xml"/>
     <Loggers>
-        <Root level="debug">
+        <Root level="trace">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

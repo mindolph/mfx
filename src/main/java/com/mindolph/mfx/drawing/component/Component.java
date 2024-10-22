@@ -8,6 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -16,6 +17,8 @@ import java.util.*;
  * @since 2.0
  */
 public class Component implements Drawable {
+
+    protected Serializable id;
 
     protected Layer layer;
 
@@ -124,6 +127,16 @@ public class Component implements Drawable {
     private double calcMaxSubComponentHeight() {
         Optional<Component> max = children.stream().max(Comparator.comparingDouble(Component::getHeight));
         return max.map(Component::getHeight).orElse(0.0);
+    }
+
+    @Override
+    public Serializable getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Serializable id) {
+        this.id = id;
     }
 
     @Override

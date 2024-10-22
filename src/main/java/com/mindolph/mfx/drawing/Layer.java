@@ -68,7 +68,7 @@ public class Layer {
                 drawable.draw(g, c);
             }
             else {
-                log.debug("no intersection found");
+                if (log.isTraceEnabled()) log.trace("no intersection found");
             }
         }
     }

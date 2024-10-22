@@ -40,4 +40,14 @@ public class BoundsUtils {
     public static Bounds fromPoint(Point2D startPoint, double width, double height) {
         return new BoundingBox(startPoint.getX(), startPoint.getY(), width, height);
     }
+
+    /**
+     *
+     * @param bounds
+     * @return
+     * @since 2.0
+     */
+    public static boolean isInvisible(Bounds bounds) {
+        return bounds.isEmpty() || bounds.getWidth() == 0 || bounds.getHeight() == 0;
+    }
 }

@@ -8,11 +8,15 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
+
 /**
  *
  * @since 2.0
  */
 public class Connector implements Drawable {
+
+    protected Serializable id;
 
     protected Layer layer;
 
@@ -119,6 +123,16 @@ public class Connector implements Drawable {
             g.drawRect(this.getAbsoluteBounds(), Color.RED, null);
             g.setStroke(1, StrokeType.SOLID);
         }
+    }
+
+    @Override
+    public Serializable getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Serializable id) {
+        this.id = id;
     }
 
     @Override

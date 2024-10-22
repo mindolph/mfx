@@ -24,6 +24,7 @@
         </ToolBar>
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <Button mnemonicParsing="false" onAction="#onOpenFile" text="Open File"/>
+            <Button mnemonicParsing="false" onAction="#onSaveFile" text="Save File"/>
             <Button mnemonicParsing="false" onAction="#onBrowse" text="Browse"/>
             <Button mnemonicParsing="false" onAction="#onClosing" text="Closing"/>
         </ToolBar>

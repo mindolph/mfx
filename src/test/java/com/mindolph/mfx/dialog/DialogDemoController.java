@@ -12,6 +12,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.stage.FileChooser;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -77,6 +78,14 @@ public class DialogDemoController {
     public void onOpenFile(ActionEvent event) {
         Node node = (Node) event.getSource();
         File file = DialogFactory.openFileDialog(node.getScene().getWindow(), SystemUtils.getUserHome());
+        System.out.println(file);
+    }
+
+    @FXML
+    public void onSaveFile(ActionEvent event) {
+        Node node = (Node) event.getSource();
+        File file = DialogFactory.openSaveFileDialog(node.getScene().getWindow(), SystemUtils.getUserHome(),
+                "FileToSave", new FileChooser.ExtensionFilter("Java File", "*.java"));
         System.out.println(file);
     }
 

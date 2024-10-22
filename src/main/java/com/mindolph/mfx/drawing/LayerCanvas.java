@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * High level canvas that manages layers to draw different components.
@@ -101,6 +103,37 @@ public class LayerCanvas {
 
     public void clearActivation() {
         layers.forEach(Layer::clearActivation);
+    }
+
+    /**
+     * Activate components by predication.
+     *
+     * @param predicate
+     */
+    public List<Drawable> select(Predicate<Drawable> predicate) {
+        Stream<Drawable> selectStream = allDrawables.stream().filter(predicate);
+        List<Drawable> select = new LinkedList<>();
+        selectStream.forEach(drawable -> {
+            drawable.setActivated(true);
+            select.add(drawable);
+        });
+        return select;
+    }
+
+    /**
+     * Deactivate components by predication.
+     * 
+     * @param predicate
+     * @return
+     */
+    public List<Drawable> unSelect(Predicate<Drawable> predicate) {
+        Stream<Drawable> unselectStream = allDrawables.stream().filter(predicate);
+        List<Drawable> unselect = new LinkedList<>();
+        unselectStream.forEach(drawable -> {
+            drawable.setActivated(false);
+            unselect.add(drawable);
+        });
+        return unselect;
     }
 
     public void updateAllBounds() {
