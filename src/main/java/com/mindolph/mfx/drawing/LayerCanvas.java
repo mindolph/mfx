@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -122,7 +123,7 @@ public class LayerCanvas {
 
     /**
      * Deactivate components by predication.
-     * 
+     *
      * @param predicate
      * @return
      */
@@ -152,6 +153,10 @@ public class LayerCanvas {
         for (Layer layer : layers) {
             layer.draw(this.g, this.context);
         }
+    }
+    
+    public List<Drawable> getElements() {
+        return layers.stream().flatMap((Function<Layer, Stream<Drawable>>) layer -> layer.getElements().stream()).toList();
     }
 
     public List<Drawable> getElements(Point2D point) {

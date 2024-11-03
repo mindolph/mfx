@@ -55,6 +55,7 @@ public class Layer {
     }
 
     public void draw(Graphics g, Context c) {
+        if (log.isTraceEnabled()) log.trace("Draw for layer %s".formatted(name));
         for (Drawable drawable : drawables) {
             if (drawable instanceof Component) {
                 if (log.isTraceEnabled())
@@ -75,6 +76,10 @@ public class Layer {
 
     public Drawable getDrawable(int index) {
         return drawables.get(index);
+    }
+
+    public List<Drawable> getElements() {
+        return drawables;
     }
 
     public List<Drawable> getElements(Point2D point) {
