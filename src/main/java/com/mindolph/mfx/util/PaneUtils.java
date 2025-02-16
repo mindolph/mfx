@@ -31,7 +31,6 @@ public class PaneUtils {
      * @param panes
      */
     public static void escapablePanes(Runnable action, Pane... panes) {
-        focusablePanes(panes);
         for (Pane pane : panes) {
             escapablePane(action, pane);
         }
