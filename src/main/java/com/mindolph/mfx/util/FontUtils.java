@@ -110,6 +110,14 @@ public class FontUtils {
         return Font.font(font.getFamily(), fontWeight(font), fontPosture(font), fontSize);
     }
 
+    public static Font newFontWithSizeAndWeight(Font font, double fontSize, FontWeight fontWeight) {
+        return Font.font(font.getFamily(), fontWeight, fontPosture(font), fontSize);
+    }
+
+    public static Font newFontWithSizeAndPosture(Font font, double fontSize, FontPosture fontPosture) {
+        return Font.font(font.getFamily(), fontWeight(font), fontPosture, fontSize);
+    }
+
     public static String fontToString(Font font) {
         final String strStyle;
         if (FontUtils.isBold(font)) {
