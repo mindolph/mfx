@@ -19,7 +19,8 @@
         </ToolBar>
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <Button mnemonicParsing="false" onAction="#onChoice" text="Choice"/>
-            <Button mnemonicParsing="false" onAction="#onOptions" text="Options "/>
+            <Button mnemonicParsing="false" onAction="#onOptions" text="Options"/>
+            <Button mnemonicParsing="false" onAction="#onRadios" text="Radios"/>
             <Button mnemonicParsing="false" onAction="#onProgress" text="Progress"/>
         </ToolBar>
         <ToolBar prefHeight="40.0" prefWidth="200.0">

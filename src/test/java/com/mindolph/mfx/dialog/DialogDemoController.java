@@ -3,6 +3,7 @@ package com.mindolph.mfx.dialog;
 import com.mindolph.mfx.dialog.impl.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -37,8 +39,9 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onChoice() {
+    public void onChoice(ActionEvent event) {
         Dialog<String> dialog = new ChoiceDialogBuilder<String>()
+                .owner(getWindow(event))
                 .title("Choice Dialog").content("Select One")
                 .choice("a").choice("b").choice("c").build();
         Optional<String> r = dialog.showAndWait();
@@ -46,8 +49,9 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onOptions() {
+    public void onOptions(ActionEvent event) {
         Dialog<List<Boolean>> dialog = new OptionsDialogBuilder()
+                .owner(getWindow(event))
                 .title("My Options").content("Choose my options")
                 .option("my option 1")
                 .option("my option 2")
@@ -68,8 +72,25 @@ public class DialogDemoController {
     }
 
     @FXML
+    public void onRadios(ActionEvent event) {
+        Dialog<Integer> dialog = new RadioDialogBuilder<Integer>()
+                .owner(getWindow(event))
+                .option(1, "Radio 1")
+                .option(2, "Radio 2")
+                .defaultValue(2)
+                .build();
+        Optional<Integer> r = dialog.showAndWait();
+        if (r.isPresent()) {
+            System.out.println("#" + r.get());
+        }
+        else {
+            System.out.println("No radio selected");
+        }
+    }
+
+    @FXML
     public void onProgress(ActionEvent event) {
-        SimpleProgressDialog simpleProgressDialog = new SimpleProgressDialog(((Node) event.getSource()).getScene().getWindow(),
+        SimpleProgressDialog simpleProgressDialog = new SimpleProgressDialog(getWindow(event),
                 "do something...", "do something message...");
         simpleProgressDialog.show(s -> System.out.println("Canceled"));
     }
@@ -77,14 +98,14 @@ public class DialogDemoController {
     @FXML
     public void onOpenFile(ActionEvent event) {
         Node node = (Node) event.getSource();
-        File file = DialogFactory.openFileDialog(node.getScene().getWindow(), SystemUtils.getUserHome());
+        File file = DialogFactory.openFileDialog(getWindow(event), SystemUtils.getUserHome());
         System.out.println(file);
     }
 
     @FXML
     public void onSaveFile(ActionEvent event) {
         Node node = (Node) event.getSource();
-        File file = DialogFactory.openSaveFileDialog(node.getScene().getWindow(), SystemUtils.getUserHome(),
+        File file = DialogFactory.openSaveFileDialog(getWindow(event), SystemUtils.getUserHome(),
                 "FileToSave", new FileChooser.ExtensionFilter("Java File", "*.java"));
         System.out.println(file);
     }
@@ -149,8 +170,9 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onCustom() {
+    public void onCustom(ActionEvent event) {
         Dialog<Boolean> dialog = new CustomDialogBuilder<Boolean>()
+                .owner(getWindow(event))
                 .title("Custom Dialog")
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
                 .button(new ButtonType("I'v done", ButtonBar.ButtonData.OK_DONE), booleanDialog -> {
@@ -181,9 +203,10 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onCustomWithSwingContent() {
+    public void onCustomWithSwingContent(ActionEvent event) {
         Platform.runLater(() -> {
             Dialog<String> dialog = new CustomDialogBuilder<String>()
+                    .owner(getWindow(event))
                     .title("Custom Swing Dialog").content("This is a custom Swing dialog")
                     .buttons(ButtonType.OK, ButtonType.CANCEL)
                     .fxmlUri("dialog/custom_swing_dialog.fxml") // load a fxml with
@@ -195,22 +218,23 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onCustomSwingContentDialog() {
+    public void onCustomSwingContentDialog(ActionEvent event) {
         new CustomSwingDialog().show(param -> {
             System.out.println(param);
         });
     }
 
     @FXML
-    public void onOnlyOneDialog() {
+    public void onOnlyOneDialog(ActionEvent event) {
         CustomDialog customDialog = new CustomDialog("First Dialog");
     }
 
     @FXML
-    public void onDialogWithBigImage() {
+    public void onDialogWithBigImage(ActionEvent event) {
         try {
             Image image = new Image(this.getClass().getResourceAsStream("/dialog/topgun_rotate.jpg"));
             Dialog<Void> dialog = new Dialog<>();
+            dialog.initOwner(getWindow(event));
             dialog.setResizable(true);
             dialog.setTitle("Dialog With Big Image");
             dialog.setHeaderText("To test the memory usage");
@@ -244,31 +268,34 @@ public class DialogDemoController {
     }
 
     @FXML
-    public void onOkCancelDialog() {
-        Boolean result = new ConfirmDialogBuilder().content("Demo of ok/cancel dialog")
+    public void onOkCancelDialog(ActionEvent event) {
+        Boolean result = new ConfirmDialogBuilder().owner(getWindow(event)).content("Demo of ok/cancel dialog")
                 .ok().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
 
     @FXML
-    public void onYesNoDialog() {
+    public void onYesNoDialog(ActionEvent event) {
         // the ok() will be replaced by yes(), the first asDefault() will be overridden by second one.
-        Boolean result = new ConfirmDialogBuilder().title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
+        Boolean result = new ConfirmDialogBuilder().owner(getWindow(event))
+                .title("Yes/No/Cancel").content("Demo of yes/no/cancel dialog")
                 .ok().yes().no().asDefault().cancel().asDefault().showAndWait();
         System.out.println(result);
     }
 
     @FXML
-    public void onPositiveNegativeDialog() {
-        Boolean result = new ConfirmDialogBuilder().title("Positive/Negative").content("Demo of Positive/Negative dialog")
+    public void onPositiveNegativeDialog(ActionEvent event) {
+        Boolean result = new ConfirmDialogBuilder().owner(getWindow(event))
+                .title("Positive/Negative").content("Demo of Positive/Negative dialog")
                 .positive("I'm in").asDefault().negative("I quit").asDefault().showAndWait();
         System.out.println(result);
     }
 
 
     @FXML
-    public void onCustomAlertDialog() {
-        Alert alert = new AlertBuilder().title("Custom Alert").content("custom alert dialog")
+    public void onCustomAlertDialog(ActionEvent event) {
+        Alert alert = new AlertBuilder().owner(getWindow(event))
+                .title("Custom Alert").content("custom alert dialog")
                 .buttons(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL)
                 .defaultButton(ButtonType.CANCEL).build();
         Optional<ButtonType> result = alert.showAndWait();
@@ -279,5 +306,9 @@ public class DialogDemoController {
     public void onMultiConfirmDialog() {
         DialogFactory.MultiConfirmation confirm = DialogFactory.multiConfirmDialog("Multi Confirm", "Confirmation for multi operations");
         System.out.println(confirm);
+    }
+    
+    private Window getWindow(Event event) {
+        return ((Node) event.getSource()).getScene().getWindow();
     }
 }

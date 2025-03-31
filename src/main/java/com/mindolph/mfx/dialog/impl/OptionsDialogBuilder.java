@@ -61,7 +61,7 @@ public class OptionsDialogBuilder extends BaseInputDialogBuilder<List<Boolean>, 
                 .title(title).content(content)
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
                 .fxContent(vBox)
-                .controller(new BaseDialogController<List<Boolean>>() {
+                .controller(new BaseDialogController<>() {
                     @Override
                     public List<Boolean> getResult() {
                         List<Boolean> ret = new ArrayList<>(options.size());
