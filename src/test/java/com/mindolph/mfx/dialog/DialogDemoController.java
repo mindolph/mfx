@@ -75,6 +75,8 @@ public class DialogDemoController {
     public void onRadios(ActionEvent event) {
         Dialog<Integer> dialog = new RadioDialogBuilder<Integer>()
                 .owner(getWindow(event))
+                .title("Radio Dialog")
+                .content("Select One")
                 .option(1, "Radio 1")
                 .option(2, "Radio 2")
                 .defaultValue(2)

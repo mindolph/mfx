@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +44,10 @@ public class RadioDialogBuilder<T> extends BaseInputDialogBuilder<T, RadioDialog
     @Override
     public Dialog<T> build() {
         VBox vBox = new VBox();
-        vBox.setSpacing(8);
+        vBox.setSpacing(10);
+        if (StringUtils.isNotBlank(content)) {
+            vBox.getChildren().add(new Label(content));
+        }
         ToggleGroup group = new ToggleGroup();
         for (Pair<T, String> option : options) {
             RadioButton button = new RadioButton(option.getValue());
@@ -54,9 +58,13 @@ public class RadioDialogBuilder<T> extends BaseInputDialogBuilder<T, RadioDialog
             }
             vBox.getChildren().add(button);
         }
+
         Dialog<T> dialog = new CustomDialogBuilder<T>()
                 .owner(owner)
-                .title(title).content(content)
+                .title(title)
+//                .content(content)
+                .width(width)
+                .height(height)
                 .buttons(ButtonType.OK, ButtonType.CANCEL)
                 .fxContent(vBox)
                 .controller(new BaseDialogController<>() {

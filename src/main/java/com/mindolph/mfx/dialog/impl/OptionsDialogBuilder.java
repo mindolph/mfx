@@ -47,7 +47,7 @@ public class OptionsDialogBuilder extends BaseInputDialogBuilder<List<Boolean>, 
     @Override
     public Dialog<List<Boolean>> build() {
         VBox vBox = new VBox();
-        vBox.setSpacing(8);
+        vBox.setSpacing(10);
         for (int i = 0; i < options.size(); i++) {
             String option = options.get(i);
             CheckBox checkBox = new CheckBox(option);
