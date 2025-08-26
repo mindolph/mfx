@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public class AsyncUtils {
 
     /**
-     * Simply run in a thread and call fxRunner when it's done.
+     * Run in a thread and call fxRunner when it's done.
      *
      * @param asyncRunner The runner that runs in a new thread.
      * @param fxRunner The runner that runs in JavaFX thread.

@@ -17,7 +17,7 @@ import java.util.List;
  * Builder for dialog with {@link RadioButton}s.
  *
  * @author mindolph.com@gmail.com
- * @since 2.0.1
+ * @since 2.0.2
  */
 public class RadioDialogBuilder<T> extends BaseInputDialogBuilder<T, RadioDialogBuilder<T>> {
 
