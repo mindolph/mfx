@@ -1,6 +1,8 @@
 package com.mindolph.mfx.util;
 
 import org.apache.commons.lang3.SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.io.File;
@@ -11,6 +13,8 @@ import java.io.IOException;
  */
 public class DesktopUtils {
 
+
+    private static final Logger log = LoggerFactory.getLogger(DesktopUtils.class);
 
     /**
      * Open URL in browser, support Windows and Linux/Unix
@@ -26,14 +30,14 @@ public class DesktopUtils {
 //                Method openURL = fileMgr.getDeclaredMethod("openURL", new Class[]{String.class});
 //                openURL.invoke(null, new Object[]{url});
                 try {
-                    Process process = Runtime.getRuntime().exec("open " + url);
+                    new ProcessBuilder("open", url).start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
             else if (osName.startsWith("Windows")) {
-                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+                new ProcessBuilder("rundll32 url.dll,FileProtocolHandler", url).start();
             }
 
             else { //assume Unix or Linux
@@ -48,17 +52,17 @@ public class DesktopUtils {
                     throw new Exception("Could not find web browser");
                 }
                 else {
-                    Runtime.getRuntime().exec(new String[]{browser, url});
+                    new ProcessBuilder(browser, url).start();
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 
 
     /**
-     * Open file or folder in system, support Linux and macOS for now.
+     * Open file or folder in the system, support Linux and macOS for now.
      *
      * @param file
      * @param isOpenFolder if true, open the folder of the file.
@@ -89,7 +93,7 @@ public class DesktopUtils {
 //                    }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
                 throw new RuntimeException(e);
             }
         }

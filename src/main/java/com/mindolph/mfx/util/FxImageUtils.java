@@ -18,7 +18,7 @@ import java.io.OutputStream;
 public class FxImageUtils {
 
     /**
-     * Read {@code Image} from resource file.
+     * Read {@code Image} from a resource file.
      *
      * @param resourcePath resource path with '/' at the head.
      * @return
@@ -33,7 +33,7 @@ public class FxImageUtils {
     }
 
     /**
-     * Convert JavaFX Image object to bytes(by converting to BufferedImage first)
+     * Convert JavaFX Image object to bytes (by converting to BufferedImage first)
      *
      * @param image
      * @return
@@ -75,7 +75,7 @@ public class FxImageUtils {
     }
 
     /**
-     * Write JavaFX Image as PNG file to output stream.
+     * Write JavaFX Image as a PNG file to output stream.
      *
      * @param image
      * @param outputStream
@@ -86,7 +86,7 @@ public class FxImageUtils {
     }
 
     /**
-     * Write JavaFX Image as PNG file.
+     * Write JavaFX Image as a PNG file.
      *
      * @param image
      * @param file

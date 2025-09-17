@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +27,7 @@ public class TextUtils {
         Matcher matcher = p.matcher(str);
         if (matcher.matches()) {
             String indent = matcher.group("INDENT");
-            return StringUtils.countMatches(indent, "\t")  + StringUtils.countMatches(indent, StringUtils.repeat(' ', minSpaceSize));
+            return StringUtils.countMatches(indent, "\t") + StringUtils.countMatches(indent, StringUtils.repeat(' ', minSpaceSize));
         }
         return 0;
     }
@@ -132,7 +133,7 @@ public class TextUtils {
      * @return
      */
     public static String convertToWindows(String text) {
-        if (StringUtils.contains(text, "\r\n")) {
+        if (Strings.CS.contains(text, "\r\n")) {
             return text;
         }
         return RegExUtils.replaceAll(text, "\n", "\r\n");
@@ -143,7 +144,7 @@ public class TextUtils {
      * @return
      */
     public static String convertFromWindows(String text) {
-        if (!StringUtils.contains(text, "\r\n")) {
+        if (!Strings.CS.contains(text, "\r\n")) {
             return text;
         }
         return RegExUtils.replaceAll(text, "\r\n", "\n");

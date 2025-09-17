@@ -1,3 +1,7 @@
+v3.0
+* new `GlobalExecutor` to submit threads.
+* Refactor `AsyncUtils` with `GlobalExecutor`.
+
 v2.0.3
 * add label to `RadioDialogBuilder`.
 * update dependencies.

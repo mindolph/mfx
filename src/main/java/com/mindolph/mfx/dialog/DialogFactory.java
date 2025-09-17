@@ -64,7 +64,7 @@ public class DialogFactory {
     public static File openFileDialog(Window window, File initDir, FileChooser.ExtensionFilter... extensionFilters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(initDir);
-        if (extensionFilters != null && extensionFilters.length > 0) {
+        if (extensionFilters != null) {
             for (FileChooser.ExtensionFilter extensionFilter : extensionFilters) {
                 if (extensionFilter != null) {
                     fileChooser.getExtensionFilters().add(extensionFilter);

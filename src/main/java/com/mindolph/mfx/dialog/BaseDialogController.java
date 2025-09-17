@@ -12,8 +12,8 @@ import java.util.function.Consumer;
 
 /**
  * Base controller class to implement Dialog with {@link com.mindolph.mfx.dialog.CustomDialogBuilder}.
- * This dialog controller contains Dialog instance and use showAndWait() or show(Callback) methods.
- * Get result of the dialog through return of the showAndWait() method, the callback or getResult() method.
+ * This dialog controller contains Dialog instance and uses showAndWait() or show(Consumer) methods.
+ * Get the result of the dialog through return of the showAndWait() method, the callback or getResult() method.
  *
  * @param <R> type of return value
  * @author mindolph.com@gmail.com
@@ -32,15 +32,15 @@ public abstract class BaseDialogController<R> extends BaseController {
 
     /**
      * The origin value to this dialog.
-     * Be used to determine whether it's changed since dialog loaded.
+     * Be used to determine whether it's changed since the dialog loaded.
      */
     protected R origin;
 
     /**
      * This result is used by outer like CustomDialogBuilder.
-     * The value of result can not be null if you choose positive actions (like OK, YES buttons), otherwise the negative
+     * The value of the result cannot be null if you choose positive actions (like OK, YES buttons), otherwise the negative
      * logic will be executed automatically.
-     * To avoid that, always set the result value other thant the default value even there is no status changes in the dialog, eg:
+     * To avoid that, always set the result value other than the default value even there are no status changes in the dialog, eg:
      * To implement a confirmation dialog, just use Boolean as the generic type of dialog, set the default value to be 'false'
      * when building the dialog and set the result value to be 'true' after dialog built.
      */
@@ -74,7 +74,7 @@ public abstract class BaseDialogController<R> extends BaseController {
     }
 
     /**
-     * Show dialog and callback to caller with result object.
+     * Show dialog and callback to caller with a result object.
      *
      * @param consumer be called either positive or negative button clicked.
      */
@@ -95,7 +95,7 @@ public abstract class BaseDialogController<R> extends BaseController {
     }
 
     /**
-     * Show and wait until user clicks any button.
+     * Show and wait until the user clicks any button.
      *
      * @return
      */
@@ -129,7 +129,7 @@ public abstract class BaseDialogController<R> extends BaseController {
 
     /**
      * Confirm before closing the dialog only if
-     * user changed the content of dialog and choose negative.
+     * user changed the content of the dialog and choose negative.
      *
      * @param msg
      * @return true if close the dialog.

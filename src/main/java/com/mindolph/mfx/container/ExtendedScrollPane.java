@@ -1,5 +1,6 @@
 package com.mindolph.mfx.container;
 
+import com.mindolph.mfx.util.GlobalExecutor;
 import com.mindolph.mfx.util.ScrollUtils;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -53,7 +54,7 @@ public class ExtendedScrollPane extends ScrollPane {
     }
 
     /**
-     * Scroll in animation from current position to target position in coordinate.
+     * Scroll in animation from current position to the target position in coordinate.
      *
      * @param to       The coordinate to which scroll.
      * @param callback
@@ -67,7 +68,7 @@ public class ExtendedScrollPane extends ScrollPane {
     }
 
     /**
-     * Scroll in animation from current position to target position
+     * Scroll in animation from current position to the target position
      *
      * @param h        to horizontal
      * @param v        to vertical
@@ -76,7 +77,7 @@ public class ExtendedScrollPane extends ScrollPane {
     public void scrollAnimate(double h, double v, Runnable callback) {
         double oh = getHvalue();
         double ov = getVvalue();
-        new Thread(() -> {
+        GlobalExecutor.submit(() -> {
             int frames = 15;
             double stepH = (h - oh) / frames;
             double stepV = (v - ov) / frames;
@@ -90,11 +91,11 @@ public class ExtendedScrollPane extends ScrollPane {
                 try {
                     Thread.sleep(150 / frames);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                 }
             }
             callback.run();
-        }).start();
+        });
     }
 
     /**

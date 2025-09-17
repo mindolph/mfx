@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 /**
  * Build a {@link Dialog} by customizing its content with FXML and controller.
  * The controller must inherit from {@link BaseDialogController} and the FXML MUST not be defined with controller.
- * if use {@code fxContent()} to load dialog content, the FXML file will be ignored.
- * example:
+ * If you use {@code fxContent()} to load dialog content, the FXML file will be ignored.
+ * Example:
  * <pre>
  *     Dialog&lt;String&gt; dialog = new CustomDialogBuilder&lt;String&gt;()
  *      .owner(window)
@@ -41,12 +41,12 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
     private static final Logger log = LoggerFactory.getLogger(CustomDialogBuilder.class);
 
     /**
-     * Controller of this dialog, if specified, the FXML file must be defined without controller.
+     * Controller of this dialog, if specified, the FXML file must be defined without a controller.
      */
     private BaseDialogController<T> controller;
 
     /**
-     * Path of FXML file to load the content of dialog, if it contains controller, the controller() must not be called.
+     * Path of FXML file to load the content of the dialog, if it contains a controller, the controller() must not be called.
      * The uri should not start with "/"
      */
     private String fxmlUri;

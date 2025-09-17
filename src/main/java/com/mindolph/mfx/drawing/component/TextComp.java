@@ -74,8 +74,8 @@ public class TextComp extends Component {
 
         double maxWidth = 0.0d;
         double maxHeight = 0.0d;
-        if (lines == null || lines.isEmpty() || StringUtils.isBlank(lines.get(0).getText())) {
-            // force to set bounds as one letter if topic is blank.
+        if (lines == null || lines.isEmpty() || StringUtils.isBlank(lines.getFirst().getText())) {
+            // force to set bounds as one letter if text is blank.
             Text text = new Text("X");
             Bounds bounds = text.getBoundsInLocal();
             maxWidth = bounds.getWidth();

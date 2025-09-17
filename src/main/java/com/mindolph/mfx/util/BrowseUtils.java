@@ -35,23 +35,21 @@ public class BrowseUtils {
                 try {
                     desktop.browse(url.toURI());
                 } catch (Exception x) {
-                    log.error("Can't browse URL in Desktop", x); 
+                    log.error("Can't browse URL in Desktop", x);
                 }
             }
             else if (SystemUtils.IS_OS_LINUX) {
-                final Runtime runtime = Runtime.getRuntime();
                 try {
-                    runtime.exec("xdg-open " + url); 
+                    new ProcessBuilder().command("xdg-open " + url).start();
                 } catch (IOException e) {
-                    log.error("Can't browse URL under Linux", e); 
+                    log.error("Can't browse URL under Linux", e);
                 }
             }
             else if (SystemUtils.IS_OS_MAC) {
-                final Runtime runtime = Runtime.getRuntime();
                 try {
-                    runtime.exec("open " + url); 
+                    new ProcessBuilder().command("open " + url).start();
                 } catch (IOException e) {
-                    log.error("Can't browse URL on MAC", e); 
+                    log.error("Can't browse URL on MAC", e);
                 }
             }
         }
@@ -67,7 +65,7 @@ public class BrowseUtils {
             }
             return true;
         } catch (MalformedURLException ex) {
-            log.error("MalformedURLException", ex); 
+            log.error("MalformedURLException", ex);
             return false;
         }
     }

@@ -3,7 +3,7 @@ package com.mindolph.mfx.util;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  * @author mindolph.com@gmail.com
@@ -63,7 +63,7 @@ public class FontUtils {
      * @return
      */
     public static FontWeight fontWeight(String style) {
-        return StringUtils.containsIgnoreCase(style, FontWeight.BOLD.name()) ? FontWeight.BOLD : FontWeight.NORMAL;
+        return Strings.CS.contains(style, FontWeight.BOLD.name()) ? FontWeight.BOLD : FontWeight.NORMAL;
     }
 
     /**
@@ -83,7 +83,7 @@ public class FontUtils {
      * @return
      */
     public static FontPosture fontPosture(String style) {
-        return StringUtils.containsIgnoreCase(style, FontPosture.ITALIC.name()) ? FontPosture.ITALIC : FontPosture.REGULAR;
+        return Strings.CS.contains(style, FontPosture.ITALIC.name()) ? FontPosture.ITALIC : FontPosture.REGULAR;
     }
 
     public static boolean isItalic(Font font) {
