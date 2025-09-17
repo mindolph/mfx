@@ -6,11 +6,11 @@
 
     <groupId>com.mindolph</groupId>
     <artifactId>mfx</artifactId>
-    <version>2.0.3</version>
+    <version>3.0</version>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <javafx.version>21.0.8</javafx.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <javafx.version>25</javafx.version>
         <log4j2.version>2.25.1</log4j2.version>
         <swiftboot.version>2.4.11</swiftboot.version>
         <junit.version>5.13.3</junit.version>
