@@ -1,3 +1,16 @@
+v2.0.3
+* add label to `RadioDialogBuilder`.
+* update dependencies.
+
+v2.0.2
+* new class `RadioDialogBuilder` to build dialog with radio options.
+* new Utils method for `FontUtils`.
+* new `ControlUtils` to manipulate controls.
+* update dependencies.
+
+v2.0.1
+* feat: new `PaneUtils` to manipulate `Pane`.
+* update dependencies.
 
 v2.0
 * new Drawing apis for drawing pre-defined components on JavaFX Canvas.
@@ -9,7 +22,7 @@ v 1.3.0
 v 1.2.5
 * add `getPreferenceAlias()` methods to `FxPreferences` class.
 * Add new `GeometryConvertUtils` class
-* some refactors
+* some refactor.
 
 v 1.2.4
 * more utils method for Bounds.
