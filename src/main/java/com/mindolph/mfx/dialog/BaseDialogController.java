@@ -76,7 +76,7 @@ public abstract class BaseDialogController<R> extends BaseController {
     /**
      * Show dialog and callback to caller with a result object.
      *
-     * @param consumer be called either positive or negative button clicked.
+     * @param consumer be called either positive or negative button clicked,
      */
     public void show(Consumer<R> consumer) {
         if (dialog != null) {
@@ -112,6 +112,15 @@ public abstract class BaseDialogController<R> extends BaseController {
             return r;
         }
         return null;
+    }
+
+    /**
+     * Force to close the dialog.
+     */
+    public void close() {
+        if (dialog != null) {
+            dialog.close();
+        }
     }
 
     /**

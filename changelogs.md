@@ -1,6 +1,9 @@
 v3.0
 * new `GlobalExecutor` to submit threads.
 * Refactor `AsyncUtils` with `GlobalExecutor`.
+* add new `close()` method to dialog controller.
+* update java language level to 21.
+* update javafx to 25.
 
 v2.0.3
 * add label to `RadioDialogBuilder`.
