@@ -12,9 +12,11 @@ including:
 
 ### Versions
 * Stable Version
-v 1.4.8
+v 2.0.3
+> JDK 17+, JavaFX 21+
 
 * Unstable Version
-V 2.0.1
+V 3.0
+> JDK 21+, JavaFX 25+
 
 here is the [changelogs](changelogs.md)

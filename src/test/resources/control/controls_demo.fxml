@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.mindolph.mfx.control.MChoiceBox?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mindolph.mfx.control.ControlsDemo">
+    <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0"
+          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <MChoiceBox fx:id="mChoiceBox"/>
+    </VBox>
+</AnchorPane>

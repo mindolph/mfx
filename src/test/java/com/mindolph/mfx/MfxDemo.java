@@ -46,6 +46,11 @@ public class MfxDemo extends Application implements Initializable {
         FxmlUtils.loadUriToStage("/drawing/drawing_demo.fxml").show();
     }
 
+    @FXML
+    public void onControlsDemo() {
+        FxmlUtils.loadUriToStage("/control/controls_demo.fxml").show();
+    }
+
     public static class MfxDemoLauncher {
 
         public static void main(String[] args) {
