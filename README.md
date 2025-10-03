@@ -17,6 +17,6 @@ v 2.0.3
 
 * Unstable Version
 V 3.0
-> JDK 21+, JavaFX 25+
+> JDK 23+, JavaFX 25+
 
 here is the [changelogs](changelogs.md)

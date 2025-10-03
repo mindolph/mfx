@@ -1,9 +1,7 @@
 package com.mindolph.mfx.util;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
+import java.util.function.Supplier;
 
 /**
  * Global executor for async tasks.
@@ -25,4 +23,14 @@ public class GlobalExecutor {
     public static <T> Future<T> submit(Callable<T> callable) {
         return executor.submit(callable);
     }
+
+
+    public static CompletableFuture<Void> submitCompletable(Runnable runnable) {
+        return CompletableFuture.runAsync(runnable, executor);
+    }
+
+    public static <T> CompletableFuture<T> submitCompletable(Supplier<T> supplier) {
+        return CompletableFuture.supplyAsync(supplier, executor);
+    }
+
 }
