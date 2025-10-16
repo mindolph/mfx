@@ -9,6 +9,7 @@ public class GlobalExecutorTest {
     @Test
     public void submitCompletable() {
         CompletableFuture<Void> completableFuture = GlobalExecutor.submitCompletable(() -> {
+            System.out.println("working...");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -16,7 +17,7 @@ public class GlobalExecutorTest {
             }
         });
         completableFuture.thenApply(aVoid -> {
-            System.out.println("hello");
+            System.out.println("done");
             return aVoid;
         });
 

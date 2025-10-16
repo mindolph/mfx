@@ -1,8 +1,9 @@
 v3.0
+* new experimental `PausableChangeListener` to provide more control of value changing of `Property`.
 * new `MChoiceBox` class that extends `ChoiceBox` to provide more functionalities.
 * new `GlobalExecutor` to submit threads.
 * Refactor `AsyncUtils` with `GlobalExecutor`.
-* add new `close()` method to dialog controller.
+* add new `close()` method to dialog controller to close dialog externally.
 * update java language level to 21.
 * update javafx to 25.
 
