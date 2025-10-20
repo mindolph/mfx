@@ -7,7 +7,7 @@ import javafx.beans.value.ObservableValue;
  * Wrap (use static method wrap()) the ChangeListener instance that you meant to add to any property,
  * instead, add this wrapped instance to the property.
  * call pause()/resume() to pause/resume the event handling.
- * NOTE: This is a experimental feature.
+ * NOTE: This is an experimental feature.
  *
  * @param <T>
  * @since 3.0
@@ -22,6 +22,12 @@ public class PausableChangeListener<T> implements ChangeListener<T> {
         this.listener = listener;
     }
 
+    /**
+     * Wrap a {@link ChangeListener} as {@link PausableChangeListener}
+     * @param listener
+     * @return
+     * @param <T>
+     */
     public static <T> PausableChangeListener<T> wrap(ChangeListener<T> listener) {
         return new PausableChangeListener<>(listener);
     }
@@ -36,10 +42,16 @@ public class PausableChangeListener<T> implements ChangeListener<T> {
         }
     }
 
+    /**
+     * Invoke to pause listening change event.
+     */
     public void pause() {
         paused = true;
     }
 
+    /**
+     * Invoke to resume listening change event.
+     */
     public void resume() {
         paused = false;
     }

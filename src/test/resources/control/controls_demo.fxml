@@ -2,10 +2,27 @@
 
 <?import com.mindolph.mfx.control.MChoiceBox?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.mindolph.mfx.control.ControlsDemo">
-    <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0"
+    <VBox spacing="10" layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0"
           AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <MChoiceBox fx:id="mChoiceBox"/>
+        <HBox spacing="10">
+            <Label>MChoiceBox</Label>
+            <MChoiceBox fx:id="mChoiceBox"/>
+            <Button onAction="#onUnSelectMChoiceBox">Unselect</Button>
+        </HBox>
+        <HBox spacing="10">
+            <Label>ChoiceBox</Label>
+            <MChoiceBox fx:id="choiceBox"/>
+            <Button onAction="#onUpdateChoice">Update choice items</Button>
+        </HBox>
+        <HBox spacing="10">
+            <Label>ComboBox</Label>
+            <ComboBox fx:id="comboBox"/>
+            <Button onAction="#onUpdateComboBoxItems">Update combo box items</Button>
+        </HBox>
     </VBox>
 </AnchorPane>

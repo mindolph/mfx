@@ -1,12 +1,11 @@
 v3.0
+* update java language level to 21, update javafx to 25.
 * new experimental `PausableChangeListener` to provide more control of value changing of `Property`.
 * new `MChoiceBox` class that extends `ChoiceBox` to provide more functionalities.
 * new `GlobalExecutor` to submit threads.
 * Refactor `AsyncUtils` with `GlobalExecutor`.
 * add new `close()` method to dialog controller to close dialog externally.
 * add new `addCommentToImageAndSave()` method to `AwtImageUtils`.
-* update java language level to 21.
-* update javafx to 25.
 
 v2.0.3
 * add label to `RadioDialogBuilder`.
