@@ -1,6 +1,7 @@
 package com.mindolph.mfx.drawing;
 
 import com.mindolph.mfx.drawing.component.Component;
+import com.mindolph.mfx.drawing.component.Container;
 import com.mindolph.mfx.drawing.connector.Connector;
 import com.mindolph.mfx.util.PointUtils;
 import com.mindolph.mfx.util.RectangleUtils;
@@ -31,7 +32,7 @@ public class Layer {
 
     public void add(Drawable drawable) {
         drawables.add(drawable);
-        if (drawable instanceof Component c) {
+        if (drawable instanceof Container c) {
             drawables.addAll(c.getDescendants());
         }
     }
@@ -50,7 +51,9 @@ public class Layer {
 
     public void clearActivation() {
         for (Drawable drawable : drawables) {
-            drawable.setActivated(false);
+            if (drawable instanceof BaseComponent c) {
+                c.setActivated(false);
+            }
         }
     }
 

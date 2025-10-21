@@ -1,8 +1,8 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Rectangle2D;
-
-import java.io.Serializable;
+import javafx.scene.shape.Shape;
 
 /**
  * for drawable elements
@@ -11,9 +11,17 @@ import java.io.Serializable;
  */
 public interface Drawable {
 
-    Serializable getId();
+    static Rectangle2D intersect(Rectangle2D rectangle1, Rectangle2D rectangle2) {
+        return RectangleUtils.intersect(rectangle1, rectangle2);
+    }
 
-    void setId(Serializable id);
+    static Rectangle2D union(Drawable drawable1, Drawable drawable2) {
+        return RectangleUtils.union(drawable1.getBounds(), drawable2.getBounds());
+    }
+
+//    Serializable getId();
+//
+//    void setId(Serializable id);
 
     void draw(Graphics g, Context context);
 
@@ -38,7 +46,11 @@ public interface Drawable {
      */
     Rectangle2D getAbsoluteBounds();
 
-    void setActivated(boolean activated);
+    Shape getShape();
 
-    boolean isActivated();
+//    void setActivated(boolean activated);
+//
+//    boolean isActivated();
+
+//    void setGroup(Group group);
 }

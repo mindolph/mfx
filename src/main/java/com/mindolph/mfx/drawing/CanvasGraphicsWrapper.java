@@ -162,6 +162,9 @@ public class CanvasGraphicsWrapper implements Graphics {
             if (fill != null) gc.fill();
             gc.closePath();
         }
+        else {
+            throw new IllegalArgumentException("Shape is not supported: " + shape);
+        }
     }
 
     @Override

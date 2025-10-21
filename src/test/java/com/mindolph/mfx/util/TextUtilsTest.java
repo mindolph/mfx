@@ -1,5 +1,7 @@
 package com.mindolph.mfx.util;
 
+import javafx.geometry.Bounds;
+import javafx.scene.text.Font;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +9,12 @@ import org.junit.jupiter.api.Test;
  * @author mindolph.com@gmail.com
  */
 class TextUtilsTest {
+
+    @Test
+    void calculateTextBounds() {
+        Bounds bound = TextUtils.calculateTextBounds("Hello World", Font.getDefault());
+        System.out.println(BoundsUtils.boundsInString(bound));
+    }
 
     @Test
     void deleteLineBreaks() {

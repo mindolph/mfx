@@ -2,6 +2,7 @@ package com.mindolph.mfx.util;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import org.apache.commons.lang3.Range;
 
 /**
  * @author mindolph.com@gmail.com
@@ -45,7 +46,7 @@ public class RectangleUtils {
         return new Rectangle2D(r.getMinX(), y, r.getWidth(), r.getHeight());
     }
 
-    public static Rectangle2D newWithXY(Rectangle2D r, double x, double y){
+    public static Rectangle2D newWithXY(Rectangle2D r, double x, double y) {
         return new Rectangle2D(x, y, r.getWidth(), r.getHeight());
     }
 
@@ -75,5 +76,67 @@ public class RectangleUtils {
 
     public static boolean isZero(Rectangle2D r) {
         return r.getMinY() == 0 && r.getMinX() == 0 && r.getWidth() == 0 && r.getHeight() == 0;
+    }
+
+    public static Rectangle2D intersect(Rectangle2D r1, Rectangle2D r2) {
+        if (r1 == null || r2 == null || !r1.intersects(r2)) {
+            return null;
+        }
+        Range<Double> interX = Range.of(r1.getMinX(), r1.getMaxX()).intersectionWith(Range.of(r2.getMinX(), r2.getMaxX()));
+        Range<Double> interY = Range.of(r1.getMinY(), r1.getMaxY()).intersectionWith(Range.of(r2.getMinY(), r2.getMaxY()));
+        return new Rectangle2D(
+                interX.getMinimum(),
+                interY.getMinimum(),
+                interX.getMaximum() - interX.getMinimum(),
+                interY.getMaximum() - interY.getMinimum()
+        );
+    }
+
+    /**
+     * Union two {@code Rectangle}s even they do not intersect.
+     *
+     * @param r1
+     * @param r2
+     * @return
+     */
+    public static Rectangle2D union(Rectangle2D r1, Rectangle2D r2) {
+        if (r1 == null && r2 == null) {
+            return null;
+        }
+        if (r1 == null) return r2;
+        if (r2 == null) return r1;
+        return new Rectangle2D(
+                Math.min(r1.getMinX(), r2.getMinX()),
+                Math.min(r1.getMinY(), r2.getMinY()),
+                Math.abs(r2.getMaxX() - r1.getMinX()),
+                Math.abs(r2.getMaxY() - r1.getMinY())
+        );
+    }
+
+    public static Rectangle2D enlarge(Rectangle2D r, double more) {
+        return new Rectangle2D(
+                r.getMinX() - more,
+                r.getMinY() - more,
+                r.getWidth() + more * 2,
+                r.getHeight() + more * 2
+        );
+    }
+
+    public static Rectangle2D enlarge(Rectangle2D r, double minX, double minY, double maxX, double maxY) {
+        return new Rectangle2D(
+                r.getMinX() - minX,
+                r.getMinY() - minY,
+                r.getWidth() + minX + maxX,
+                r.getHeight() + minY + maxY
+        );
+    }
+
+    public static Rectangle2D enlarge(Rectangle2D r, double leftRight, double topBottom) {
+        return new Rectangle2D(
+                r.getMinX() - leftRight,
+                r.getMinY() - topBottom,
+                r.getWidth() + leftRight * 2,
+                r.getHeight() + topBottom * 2
+        );
     }
 }

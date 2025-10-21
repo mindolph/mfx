@@ -1,20 +1,20 @@
 package com.mindolph.mfx.drawing;
 
-import com.mindolph.mfx.drawing.component.Component;
+import com.mindolph.mfx.drawing.component.Container;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
-public class Triangle extends Component {
+public class TriangleComp extends Container {
 
-    public Triangle() {
+    public TriangleComp() {
     }
 
-    public Triangle(Rectangle2D bounds) {
+    public TriangleComp(Rectangle2D bounds) {
         super(bounds);
     }
 
-    public Triangle(double x, double y, double width, double height) {
+    public TriangleComp(double x, double y, double width, double height) {
         super(x, y, width, height);
     }
 

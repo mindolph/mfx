@@ -2,11 +2,13 @@ package com.mindolph.mfx.drawing.connector;
 
 import com.mindolph.mfx.drawing.*;
 import com.mindolph.mfx.drawing.component.Component;
+import com.mindolph.mfx.drawing.component.Group;
 import com.mindolph.mfx.drawing.constant.StrokeType;
 import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 
 import java.io.Serializable;
 
@@ -14,11 +16,13 @@ import java.io.Serializable;
  *
  * @since 2.0
  */
-public class Connector implements Drawable {
+public class Connector extends BaseComponent {
 
     protected Serializable id;
 
     protected Layer layer;
+
+    protected Group group;
 
     protected Component from;
 
@@ -35,6 +39,8 @@ public class Connector implements Drawable {
      */
     protected Point2D pointTo;
     protected Point2D absolutePointTo;
+
+    protected Shape shape;
 
     protected boolean activated;
 
@@ -105,7 +111,7 @@ public class Connector implements Drawable {
                 throw new RuntimeException("point %s,%s is not within the bounds(%s) of component".formatted(x, y, RectangleUtils.rectangleInStr(to.getBounds())));
             }
             Rectangle2D b = to.getAbsoluteBounds();
-            System.out.println("## " + RectangleUtils.rectangleInStr(b));
+//            System.out.println("## " + RectangleUtils.rectangleInStr(b));
             this.absolutePointTo = new Point2D(b.getMinX() + x * scale, b.getMinY() + y * scale);
         }
     }
@@ -175,5 +181,14 @@ public class Connector implements Drawable {
     @Override
     public boolean isActivated() {
         return activated;
+    }
+
+    @Override
+    public Shape getShape() {
+        return shape;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

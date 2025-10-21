@@ -23,8 +23,10 @@ public class LayerCanvas {
     private final Context context;
     private final List<Layer> layers;
     private final Layer baseLayer = new Layer("Base Layer");
+    private final Layer selectionLayer = new Layer("Selection Layer");
 
     private final List<Drawable> allDrawables;
+    private final List<Selection> selections;
 
     public LayerCanvas(Graphics g, Context context) {
         this.g = g;
@@ -32,6 +34,7 @@ public class LayerCanvas {
         this.layers = new LinkedList<>();
         this.layers.add(baseLayer);
         this.allDrawables = new LinkedList<>();
+        this.selections = new LinkedList<>();
     }
 
     public LayerCanvas(Graphics g, Context context, List<Layer> layers) {
@@ -41,6 +44,7 @@ public class LayerCanvas {
         this.layers.add(baseLayer);
         this.layers.addAll(layers);
         this.allDrawables = new LinkedList<>();
+        this.selections = new LinkedList<>();
     }
 
     public void add(Drawable drawable) {
@@ -54,6 +58,11 @@ public class LayerCanvas {
         }
         layer.add(drawable);
         allDrawables.add(drawable);
+    }
+
+    public void add(Selection selection) {
+        selectionLayer.add(selection);
+        selections.add(selection);
     }
 
 //    public void add(Layer layer) {
@@ -104,6 +113,7 @@ public class LayerCanvas {
 
     public void clearActivation() {
         layers.forEach(Layer::clearActivation);
+        selectionLayer.removeAll();
     }
 
     /**
@@ -115,7 +125,10 @@ public class LayerCanvas {
         Stream<Drawable> selectStream = allDrawables.stream().filter(predicate);
         List<Drawable> select = new LinkedList<>();
         selectStream.forEach(drawable -> {
-            drawable.setActivated(true);
+            // TBD?
+            if (drawable instanceof BaseComponent c) {
+                c.setActivated(true);
+            }
             select.add(drawable);
         });
         return select;
@@ -131,21 +144,33 @@ public class LayerCanvas {
         Stream<Drawable> unselectStream = allDrawables.stream().filter(predicate);
         List<Drawable> unselect = new LinkedList<>();
         unselectStream.forEach(drawable -> {
-            drawable.setActivated(false);
+            // TBD?
+            if (drawable instanceof BaseComponent c) {
+                c.setActivated(false);
+            }
             unselect.add(drawable);
         });
         return unselect;
     }
 
     public void updateAllBounds() {
+        // update bounds of all components.
         for (Drawable drawable : allDrawables.stream().filter(d -> d instanceof Component).toList()) {
             drawable.updateBounds(this.context);
         }
+        // update bounds of all connectors.
         for (Drawable drawable : allDrawables.stream().filter(d -> d instanceof Connector).toList()) {
             drawable.updateBounds(this.context);
         }
+        // update bounds of all selections.
+        selections.forEach(selection -> {
+            selection.updateBounds(this.context);
+        });
     }
 
+    /**
+     * Draw all elements by layer order.
+     */
     public void drawLayers() {
         if (this.context.isDebugMode()) {
             g.drawRect(g.getClipBounds(), Color.BLUE, null);
@@ -153,6 +178,7 @@ public class LayerCanvas {
         for (Layer layer : layers) {
             layer.draw(this.g, this.context);
         }
+        selectionLayer.draw(this.g, this.context);
     }
     
     public List<Drawable> getElements() {
@@ -167,7 +193,15 @@ public class LayerCanvas {
         return drawables;
     }
 
+    public List<Selection> getSelections() {
+        return selections.stream().toList();
+    }
+
     public Layer getBaseLayer() {
         return baseLayer;
+    }
+
+    public Layer getSelectionLayer() {
+        return selectionLayer;
     }
 }
