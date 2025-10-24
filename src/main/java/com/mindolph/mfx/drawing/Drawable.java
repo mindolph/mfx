@@ -4,6 +4,8 @@ import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.shape.Shape;
 
+import java.util.Collection;
+
 /**
  * for drawable elements
  *
@@ -19,9 +21,13 @@ public interface Drawable {
         return RectangleUtils.union(drawable1.getBounds(), drawable2.getBounds());
     }
 
-//    Serializable getId();
-//
-//    void setId(Serializable id);
+    static <T extends Drawable> double  calcMaxExtentWidth(Collection<T> drawables) {
+        return drawables.stream().map(c -> c.getBounds().getMaxX()).reduce(0.0, Double::max);
+    }
+
+    static <T extends Drawable> double calcMaxExtentHeight(Collection<T> drawables) {
+        return drawables.stream().map(c -> c.getBounds().getMaxY()).reduce(0.0, Double::max);
+    }
 
     void draw(Graphics g, Context context);
 

@@ -1,21 +1,23 @@
 package com.mindolph.mfx.drawing;
 
 import com.mindolph.mfx.drawing.component.Container;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
+/**
+ * for testing.
+ */
 public class RectangleComp extends Container {
 
-    public RectangleComp() {
-    }
-
-    public RectangleComp(Rectangle2D bounds) {
-        super(bounds);
-    }
+    private Color fill = Color.GREEN;
 
     public RectangleComp(double x, double y, double width, double height) {
         super(x, y, width, height);
+    }
+
+    public RectangleComp(double x, double y, double width, double height, Color fill) {
+        super(x, y, width, height);
+        this.fill = fill;
     }
 
     @Override
@@ -25,13 +27,7 @@ public class RectangleComp extends Container {
                 super.absoluteBounds.getMinY(),
                 super.absoluteBounds.getWidth(),
                 super.absoluteBounds.getHeight(),
-                Color.RED, Color.GREEN);
-        super.drawChildren(g, c);
-//        g.drawRect(c.safeScale(super.absoluteBounds.getMinX()),
-//                c.safeScale(super.absoluteBounds.getMinY()),
-//                c.safeScale(super.absoluteBounds.getWidth()),
-//                c.safeScale(super.absoluteBounds.getHeight()),
-//                Color.RED, Color.GREEN);
+                Color.RED, this.fill);
     }
 
     @Override

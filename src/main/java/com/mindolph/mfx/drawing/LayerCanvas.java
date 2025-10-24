@@ -204,4 +204,8 @@ public class LayerCanvas {
     public Layer getSelectionLayer() {
         return selectionLayer;
     }
+
+    public List<Layer> getLayers() {
+        return layers;
+    }
 }

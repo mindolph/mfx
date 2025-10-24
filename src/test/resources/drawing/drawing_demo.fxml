@@ -6,12 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="800.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.drawing.DrawingDemo">
+<?import javafx.scene.layout.HBox?>
+<?import org.controlsfx.control.CheckListView?>
+<AnchorPane prefHeight="800.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.drawing.DrawingDemo">
     <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <Canvas fx:id="canvas" height="660.0" width="900" />
+
+        <HBox>
+            <Canvas fx:id="canvas" height="660.0" width="880" />
+            <CheckListView fx:id="layerList" prefWidth="200" />
+        </HBox>
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <Button fx:id="btnZoomIn" mnemonicParsing="false" onAction="#onZoomIn" text="Zoom in"/>
             <Button fx:id="btnZoomOut" mnemonicParsing="false" onAction="#onZoomOut" text="Zoom out"/>
+            <Button fx:id="btnEnlarge" mnemonicParsing="false" onAction="#onEnlarge" text="Enlarge "/>
         </ToolBar>
     </VBox>
 </AnchorPane>

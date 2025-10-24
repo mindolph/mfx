@@ -1,6 +1,7 @@
 package com.mindolph.mfx.drawing.component;
 
 import com.mindolph.mfx.drawing.Context;
+import com.mindolph.mfx.drawing.Drawable;
 import com.mindolph.mfx.drawing.Graphics;
 import javafx.geometry.Rectangle2D;
 
@@ -32,18 +33,30 @@ public class Container extends Component {
         child.parent = this;
 
         // adjust bounds if subcomponents bounds is larger.
-        this.bounds = new Rectangle2D(this.bounds.getMinX(), this.bounds.getMinY(),
-                Math.max(this.bounds.getWidth(), this.calcMaxSubComponentWidth()),
-                Math.max(this.bounds.getHeight(), this.calcMaxSubComponentHeight())
-        );
+        this.measureBounds();
     }
 
-    protected void drawChildren(Graphics g, Context c) {
+    public void addAll(Component... components) {
+        if (components == null) {
+            throw new IllegalArgumentException("components must not be null");
+        }
+        Arrays.stream(components).forEach(this::add);
+    }
+
+    public void remove(Component child) {
         if (this.children != null) {
-            for (Component child : this.children) {
-                child.draw(g, c);
+            if (this.children.remove(child)) {
+                child.parent = null;
+//                this.measureBounds();
             }
         }
+    }
+
+    private void measureBounds() {
+        this.bounds = new Rectangle2D(this.bounds.getMinX(), this.bounds.getMinY(),
+                Math.max(this.bounds.getWidth(), Drawable.calcMaxExtentWidth(this.children)),
+                Math.max(this.bounds.getHeight(), Drawable.calcMaxExtentHeight(this.children))
+        );
     }
 
     public void updateBounds(Context c) {
@@ -55,6 +68,22 @@ public class Container extends Component {
             }
         }
     }
+
+    public void drawChildren(Graphics g, Context c) {
+        if (this.children != null) {
+            for (Component child : this.children) {
+                child.draw(g, c);
+            }
+        }
+    }
+
+//    private double calcMaxSubComponentExtentWidth() {
+//        return children.stream().map(c -> c.getMinX() + c.getWidth()).reduce(0.0, Double::max);
+//    }
+//
+//    private double calcMaxSubComponentExtentHeight() {
+//        return children.stream().map(c -> c.getMinY() + c.getHeight()).reduce(0.0, Double::max);
+//    }
 
     private double calcMaxSubComponentWidth() {
         Optional<Component> max = children.stream().max(Comparator.comparingDouble(Component::getWidth));
@@ -85,6 +114,6 @@ public class Container extends Component {
     }
 
     public Collection<Component> getChildren() {
-        return children;
+        return List.copyOf(this.children);
     }
 }

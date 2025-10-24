@@ -2,6 +2,7 @@ package com.mindolph.mfx.drawing.component;
 
 
 import com.mindolph.mfx.drawing.*;
+import com.mindolph.mfx.drawing.constant.Anchor;
 import com.mindolph.mfx.drawing.constant.StrokeType;
 import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Point2D;
@@ -24,7 +25,10 @@ public class Component extends BaseComponent {
 
     protected Layer layer;
 
-    protected Component parent;
+    protected Container parent;
+
+    // TODO to implement the bounds calculation.
+    protected Anchor anchor = Anchor.LEFT_TOP;
 
     protected Group group;
 
@@ -52,7 +56,19 @@ public class Component extends BaseComponent {
         this.absoluteBounds = new Rectangle2D(x, y, width, height);
     }
 
-//    public Component(Layer layer, Rectangle2D bounds) {
+    public Component(Rectangle2D bounds, Anchor anchor) {
+        this.bounds = bounds;
+        this.absoluteBounds = bounds;
+        this.anchor = anchor;
+    }
+
+    public Component(double x, double y, double width, double height, Anchor anchor) {
+        this.bounds = new Rectangle2D(x, y, width, height);
+        this.absoluteBounds = new Rectangle2D(x, y, width, height);
+        this.anchor = anchor;
+    }
+
+    //    public Component(Layer layer, Rectangle2D bounds) {
 //        this.layer = layer;
 //        this.bounds = bounds;
 //        this.absoluteBounds = bounds; // TODO
@@ -182,8 +198,16 @@ public class Component extends BaseComponent {
         this.layer = layer;
     }
 
-    public Component getParent() {
+    public Container getParent() {
         return parent;
+    }
+
+    public Anchor getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(Anchor anchor) {
+        this.anchor = anchor;
     }
 
     @Override

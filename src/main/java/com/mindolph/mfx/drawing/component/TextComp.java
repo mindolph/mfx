@@ -54,6 +54,7 @@ public class TextComp extends Component {
 
     public void updateText(String text) {
         if (StringUtils.isNotBlank(text)) {
+            log.debug("Update text '{}'", text);
             this.text = new Text(text);
             this.text.setFont(scaledFont);
             String[] texts = StringUtils.split(text, LINE_SEPARATOR);
@@ -107,7 +108,8 @@ public class TextComp extends Component {
 
     @Override
     public void draw(Graphics g, Context c) {
-        log.debug("Draw TextComp");
+        if (log.isDebugEnabled())
+            log.debug("Draw TextComp: %s(%d)".formatted(StringUtils.abbreviate(this.text.getText(), 20), this.text.getText().length()));
         super.draw(g, c);
         double posy = this.absoluteBounds.getMinY() + this.scaledFontSize;
         g.setFont(this.scaledFont);
@@ -159,4 +161,8 @@ public class TextComp extends Component {
         this.textAlign = textAlign;
     }
 
+
+    public String getText() {
+        return this.text.getText();
+    }
 }

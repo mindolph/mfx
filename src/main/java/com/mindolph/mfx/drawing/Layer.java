@@ -2,6 +2,7 @@ package com.mindolph.mfx.drawing;
 
 import com.mindolph.mfx.drawing.component.Component;
 import com.mindolph.mfx.drawing.component.Container;
+import com.mindolph.mfx.drawing.component.Group;
 import com.mindolph.mfx.drawing.connector.Connector;
 import com.mindolph.mfx.util.PointUtils;
 import com.mindolph.mfx.util.RectangleUtils;
@@ -70,6 +71,10 @@ public class Layer {
             }
             if (g.getClipBounds().intersects(drawable.getAbsoluteBounds())) {
                 drawable.draw(g, c);
+                // draw children
+                if (drawable instanceof Container container) {
+                    container.drawChildren(g, c);
+                }
             }
             else {
                 if (log.isTraceEnabled()) log.trace("no intersection found");
@@ -89,9 +94,23 @@ public class Layer {
         List<Drawable> elements = new LinkedList<>();
         for (Drawable drawable : drawables) {
             if (drawable.getAbsoluteBounds().contains(point)) {
+                log.debug("on element: %s".formatted(drawable));
                 elements.add(drawable);
+            }
+            // find elements in Group (TODO group of group?)
+            if (drawable instanceof Group g) {
+                for (Drawable component : g.getComponents()) {
+                    if (component.getAbsoluteBounds().contains(point)) {
+                        log.debug("on element: %s".formatted(component));
+                        elements.add(component);
+                    }
+                }
             }
         }
         return elements;
+    }
+
+    public String getName() {
+        return name;
     }
 }
