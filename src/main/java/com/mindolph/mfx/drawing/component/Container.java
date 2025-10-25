@@ -25,6 +25,17 @@ public class Container extends Component {
         super(x, y, width, height);
     }
 
+    public Container(Rectangle2D bounds, Anchor anchor) {
+        super(bounds);
+        this.anchor = anchor;
+    }
+
+    public Container(double x, double y, double width, double height, Anchor anchor) {
+        super(x, y, width, height);
+        this.anchor = anchor;
+    }
+
+
     public void add(Component child) {
         if (this.children == null) {
             this.children = new LinkedHashSet<>();

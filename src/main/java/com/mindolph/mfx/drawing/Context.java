@@ -18,6 +18,18 @@ public interface Context {
         return safeScale(value, 1);
     }
 
+    default double safeScale(Double value) {
+        return safeScale(value, 1);
+    }
+
+    default double safeScale(Double value, double minimal) {
+        if (value == null) {
+            return minimal;
+        }
+        double result = this.getScale() * value;
+        return Double.compare(result, minimal) >= 0 ? result : minimal;
+    }
+
     default double safeScale(double value, double minimal) {
         double result = this.getScale() * value;
         return Double.compare(result, minimal) >= 0 ? result : minimal;

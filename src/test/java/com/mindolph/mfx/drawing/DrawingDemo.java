@@ -1,10 +1,10 @@
 package com.mindolph.mfx.drawing;
 
+import com.mindolph.mfx.drawing.component.Anchor;
 import com.mindolph.mfx.drawing.component.Container;
 import com.mindolph.mfx.drawing.component.Group;
 import com.mindolph.mfx.drawing.component.TextComp;
 import com.mindolph.mfx.drawing.connector.BezierConnector;
-import com.mindolph.mfx.drawing.constant.Anchor;
 import com.mindolph.mfx.drawing.constant.TextAlign;
 import com.mindolph.mfx.util.FontUtils;
 import com.mindolph.mfx.util.RectangleUtils;
@@ -14,6 +14,9 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -33,6 +36,10 @@ public class DrawingDemo implements Initializable {
     private static final Logger log = LoggerFactory.getLogger(DrawingDemo.class);
 
     @FXML
+    private RadioButton rbBasic;
+    @FXML
+    private RadioButton rbComplex;
+    @FXML
     private CheckListView<Layer> layerList;
     @FXML
     Button btnZoomIn;
@@ -42,6 +49,8 @@ public class DrawingDemo implements Initializable {
     Button btnEnlarge;
     @FXML
     private Canvas canvas;
+    @FXML
+    private CheckBox ckbDebug;
     DemoContext context = new DemoContext();
     LayerCanvas layerCanvas;
     Rectangle2D canvasBounds;
@@ -52,10 +61,39 @@ public class DrawingDemo implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        context.setDebugMode(true);
+        context.setDebugMode(false);
         context.setTest(false);
-        this.init();
-        this.draw();
+        ckbDebug.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            context.setDebugMode(newValue);
+            this.draw();
+        });
+
+
+        ToggleGroup group = new ToggleGroup();
+
+        rbBasic.setToggleGroup(group);
+        rbComplex.setToggleGroup(group);
+
+        rbBasic.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                this.initBasic();
+                this.draw();
+            }
+        });
+        rbComplex.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                this.initComplex();
+                this.draw();
+            }
+        });
+
+        // init the canvas
+        canvasBounds = new Rectangle2D(0, 0, 800, 600);
+        g = new CanvasGraphicsWrapper(canvas, canvasBounds);
+        layerCanvas = new LayerCanvas(g, context, List.of(l1, l2));
+
+//        rbBasic.setSelected(true);
+        rbComplex.setSelected(true);
 
         // detecting mouse click and find drawable elements under the mouse.
         canvas.setOnMouseClicked(mouseEvent -> {
@@ -80,22 +118,9 @@ public class DrawingDemo implements Initializable {
         });
     }
 
-    @FXML
-    public void onZoomIn() {
-        context.setScale(context.getScale() + 0.2f);
-        layerCanvas.updateAllBounds();
-        this.draw();
-    }
-
-    @FXML
-    public void onZoomOut() {
-        context.setScale(context.getScale() - 0.2f);
-        layerCanvas.updateAllBounds();
-        this.draw();
-    }
 
     private TextComp textCompToEnlarge;
-    private RectangleComp rectangleCompToEnlarge;
+    private ChildComp childCompToEnlarge;
 
     @FXML
     public void onEnlarge() {
@@ -109,9 +134,9 @@ public class DrawingDemo implements Initializable {
                 Container parent = textCompToEnlarge.getParent();
                 Font font = textCompToEnlarge.getFont();
                 parent.remove(textCompToEnlarge);
-                textCompToEnlarge = new TextComp(25, 25 , 0 , 0);
+                textCompToEnlarge = new TextComp(25, 25, 0, 0);
                 textCompToEnlarge.updateText("This is enlarged sub text");
-                textCompToEnlarge.setFont(FontUtils.newFontWithSize(font, font.getSize()* 1.2));
+                textCompToEnlarge.setFont(FontUtils.newFontWithSize(font, font.getSize() * 1.2));
                 parent.add(textCompToEnlarge);
             }
             layerCanvas.updateAllBounds();
@@ -119,12 +144,9 @@ public class DrawingDemo implements Initializable {
         this.draw();
     }
 
-    private void init() {
-
-        // init the canvas
-        canvasBounds = new Rectangle2D(0, 0, 800, 600);
-        g = new CanvasGraphicsWrapper(canvas, canvasBounds);
-        layerCanvas = new LayerCanvas(g, context, List.of(l1, l2));
+    public void initBasic() {
+        layerCanvas.clear();
+        layerCanvas.addLayers(l1, l2, l3);
 
         // parent with child without layer
         CircleComp c0 = new CircleComp(0, 0, 50, 50);
@@ -167,23 +189,56 @@ public class DrawingDemo implements Initializable {
         textComp.setTextAlign(TextAlign.CENTER);
         layerCanvas.add(l2, textComp);
 
+        layerCanvas.updateAllBounds();
+
+        this.initLayoutList();
+    }
+
+    public void initComplex() {
+        layerCanvas.clear();
+        layerCanvas.addLayers(l1, l2, l3);
         // #6 group
-        RectangleComp container = new RectangleComp(50, 400, 200, 80);
-        this.textCompToEnlarge = new TextComp(25, 25, 200, 20);
-        this.rectangleCompToEnlarge = new RectangleComp(225, 25, 40, 40, Color.PURPLE);
-        this.rectangleCompToEnlarge.setAnchor(Anchor.RIGHT_TOP);
+        RectangleComp rootContainer = new RectangleComp(50, 200, 200, 80);
+        RectangleComp childContainer1 = new RectangleComp(400, 100, 200, 80);
+        RectangleComp childContainer2 = new RectangleComp(400, 200, 200, 80);
+        RectangleComp childContainer3 = new RectangleComp(400, 300, 200, 80);
+        this.childCompToEnlarge = new ChildComp(25, 20, 40, 40, Color.PURPLE);
+        this.textCompToEnlarge = new TextComp(25, 70, 175, 20);
+
+        ChildComp childOfChild1 = new ChildComp(40, 30, Color.PURPLE);
+        ChildComp childOfChild2 = new ChildComp(40, 30, Color.PURPLE);
+        ChildComp childOfChild3 = new ChildComp(250, 30, Color.PURPLE);
+        childOfChild1.setAnchor(new Anchor(null, 15.0, 15.0, null));
+        childOfChild2.setAnchor(new Anchor(15.0, null, 15.0, null));
+        childOfChild3.setAnchor(new Anchor(15.0, null, 15.0, null));
+
+        // == relations ==
+        // root
         textCompToEnlarge.updateText("This is sub text");
-        container.addAll(textCompToEnlarge, rectangleCompToEnlarge);
-        CircleComp c1_2 = new CircleComp(250, 420, 40, 40);
-        BezierConnector connector_2 = new BezierConnector(container, c3, new Point2D(200, 40), new Point2D(50, 100));
+        rootContainer.addAll(textCompToEnlarge, childCompToEnlarge);
+        CircleComp circleComp = new CircleComp(225, 220, 40, 40);
+//        BezierConnector connector_2 = new BezierConnector(container, c3, new Point2D(200, 40), new Point2D(50, 100));
 //        Group group = Group.of(container, c1_2, connector_2);
-        Group group = Group.of(container, c1_2);
-        layerCanvas.add(l3, group);
+        Group groupRoot = Group.of(rootContainer, circleComp);
+        // top right anchor to parent
+        childContainer1.add(childOfChild1);
+        // left right anchor to parent
+        childContainer2.add(childOfChild2);
+        // left right anchor to parent and extend the parent
+        childContainer3.add(childOfChild3);
+        // group them
+        Group groupLevel1 = Group.of(childContainer1, childContainer2, childContainer3);
+        layerCanvas.addAll(l2, groupRoot, groupLevel1);
 
-        RectangleComp rectGroupWithGroup = new RectangleComp(450, 400, 100, 50);
-        Group groupOfGroup = Group.of(group, rectGroupWithGroup);
-        layerCanvas.add(l3, groupOfGroup);
+        // TODO the connector must be defined after grouped components, this should be changed.
+        BezierConnector rootToChild1 = new BezierConnector(rootContainer, childContainer1, 200, 40, 0, 40);
+        BezierConnector rootToChild2 = new BezierConnector(rootContainer, childContainer2, 200, 40, 0, 40);
+        BezierConnector rootToChild3 = new BezierConnector(rootContainer, childContainer3, 200, 40, 0, 40);
+        layerCanvas.addAll(l1, rootToChild1, rootToChild2, rootToChild3);
 
+//        RectangleComp rectGroupWithGroup = new RectangleComp(450, 400, 100, 50);
+//        Group groupOfGroup = Group.of(group, rectGroupWithGroup);
+//        layerCanvas.add(l3, groupOfGroup);
 
         layerCanvas.updateAllBounds();
 
@@ -191,6 +246,7 @@ public class DrawingDemo implements Initializable {
     }
 
     private void initLayoutList() {
+        layerList.getItems().clear();
         layerList.setCellFactory(listView -> new CheckBoxListCell<>(item -> layerList.getItemBooleanProperty(item)) {
             @Override
             public void updateItem(Layer item, boolean empty) {
@@ -216,4 +272,20 @@ public class DrawingDemo implements Initializable {
         this.canvas.getGraphicsContext2D().clearRect(canvasBounds.getMinX(), canvasBounds.getMinY(), canvasBounds.getWidth(), canvasBounds.getHeight());
         layerCanvas.drawLayers();
     }
+
+
+    @FXML
+    public void onZoomIn() {
+        context.setScale(context.getScale() + 0.2f);
+        layerCanvas.updateAllBounds();
+        this.draw();
+    }
+
+    @FXML
+    public void onZoomOut() {
+        context.setScale(context.getScale() - 0.2f);
+        layerCanvas.updateAllBounds();
+        this.draw();
+    }
+
 }

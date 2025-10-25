@@ -38,6 +38,12 @@ public class Layer {
         }
     }
 
+    public void addAll(Drawable... drawables) {
+        for (Drawable drawable : drawables) {
+            this.add(drawable);
+        }
+    }
+
     public void remove(Drawable drawable) {
         drawables.remove(drawable);
     }

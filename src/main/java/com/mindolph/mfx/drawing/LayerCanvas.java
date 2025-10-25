@@ -47,6 +47,14 @@ public class LayerCanvas {
         this.selections = new LinkedList<>();
     }
 
+    public void addLayer(Layer layer) {
+        layers.add(layer);
+    }
+
+    public void addLayers(Layer... ls) {
+        layers.addAll(List.of(ls));
+    }
+
     public void add(Drawable drawable) {
         baseLayer.add(drawable);
         allDrawables.add(drawable);
@@ -60,9 +68,26 @@ public class LayerCanvas {
         allDrawables.add(drawable);
     }
 
+    public void addAll(Layer layer, Drawable... drawables) {
+        if (!layers.contains(layer)) {
+            layers.add(layer);
+        }
+        layer.addAll(drawables);
+        allDrawables.addAll(List.of(drawables));
+    }
+
     public void add(Selection selection) {
         selectionLayer.add(selection);
         selections.add(selection);
+    }
+
+    public void clear() {
+        layers.forEach(Layer::removeAll);
+        baseLayer.removeAll();
+        selectionLayer.removeAll();
+        layers.clear();
+        allDrawables.clear();
+        selections.clear();
     }
 
 //    public void add(Layer layer) {

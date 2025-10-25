@@ -9,6 +9,8 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
@@ -17,6 +19,9 @@ import java.io.Serializable;
  * @since 2.0
  */
 public class Connector extends BaseComponent {
+
+
+    private static final Logger log = LoggerFactory.getLogger(Connector.class);
 
     protected Serializable id;
 
@@ -47,6 +52,10 @@ public class Connector extends BaseComponent {
     public Connector(Component from, Component to) {
         this.from = from;
         this.to = to;
+        this.pointFrom = new Point2D(0, 0);
+        this.pointTo = new Point2D(50, 50);
+        this.updateFrom(1f);
+        this.updateTo(1f);
     }
 
     public Connector(Component from, Component to, Point2D pointFrom, Point2D pointTo) {
@@ -124,6 +133,7 @@ public class Connector extends BaseComponent {
 
     @Override
     public void draw(Graphics g, Context context) {
+        if (log.isDebugEnabled()) log.debug("draw connector: %s (%s)".formatted(this.getId(), this.getClass().getSimpleName()));
         if (context.isDebugMode()) {
             g.setStroke(1, StrokeType.DASHES);
             g.drawRect(this.getAbsoluteBounds(), Color.RED, null);

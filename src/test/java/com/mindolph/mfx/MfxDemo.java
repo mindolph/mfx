@@ -44,10 +44,10 @@ public class MfxDemo extends Application implements Initializable {
         FxmlUtils.loadUriToStage("/control/edit_check_list_view_demo.fxml").show();
     }
 
-    @FXML
-    public void onDrawingDemo() {
-        FxmlUtils.loadUriToStage("/drawing/drawing_demo.fxml").show();
-    }
+//    @FXML
+//    public void onDrawingDemo() {
+//        FxmlUtils.loadUriToStage("/drawing/drawing_demo.fxml").show();
+//    }
 
     @FXML
     public void onControlsDemo() {

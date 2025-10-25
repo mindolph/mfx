@@ -54,9 +54,4 @@ public interface Drawable {
 
     Shape getShape();
 
-//    void setActivated(boolean activated);
-//
-//    boolean isActivated();
-
-//    void setGroup(Group group);
 }
