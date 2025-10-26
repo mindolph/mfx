@@ -27,7 +27,7 @@ public class RectangleComp extends Container {
                 super.absoluteBounds.getMinY(),
                 super.absoluteBounds.getWidth(),
                 super.absoluteBounds.getHeight(),
-                Color.RED, this.fill);
+                this.fill, this.fill);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.mindolph.mfx.drawing.component.Container;
 import com.mindolph.mfx.drawing.component.Group;
 import com.mindolph.mfx.drawing.component.TextComp;
 import com.mindolph.mfx.drawing.connector.BezierConnector;
+import com.mindolph.mfx.drawing.constant.ExtendDirection;
 import com.mindolph.mfx.drawing.constant.TextAlign;
 import com.mindolph.mfx.util.FontUtils;
 import com.mindolph.mfx.util.RectangleUtils;
@@ -197,12 +198,15 @@ public class DrawingDemo implements Initializable {
     public void initComplex() {
         layerCanvas.clear();
         layerCanvas.addLayers(l1, l2, l3);
+        double baseX = 0;
+        double baseY = 0;
         // #6 group
-        RectangleComp rootContainer = new RectangleComp(50, 200, 200, 80);
-        RectangleComp childContainer1 = new RectangleComp(400, 100, 200, 80);
-        RectangleComp childContainer2 = new RectangleComp(400, 200, 200, 80);
-        RectangleComp childContainer3 = new RectangleComp(400, 300, 200, 80);
-        RectangleComp childContainer4 = new RectangleComp(400, 400, 200, 80);
+        RectangleComp rootContainer = new RectangleComp(baseX + 200, baseY + 200, 200, 80);
+        RectangleComp childContainer1 = new RectangleComp(baseX + 500, baseY + 100, 200, 80);
+        RectangleComp childContainer2 = new RectangleComp(baseX + 500, baseY + 200, 200, 80);
+        RectangleComp childContainer3 = new RectangleComp(baseX + 500, baseY + 300, 200, 80);
+        RectangleComp childContainer4 = new RectangleComp(baseX + 500, baseY + 400, 200, 80);
+        RectangleComp childContainerLeft = new RectangleComp(baseX + 50, baseY + 200, 100, 80);
         this.childCompToEnlarge = new ChildComp(25, 20, 40, 40, Color.PURPLE);
         this.textCompToEnlarge = new TextComp(25, 70, 175, 20);
 
@@ -212,18 +216,20 @@ public class DrawingDemo implements Initializable {
         ChildComp childOfChild4_1 = new ChildComp(250, 30, Color.PURPLE); // extends the parent
         ChildComp childOfChild4_2 = new ChildComp(30, 30, Color.PURPLE); // dock to right of the parent.
         ChildComp childOfChild4_3 = new ChildComp(30, 30, Color.PURPLE); // dock to bottom of the parent.
+        ChildComp childOfChildLeft = new ChildComp(200, 30, Color.PURPLE); // dock and extends parent from direction right to left.
         childOfChild1.setAnchor(new Anchor(null, 15.0, 15.0, null));
         childOfChild2.setAnchor(new Anchor(15.0, null, 15.0, null));
         childOfChild3.setAnchor(new Anchor(15.0, null, 15.0, null));
         childOfChild4_1.setAnchor(new Anchor(15.0, 15.0, 55.0, 55.0));
         childOfChild4_2.setAnchor(new Anchor(null, null, 15.0, null));
         childOfChild4_3.setAnchor(new Anchor(null, null, null, 15.0));
+        childOfChildLeft.setAnchor(new Anchor(15.0, 15.0, 55.0, 55.0));
 
         // == relations ==
         // root
         textCompToEnlarge.updateText("This is sub text");
         rootContainer.addAll(textCompToEnlarge, childCompToEnlarge);
-        CircleComp circleComp = new CircleComp(225, 220, 40, 40);
+        CircleComp circleComp = new CircleComp(375, 220, 40, 40);
 //        BezierConnector connector_2 = new BezierConnector(container, c3, new Point2D(200, 40), new Point2D(50, 100));
 //        Group group = Group.of(container, c1_2, connector_2);
         Group groupRoot = Group.of(rootContainer, circleComp);
@@ -237,7 +243,12 @@ public class DrawingDemo implements Initializable {
         childContainer4.addAll(childOfChild4_1, childOfChild4_2, childOfChild4_3);
         // group them
         Group groupLevel1 = Group.of(childContainer1, childContainer2, childContainer3, childContainer4);
-        layerCanvas.addAll(l2, groupRoot, groupLevel1);
+
+        // group left components
+        childContainerLeft.setExtendDirections(ExtendDirection.LEFT_DOWN);
+        childContainerLeft.add(childOfChildLeft);
+        Group groupLeft = Group.of(childContainerLeft);
+        layerCanvas.addAll(l2, groupRoot, groupLevel1, groupLeft);
 
         // TODO the connector must be defined after grouped components, this should be changed.
         BezierConnector rootToChild1 = new BezierConnector(rootContainer, childContainer1, 200, 40, 0, 40);

@@ -8,6 +8,22 @@ import javafx.geometry.Rectangle2D;
  */
 public interface Context {
 
+    default double scale(double value) {
+        return this.getScale() * value;
+    }
+
+    default Double scale(Double value) {
+        if (value == null) return null;
+        return this.scale(value.doubleValue());
+    }
+
+    default Rectangle2D scale(Rectangle2D r) {
+        if (r == null) return null;
+        return new Rectangle2D(
+                scale(r.getMinX()), scale(r.getMinY()),
+                scale(r.getWidth()), scale(r.getHeight()));
+    }
+
     /**
      * Scale value, minimal is 1.
      *

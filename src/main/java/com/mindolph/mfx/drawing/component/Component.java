@@ -109,7 +109,7 @@ public class Component extends BaseComponent {
             log.debug("draw component: %s (%s)".formatted(this.getId(), this.getClass().getSimpleName()));
         if (context.isDebugMode()) {
             g.setStroke(1, StrokeType.DASHES);
-            g.drawRect(this.absoluteBounds, Color.RED, null);
+            g.drawRect(RectangleUtils.enlarge(this.absoluteBounds, 1), Color.RED, null);
             g.setStroke(1, StrokeType.SOLID);
         }
     }
@@ -120,35 +120,39 @@ public class Component extends BaseComponent {
                 // if both sides do not set, center the component.
                 double minX = parent.absoluteBounds.getMinX() +
                         (this.anchor.getLeft() != null
-                                ? c.safeScale(this.anchor.getLeft())
+                                ? c.scale(this.anchor.getLeft())
                                 : (this.anchor.getRight() != null
                                 ? parent.absoluteBounds.getWidth() - c.safeScale(this.getWidth() + this.anchor.getRight(), 0)
                                 : xOfCenterComponent()));
                 double minY = parent.absoluteBounds.getMinY() +
                         (this.anchor.getTop() != null
-                                ? c.safeScale(this.anchor.getTop())
+                                ? c.scale(this.anchor.getTop())
                                 : (this.anchor.getBottom() != null
                                 ? parent.absoluteBounds.getHeight() - c.safeScale(this.getHeight() + this.anchor.getBottom(), 0)
                                 : yOfCenterComponent()));
                 // recalculate width/height because anchor both sides extends self (by parent width/height)
-                double width = this.anchor.getLeft() != null ? (this.anchor.getRight() != null ? parent.absoluteBounds.getWidth() - c.safeScale(this.anchor.getLeftRight(), 0) :
-                        c.safeScale(getWidth(), 0)) :
-                        c.safeScale(getWidth(), 0);
-                double height = this.anchor.getTop() != null ? (this.anchor.getBottom() != null ? parent.absoluteBounds.getHeight() - c.safeScale(this.anchor.getTopBottom(), 0) :
-                        c.safeScale(getHeight(), 0)) :
-                        c.safeScale(getHeight(), 0);
+                double width = this.anchor.getLeft() != null
+                        ? (this.anchor.getRight() != null
+                        ? parent.absoluteBounds.getWidth() - c.safeScale(this.anchor.getLeftRight(), 0)
+                        : c.safeScale(getWidth(), 0))
+                        : c.safeScale(getWidth(), 0);
+                double height = this.anchor.getTop() != null
+                        ? (this.anchor.getBottom() != null
+                        ? parent.absoluteBounds.getHeight() - c.safeScale(this.anchor.getTopBottom(), 0)
+                        : c.safeScale(getHeight(), 0))
+                        : c.safeScale(getHeight(), 0);
                 this.absoluteBounds = new Rectangle2D(minX, minY, width, height);
             }
             else {
                 this.absoluteBounds = new Rectangle2D(
-                        parent.absoluteBounds.getMinX() + c.safeScale(bounds.getMinX(), 0),
-                        parent.absoluteBounds.getMinY() + c.safeScale(bounds.getMinY(), 0),
+                        parent.absoluteBounds.getMinX() + c.scale(bounds.getMinX()),
+                        parent.absoluteBounds.getMinY() + c.scale(bounds.getMinY()),
                         c.safeScale(bounds.getWidth(), 1),
                         c.safeScale(bounds.getHeight(), 1));
             }
         }
         else {
-            this.absoluteBounds = c.safeScale(this.bounds, 1);
+            this.absoluteBounds = c.scale(this.bounds);
         }
         this.updateShape();
     }

@@ -48,7 +48,7 @@ public class Selection implements Drawable {
 //        }
 //        else {
 
-        this.absoluteBounds = c.safeScale(RectangleUtils.enlarge(this.drawable.getAbsoluteBounds(), 5f), 1);
+        this.absoluteBounds = c.scale(RectangleUtils.enlarge(this.drawable.getAbsoluteBounds(), 5f));
 //        }
     }
 

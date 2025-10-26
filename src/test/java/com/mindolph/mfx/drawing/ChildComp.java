@@ -50,6 +50,6 @@ public class ChildComp extends Component {
                 super.absoluteBounds.getMinY(),
                 super.absoluteBounds.getWidth(),
                 super.absoluteBounds.getHeight(),
-                Color.RED, this.fill);
+                this.fill, this.fill);
     }
 }

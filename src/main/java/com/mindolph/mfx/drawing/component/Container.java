@@ -1,9 +1,13 @@
 package com.mindolph.mfx.drawing.component;
 
 import com.mindolph.mfx.drawing.Context;
-import com.mindolph.mfx.drawing.Drawable;
 import com.mindolph.mfx.drawing.Graphics;
+import com.mindolph.mfx.drawing.Layer;
+import com.mindolph.mfx.drawing.constant.ExtendDirection;
+import com.mindolph.mfx.util.RectangleUtils;
 import javafx.geometry.Rectangle2D;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -12,7 +16,11 @@ import java.util.*;
  */
 public class Container extends Component {
 
+    private static final Logger log = LoggerFactory.getLogger(Container.class);
+
     protected Collection<Component> children;
+
+    protected Set<ExtendDirection> extendDirections = ExtendDirection.RIGHT_DOWN;
 
     public Container() {
     }
@@ -64,10 +72,15 @@ public class Container extends Component {
     }
 
     private void measureBounds() {
-        this.bounds = new Rectangle2D(this.bounds.getMinX(), this.bounds.getMinY(),
-                Math.max(this.bounds.getWidth(), Component.calcMaxExtentWidth(this.children)),
-                Math.max(this.bounds.getHeight(), Component.calcMaxExtentHeight(this.children))
+        double extendedWith = Math.max(this.bounds.getWidth(), Component.calcMaxExtentWidth(this.children));
+        double extendedHeight = Math.max(this.bounds.getHeight(), Component.calcMaxExtentHeight(this.children));
+        this.bounds = new Rectangle2D(
+                this.extendDirections.contains(ExtendDirection.LEFT) ? this.bounds.getMaxX() - extendedWith : this.bounds.getMinX(),
+                this.extendDirections.contains(ExtendDirection.UP) ? this.bounds.getMaxY() - extendedHeight : this.bounds.getMinY(),
+                extendedWith,
+                extendedHeight
         );
+        if (log.isDebugEnabled()) log.debug("Measured bounds: %s".formatted(RectangleUtils.rectangleInStr(this.bounds)));
     }
 
     public void updateBounds(Context c) {
@@ -78,8 +91,15 @@ public class Container extends Component {
                 child.updateBounds(c);
             }
         }
+        if(log.isDebugEnabled()) log.debug("Updated bounds: %s".formatted(RectangleUtils.rectangleInStr(this.absoluteBounds)));
     }
 
+    /**
+     * Used for {@link Group} and {@link Layer}
+     *
+     * @param g
+     * @param c
+     */
     public void drawChildren(Graphics g, Context c) {
         if (this.children != null) {
             for (Component child : this.children) {
@@ -126,5 +146,9 @@ public class Container extends Component {
 
     public Collection<Component> getChildren() {
         return List.copyOf(this.children);
+    }
+
+    public void setExtendDirections(Set<ExtendDirection> extendDirections) {
+        this.extendDirections = extendDirections;
     }
 }
