@@ -65,8 +65,8 @@ public class Container extends Component {
 
     private void measureBounds() {
         this.bounds = new Rectangle2D(this.bounds.getMinX(), this.bounds.getMinY(),
-                Math.max(this.bounds.getWidth(), Drawable.calcMaxExtentWidth(this.children)),
-                Math.max(this.bounds.getHeight(), Drawable.calcMaxExtentHeight(this.children))
+                Math.max(this.bounds.getWidth(), Component.calcMaxExtentWidth(this.children)),
+                Math.max(this.bounds.getHeight(), Component.calcMaxExtentHeight(this.children))
         );
     }
 

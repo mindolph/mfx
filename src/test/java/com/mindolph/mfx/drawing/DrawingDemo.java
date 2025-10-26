@@ -202,15 +202,22 @@ public class DrawingDemo implements Initializable {
         RectangleComp childContainer1 = new RectangleComp(400, 100, 200, 80);
         RectangleComp childContainer2 = new RectangleComp(400, 200, 200, 80);
         RectangleComp childContainer3 = new RectangleComp(400, 300, 200, 80);
+        RectangleComp childContainer4 = new RectangleComp(400, 400, 200, 80);
         this.childCompToEnlarge = new ChildComp(25, 20, 40, 40, Color.PURPLE);
         this.textCompToEnlarge = new TextComp(25, 70, 175, 20);
 
         ChildComp childOfChild1 = new ChildComp(40, 30, Color.PURPLE);
         ChildComp childOfChild2 = new ChildComp(40, 30, Color.PURPLE);
         ChildComp childOfChild3 = new ChildComp(250, 30, Color.PURPLE);
+        ChildComp childOfChild4_1 = new ChildComp(250, 30, Color.PURPLE); // extends the parent
+        ChildComp childOfChild4_2 = new ChildComp(30, 30, Color.PURPLE); // dock to right of the parent.
+        ChildComp childOfChild4_3 = new ChildComp(30, 30, Color.PURPLE); // dock to bottom of the parent.
         childOfChild1.setAnchor(new Anchor(null, 15.0, 15.0, null));
         childOfChild2.setAnchor(new Anchor(15.0, null, 15.0, null));
         childOfChild3.setAnchor(new Anchor(15.0, null, 15.0, null));
+        childOfChild4_1.setAnchor(new Anchor(15.0, 15.0, 55.0, 55.0));
+        childOfChild4_2.setAnchor(new Anchor(null, null, 15.0, null));
+        childOfChild4_3.setAnchor(new Anchor(null, null, null, 15.0));
 
         // == relations ==
         // root
@@ -226,15 +233,18 @@ public class DrawingDemo implements Initializable {
         childContainer2.add(childOfChild2);
         // left right anchor to parent and extend the parent
         childContainer3.add(childOfChild3);
+        // 2 sub components
+        childContainer4.addAll(childOfChild4_1, childOfChild4_2, childOfChild4_3);
         // group them
-        Group groupLevel1 = Group.of(childContainer1, childContainer2, childContainer3);
+        Group groupLevel1 = Group.of(childContainer1, childContainer2, childContainer3, childContainer4);
         layerCanvas.addAll(l2, groupRoot, groupLevel1);
 
         // TODO the connector must be defined after grouped components, this should be changed.
         BezierConnector rootToChild1 = new BezierConnector(rootContainer, childContainer1, 200, 40, 0, 40);
         BezierConnector rootToChild2 = new BezierConnector(rootContainer, childContainer2, 200, 40, 0, 40);
         BezierConnector rootToChild3 = new BezierConnector(rootContainer, childContainer3, 200, 40, 0, 40);
-        layerCanvas.addAll(l1, rootToChild1, rootToChild2, rootToChild3);
+        BezierConnector rootToChild4 = new BezierConnector(rootContainer, childContainer4, 200, 40, 0, 40);
+        layerCanvas.addAll(l1, rootToChild1, rootToChild2, rootToChild3, rootToChild4);
 
 //        RectangleComp rectGroupWithGroup = new RectangleComp(450, 400, 100, 50);
 //        Group groupOfGroup = Group.of(group, rectGroupWithGroup);

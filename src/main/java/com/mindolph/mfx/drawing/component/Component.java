@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * Component drawing on canvas, any component has its parent component but no subcomponents.
@@ -94,10 +95,18 @@ public class Component extends BaseComponent {
 //        this.layer.add(this);
 //    }
 
+    static <T extends Component> double calcMaxExtentWidth(Collection<T> elements) {
+        return elements.stream().map(Component::getExtentWidth).reduce(0.0, Double::max);
+    }
+
+    static <T extends Component> double calcMaxExtentHeight(Collection<T> elements) {
+        return elements.stream().map(Component::getExtentHeight).reduce(0.0, Double::max);
+    }
 
     @Override
     public void draw(Graphics g, Context context) {
-        if (log.isDebugEnabled()) log.debug("draw component: %s (%s)".formatted(this.getId(), this.getClass().getSimpleName()));
+        if (log.isDebugEnabled())
+            log.debug("draw component: %s (%s)".formatted(this.getId(), this.getClass().getSimpleName()));
         if (context.isDebugMode()) {
             g.setStroke(1, StrokeType.DASHES);
             g.drawRect(this.absoluteBounds, Color.RED, null);
@@ -110,19 +119,24 @@ public class Component extends BaseComponent {
             if (this.anchor != null) {
                 // if both sides do not set, center the component.
                 double minX = parent.absoluteBounds.getMinX() +
-                        c.safeScale(this.anchor.getLeft() != null ? this.anchor.getLeft() :
-                                (this.anchor.getRight() != null ? parent.absoluteBounds.getWidth() - this.getWidth() - this.anchor.getRight() :
-                                        xOfCenterComponent()), 0);
+                        (this.anchor.getLeft() != null
+                                ? c.safeScale(this.anchor.getLeft())
+                                : (this.anchor.getRight() != null
+                                ? parent.absoluteBounds.getWidth() - c.safeScale(this.getWidth() + this.anchor.getRight(), 0)
+                                : xOfCenterComponent()));
                 double minY = parent.absoluteBounds.getMinY() +
-                        c.safeScale(this.anchor.getTop() != null ? this.anchor.getTop() :
-                                (this.anchor.getBottom() != null ? parent.absoluteBounds.getHeight() - this.getHeight() - this.anchor.getBottom() :
-                                        yOfCenterComponent()), 0);
-                double width = c.safeScale(this.anchor.getLeft() != null ? (this.anchor.getRight() != null ? parent.absoluteBounds.getWidth() - this.anchor.getLeftRight() :
-                        getWidth()) :
-                        getWidth(), 0);
-                double height = c.safeScale(this.anchor.getTop() != null ? (this.anchor.getBottom() != null ? parent.absoluteBounds.getHeight() - this.anchor.getTopBottom() :
-                        getHeight()) :
-                        getHeight(), 0);
+                        (this.anchor.getTop() != null
+                                ? c.safeScale(this.anchor.getTop())
+                                : (this.anchor.getBottom() != null
+                                ? parent.absoluteBounds.getHeight() - c.safeScale(this.getHeight() + this.anchor.getBottom(), 0)
+                                : yOfCenterComponent()));
+                // recalculate width/height because anchor both sides extends self (by parent width/height)
+                double width = this.anchor.getLeft() != null ? (this.anchor.getRight() != null ? parent.absoluteBounds.getWidth() - c.safeScale(this.anchor.getLeftRight(), 0) :
+                        c.safeScale(getWidth(), 0)) :
+                        c.safeScale(getWidth(), 0);
+                double height = this.anchor.getTop() != null ? (this.anchor.getBottom() != null ? parent.absoluteBounds.getHeight() - c.safeScale(this.anchor.getTopBottom(), 0) :
+                        c.safeScale(getHeight(), 0)) :
+                        c.safeScale(getHeight(), 0);
                 this.absoluteBounds = new Rectangle2D(minX, minY, width, height);
             }
             else {
@@ -228,6 +242,32 @@ public class Component extends BaseComponent {
 
     public double getHeight() {
         return bounds.getHeight();
+    }
+
+    /**
+     * Calculate the extent width whether anchored or not.
+     *
+     * @return
+     */
+    public double getExtentWidth() {
+        return anchor == null
+                ? (this.getBounds().getMaxX())
+                : ((anchor.getLeft() == null
+                ? (anchor.getRight() == null ? this.getWidth() : anchor.getRight() + this.getWidth())
+                : (anchor.getRight() == null ? this.getWidth() + anchor.getLeft() : this.getWidth() + anchor.getLeftRight())));
+    }
+
+    /**
+     * Calculate the extent height whether anchored or not.
+     *
+     * @return
+     */
+    public double getExtentHeight() {
+        return anchor == null
+                ? (this.getBounds().getMaxY())
+                : ((anchor.getTop() == null
+                ? (anchor.getBottom() == null ? this.getHeight() : anchor.getBottom() + this.getHeight())
+                : (anchor.getBottom() == null ? this.getHeight() + anchor.getTop() : this.getHeight() + anchor.getTopBottom())));
     }
 
     @Override
