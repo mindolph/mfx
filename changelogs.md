@@ -7,6 +7,9 @@ v3.0
 * add new `close()` method to dialog controller to close dialog externally.
 * add new `addCommentToImageAndSave()` method to `AwtImageUtils`.
 
+v2.0.4
+* replace log4j2 with logback.
+
 v2.0.3
 * add label to `RadioDialogBuilder`.
 * update dependencies.
