@@ -95,6 +95,18 @@
             <version>${controlsfx.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-commons</artifactId>
+            <version>17.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-17</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
     <repositories>

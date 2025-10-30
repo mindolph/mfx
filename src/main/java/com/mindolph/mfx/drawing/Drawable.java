@@ -19,10 +19,11 @@ public interface Drawable {
         return RectangleUtils.union(drawable1.getBounds(), drawable2.getBounds());
     }
 
-
     void draw(Graphics g, Context context);
 
     Layer getLayer();
+
+    void setLayer(Layer layer);
 
     /**
      * Update bounds from context, like scaling etc.

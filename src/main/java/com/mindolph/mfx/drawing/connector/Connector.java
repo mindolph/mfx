@@ -50,6 +50,7 @@ public class Connector extends BaseComponent {
     protected boolean activated;
 
     public Connector(Component from, Component to) {
+        super();
         this.from = from;
         this.to = to;
         this.pointFrom = new Point2D(0, 0);
@@ -59,6 +60,7 @@ public class Connector extends BaseComponent {
     }
 
     public Connector(Component from, Component to, Point2D pointFrom, Point2D pointTo) {
+        super();
         this.from = from;
         this.to = to;
         this.pointFrom = pointFrom;
@@ -68,6 +70,7 @@ public class Connector extends BaseComponent {
     }
 
     public Connector(Component from, Component to, double x1, double y1, double x2, double y2) {
+        super();
         this.from = from;
         this.to = to;
         this.pointFrom = new Point2D(x1, y1);
@@ -154,6 +157,11 @@ public class Connector extends BaseComponent {
     @Override
     public Layer getLayer() {
         return layer;
+    }
+
+    @Override
+    public void setLayer(Layer layer) {
+        this.layer = layer;
     }
 
     @Override

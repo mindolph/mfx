@@ -24,6 +24,8 @@ public class Layer {
 
     private final String name;
 
+    private boolean visible = true;
+
     private final List<Drawable> drawables;
 
     public Layer(String name) {
@@ -31,10 +33,18 @@ public class Layer {
         this.drawables = new LinkedList<>();
     }
 
+    public Layer(String name, boolean visible) {
+        this.name = name;
+        this.visible = visible;
+        this.drawables = new LinkedList<>();
+    }
+
     public void add(Drawable drawable) {
         drawables.add(drawable);
+        drawable.setLayer(this); // attach to layer
         if (drawable instanceof Container c) {
             drawables.addAll(c.getDescendants());
+            c.getDescendants().forEach(d -> d.setLayer(this)); // attach to layer for all descendants.
         }
     }
 
@@ -44,11 +54,13 @@ public class Layer {
         }
     }
 
-    public void remove(Drawable drawable) {
-        drawables.remove(drawable);
+    public boolean remove(Drawable drawable) {
+        drawable.setLayer(null);
+        return drawables.remove(drawable);
     }
 
     public void removeAll() {
+        drawables.forEach(d -> d.setLayer(null));
         drawables.clear();
     }
 
@@ -65,15 +77,19 @@ public class Layer {
     }
 
     public void draw(Graphics g, Context c) {
-        if (log.isTraceEnabled()) log.trace("Draw for layer %s".formatted(name));
+        if (!visible) {
+            if (log.isTraceEnabled()) log.trace("Layer %s is invisible".formatted(name));
+            return;
+        }
+        if (log.isDebugEnabled()) log.debug("Draw for layer %s".formatted(name));
         for (Drawable drawable : drawables) {
-            if (drawable instanceof Component) {
+            if (drawable instanceof Component comp) {
                 if (log.isTraceEnabled())
-                    log.trace(String.format("Draw %s %s%n", drawable, RectangleUtils.rectangleInStr(drawable.getAbsoluteBounds())));
+                    log.trace(String.format("Draw %s %s", comp.getId(), RectangleUtils.rectangleInStr(drawable.getAbsoluteBounds())));
             }
             else if (drawable instanceof Connector cnt) {
                 if (log.isTraceEnabled())
-                    log.trace(String.format("Draw %s %s %s%n", drawable, PointUtils.pointInStr(cnt.getAbsolutePointFrom()), PointUtils.pointInStr(cnt.getAbsolutePointTo())));
+                    log.trace(String.format("Draw %s %s %s", cnt.getId(), PointUtils.pointInStr(cnt.getAbsolutePointFrom()), PointUtils.pointInStr(cnt.getAbsolutePointTo())));
             }
             if (g.getClipBounds().intersects(drawable.getAbsoluteBounds())) {
                 drawable.draw(g, c);
@@ -118,5 +134,20 @@ public class Layer {
 
     public String getName() {
         return name;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    @Override
+    public String toString() {
+        return "Layer{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

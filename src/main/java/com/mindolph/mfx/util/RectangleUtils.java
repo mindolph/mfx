@@ -17,6 +17,20 @@ public class RectangleUtils {
                 rectangle2D.getWidth(), rectangle2D.getHeight());
     }
 
+    /**
+     * Include maxX and maxY
+     *
+     * @param rectangle2D
+     * @return
+     */
+    public static String rectangleAllInStr(Rectangle2D rectangle2D) {
+        if (rectangle2D == null) {
+            return null;
+        }
+        return String.format("(%.2f, %.2f) (%.1f, %.1f) (%.1f x %.1f)", rectangle2D.getMinX(), rectangle2D.getMinY(),
+                rectangle2D.getMaxX(), rectangle2D.getMaxY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+    }
+
     public static String sizeInStr(Rectangle2D rectangle2D) {
         if (rectangle2D == null) {
             return null;
@@ -56,6 +70,10 @@ public class RectangleUtils {
 
     public static Rectangle2D newWithHeight(Rectangle2D bounds, double height) {
         return new Rectangle2D(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), height);
+    }
+
+    public static Rectangle2D newWithWidthHeight(Rectangle2D bounds, double width, double height) {
+        return new Rectangle2D(bounds.getMinX(), bounds.getMinY(), width, height);
     }
 
     public static Rectangle2D newZero() {

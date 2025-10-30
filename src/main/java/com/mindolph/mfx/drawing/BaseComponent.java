@@ -1,5 +1,7 @@
 package com.mindolph.mfx.drawing;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,11 @@ import java.io.Serializable;
  */
 public abstract class BaseComponent implements Drawable {
     protected Serializable id;
-    protected boolean activated;
+    protected boolean activated = false;
+
+    public BaseComponent() {
+        this.id = RandomStringUtils.secure().nextAlphabetic(8);
+    }
 
     public Serializable getId() {
         return id;

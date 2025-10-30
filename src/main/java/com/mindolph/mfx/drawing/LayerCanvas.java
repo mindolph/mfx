@@ -205,7 +205,7 @@ public class LayerCanvas {
         }
         selectionLayer.draw(this.g, this.context);
     }
-    
+
     public List<Drawable> getElements() {
         return layers.stream().flatMap((Function<Layer, Stream<Drawable>>) layer -> layer.getElements().stream()).toList();
     }

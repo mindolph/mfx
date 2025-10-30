@@ -10,11 +10,7 @@ public class ChildComp extends Component {
     private Color fill = Color.GREEN;
 
     public ChildComp() {
-    }
-
-    public ChildComp(Rectangle2D bounds, Color fill) {
-        super(bounds, new Anchor(null, null, 10.0, null));
-        this.fill = fill;
+        super();
     }
 
     /**
@@ -31,7 +27,7 @@ public class ChildComp extends Component {
     }
 
     /**
-     * Anchor to right side.
+     * Anchor to right side by default.
      *
      * @param width
      * @param height

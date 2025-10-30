@@ -7,15 +7,15 @@ import javafx.scene.shape.Shape;
 /**
  * for testing.
  */
-public class RectangleComp extends Container {
+public class RectangleContainer extends Container {
 
     private Color fill = Color.GREEN;
 
-    public RectangleComp(double x, double y, double width, double height) {
+    public RectangleContainer(double x, double y, double width, double height) {
         super(x, y, width, height);
     }
 
-    public RectangleComp(double x, double y, double width, double height, Color fill) {
+    public RectangleContainer(double x, double y, double width, double height, Color fill) {
         super(x, y, width, height);
         this.fill = fill;
     }

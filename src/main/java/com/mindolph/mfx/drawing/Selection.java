@@ -37,6 +37,11 @@ public class Selection implements Drawable {
         return layer;
     }
 
+    @Override
+    public void setLayer(Layer layer) {
+        this.layer = layer;
+    }
+
     public void updateBounds(Context c) {
 //        if (drawable != null) {
 //            double ext = 4f;

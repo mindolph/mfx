@@ -27,20 +27,20 @@ public class TextComp extends Component {
     private static final Logger log = LoggerFactory.getLogger(TextComp.class);
     public static final String LINE_SEPARATOR = "\n";
 
-    private Font font = Font.getDefault();
-    private Font scaledFont = Font.getDefault();
-    private Color color = Color.BLACK;
+    protected Font font = Font.getDefault();
+    protected Font scaledFont = Font.getDefault();
+    protected double scaledFontSize;
+    protected Color color = Color.BLACK;
     private TextAlign textAlign = TextAlign.LEFT;
 
     // the bounds of text is scaled.
-    private Text text;
+    protected Text text;
 
     // the bounds of lines text is scaled.
     private List<Text> lines;
 
-    private double scaledFontSize;
-
     public TextComp() {
+        super();
     }
 
     public TextComp(Rectangle2D bounds) {
@@ -51,29 +51,36 @@ public class TextComp extends Component {
         super(x, y, width, height);
     }
 
-
     public void updateText(String text) {
+        this.updateText(text, this.font);
+    }
+
+    public void updateText(String text, Font font) {
         if (StringUtils.isNotBlank(text)) {
-            log.debug("Update text '{}'", text);
+            log.debug("[%s] Update text '%s'".formatted(id, text));
+            this.font = font;
             this.text = new Text(text);
-            this.text.setFont(scaledFont);
+            this.text.setFont(font);
             String[] texts = StringUtils.split(text, LINE_SEPARATOR);
-            this.lines = Arrays.stream(texts).map(text1 -> {
-                Text t = new Text(text1);
-                t.setFont(scaledFont);
+            this.lines = Arrays.stream(texts).map(l -> {
+                Text t = new Text(l);
+                t.setFont(font);
                 return t;
             }).toList();
+            Bounds textBounds = this.text.getLayoutBounds();
+            log.debug("[%s] Text layout bounds %s with font %s".formatted(id, BoundsUtils.boundsInString(textBounds), scaledFont));
+            super.bounds = RectangleUtils.newWithWidthHeight(super.bounds, textBounds.getWidth(), textBounds.getHeight());
+            log.debug("[%s] TextComp bounds: %s".formatted(id, RectangleUtils.rectangleAllInStr(super.bounds)));
+            log.debug("  %s - %s".formatted(super.bounds.getMaxX(), super.bounds.getMaxY()));
         }
     }
 
     @Override
     public void updateBounds(Context c) {
-        this.scaledFontSize = c.safeScale(getFont().getSize());
-        this.scaledFont = FontUtils.newFontWithSize(getFont(), scaledFontSize);
-
+        this.scaledFontSize = c.safeScale(font.getSize());
+        this.scaledFont = FontUtils.newFontWithSize(font, scaledFontSize);
         // re-update text because the text bounds might be scaled.
         updateText(this.text.getText());
-        log.debug(BoundsUtils.boundsInString(this.text.getLayoutBounds()));
 
         double maxWidth = 0.0d;
         double maxHeight = 0.0d;
@@ -102,14 +109,14 @@ public class TextComp extends Component {
                     c.safeScale(super.getMinX(), 0), c.safeScale(super.getMinY(), 0),
                     maxWidth, maxHeight);
         }
-        log.debug("Text Bounds: %s".formatted(RectangleUtils.rectangleInStr(this.absoluteBounds)));
+        log.debug("[%s] Text Bounds: %s".formatted(id, RectangleUtils.rectangleInStr(this.absoluteBounds)));
 //        super.updateBounds(c);
     }
 
     @Override
     public void draw(Graphics g, Context c) {
         if (log.isDebugEnabled())
-            log.debug("Draw TextComp: %s(%d)".formatted(StringUtils.abbreviate(this.text.getText(), 20), this.text.getText().length()));
+            log.debug("[%s] Draw TextComp: %s(%d) %s".formatted(id, StringUtils.abbreviate(this.text.getText(), 20), this.text.getText().length(), RectangleUtils.rectangleInStr(this.absoluteBounds)));
         super.draw(g, c);
         double posy = this.absoluteBounds.getMinY() + this.scaledFontSize;
         g.setFont(this.scaledFont);
@@ -120,7 +127,7 @@ public class TextComp extends Component {
         }
     }
 
-    private double getPosx(Text l) {
+    protected double getPosx(Text l) {
         double posx;
         switch (this.textAlign) {
             case LEFT -> {
@@ -135,14 +142,6 @@ public class TextComp extends Component {
             default -> throw new Error("unsupported text alignment");
         }
         return posx;
-    }
-
-    public Font getFont() {
-        return this.font;
-    }
-
-    public void setFont(Font font) {
-        this.font = font;
     }
 
     public Color getColor() {
@@ -161,8 +160,11 @@ public class TextComp extends Component {
         this.textAlign = textAlign;
     }
 
-
     public String getText() {
         return this.text.getText();
+    }
+
+    public Font getFont() {
+        return font;
     }
 }

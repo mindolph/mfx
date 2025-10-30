@@ -7,21 +7,23 @@
 <AnchorPane prefHeight="800.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mindolph.mfx.drawing.DrawingDemo">
     <VBox layoutX="50.0" layoutY="31.0" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
 
-        <HBox>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                <RadioButton fx:id="rbBasic" mnemonicParsing="false" text="Basic"/>
-                <RadioButton fx:id="rbComplex" mnemonicParsing="false" text="Complex"/>
-            </ToolBar>
-            <CheckBox fx:id="ckbDebug">Debug</CheckBox>
-        </HBox>
-        <HBox>
+        <HBox VBox.vgrow="ALWAYS">
             <Canvas fx:id="canvas" height="660.0" width="880" HBox.hgrow="ALWAYS" />
-            <CheckListView fx:id="layerList" prefWidth="200" />
+            <VBox spacing="10">
+                <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                    <RadioButton fx:id="rbBasic" mnemonicParsing="false" text="Basic"/>
+                    <RadioButton fx:id="rbComplex" mnemonicParsing="false" text="Complex"/>
+                </ToolBar>
+                <CheckBox fx:id="ckbDebug">Debug</CheckBox>
+                <CheckListView fx:id="layerList" prefWidth="200" VBox.vgrow="ALWAYS"/>
+            </VBox>
         </HBox>
         <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <Button fx:id="btnRedraw" mnemonicParsing="false" onAction="#onRedraw" text="Redraw" />
             <Button fx:id="btnZoomIn" mnemonicParsing="false" onAction="#onZoomIn" text="Zoom in" />
             <Button fx:id="btnZoomOut" mnemonicParsing="false" onAction="#onZoomOut" text="Zoom out" />
             <Button fx:id="btnEnlarge" mnemonicParsing="false" onAction="#onEnlarge" text="Enlarge " />
+            <Button fx:id="btnShrink" mnemonicParsing="false" onAction="#onShrink" text="Shrink " />
         </ToolBar>
     </VBox>
 </AnchorPane>

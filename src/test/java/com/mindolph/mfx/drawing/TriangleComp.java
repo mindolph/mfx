@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 public class TriangleComp extends Container {
 
     public TriangleComp() {
+        super();
     }
 
     public TriangleComp(Rectangle2D bounds) {

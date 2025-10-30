@@ -13,7 +13,7 @@
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <Button mnemonicParsing="false" onAction="#onSideTabPane" text="SideTabPane"/>
             <Button mnemonicParsing="false" onAction="#onEditCheckListView" text="EditCheckListView"/>
-            <Button mnemonicParsing="false" onAction="#onDrawingDemo" text="Drawing" />
+<!--            <Button mnemonicParsing="false" onAction="#onDrawingDemo" text="Drawing" />-->
             <Button mnemonicParsing="false" onAction="#onControlsDemo" text="Controls" />
         </ToolBar>
         <Label fx:id="label"/>

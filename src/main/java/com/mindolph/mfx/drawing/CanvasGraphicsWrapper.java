@@ -229,6 +229,13 @@ public class CanvasGraphicsWrapper implements Graphics {
     }
 
     @Override
+    public void drawImage(Image image, Rectangle2D rect) {
+        if (image != null) {
+            gc.drawImage(image, rect.getMinX(), rect.getMinY(), rect.getWidth(), rect.getHeight());
+        }
+    }
+
+    @Override
     public double getFontMaxAscent() {
         // use font size as max ascent for now.(as workaround for topic text bias in the exported PNG file) TODO
         return this.gc.getFont().getSize();

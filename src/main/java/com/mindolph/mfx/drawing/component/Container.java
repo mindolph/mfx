@@ -23,6 +23,7 @@ public class Container extends Component {
     protected Set<ExtendDirection> extendDirections = ExtendDirection.RIGHT_DOWN;
 
     public Container() {
+        super();
     }
 
     public Container(Rectangle2D bounds) {
@@ -51,6 +52,11 @@ public class Container extends Component {
         this.children.add(child);
         child.parent = this;
 
+        // add to container requires to add to it's layer too.
+        if (super.layer != null && !super.layer.contains(child)) {
+            super.layer.add(child);
+        }
+
         // adjust bounds if subcomponents bounds is larger.
         this.measureBounds();
     }
@@ -64,6 +70,12 @@ public class Container extends Component {
 
     public void remove(Component child) {
         if (this.children != null) {
+            if (super.layer != null) {
+                // the removed child must have been added to the same layer either.
+                if (!super.layer.remove(child)) {
+                    log.warn("Child component to be moved %s is not in the layer: %s".formatted(child.getId(), super.layer.getName()));
+                }
+            }
             if (this.children.remove(child)) {
                 child.parent = null;
 //                this.measureBounds();
@@ -80,7 +92,8 @@ public class Container extends Component {
                 extendedWith,
                 extendedHeight
         );
-        if (log.isDebugEnabled()) log.debug("Measured bounds: %s".formatted(RectangleUtils.rectangleInStr(this.bounds)));
+        if (log.isDebugEnabled())
+            log.debug("[%s] Measured bounds: %s".formatted(id, RectangleUtils.rectangleInStr(this.bounds)));
     }
 
     public void updateBounds(Context c) {
@@ -91,7 +104,8 @@ public class Container extends Component {
                 child.updateBounds(c);
             }
         }
-        if(log.isDebugEnabled()) log.debug("Updated bounds: %s".formatted(RectangleUtils.rectangleInStr(this.absoluteBounds)));
+        if (log.isDebugEnabled())
+            log.debug("[%s] Updated absolute bounds: %s".formatted(id, RectangleUtils.rectangleInStr(this.absoluteBounds)));
     }
 
     /**

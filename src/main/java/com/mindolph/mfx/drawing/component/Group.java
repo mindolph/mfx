@@ -24,6 +24,7 @@ public class Group extends Component {
     protected Collection<Drawable> components;
 
     public Group() {
+        super();
     }
 
     public Group(Rectangle2D bounds) {
@@ -107,7 +108,7 @@ public class Group extends Component {
         double width = this.components.stream().map(c -> c.getBounds().getMaxX()).reduce(0.0, Double::max) - x;
         double height = this.components.stream().map(c -> c.getBounds().getMaxY()).reduce(0.0, Double::max) - y;
         this.bounds = new Rectangle2D(x, y, width, height);
-        if (log.isDebugEnabled()) log.debug("Measured bounds: %s".formatted(RectangleUtils.rectangleInStr(this.bounds)));
+        if (log.isDebugEnabled()) log.debug("[%s] Measured bounds: %s".formatted(id, RectangleUtils.rectangleInStr(this.bounds)));
     }
 
     public Collection<Drawable> getComponents() {

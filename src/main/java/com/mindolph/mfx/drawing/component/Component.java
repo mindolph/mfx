@@ -15,7 +15,6 @@ import javafx.scene.shape.Shape;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -27,8 +26,6 @@ import java.util.Collection;
 public class Component extends BaseComponent {
 
     private static final Logger log = LoggerFactory.getLogger(Component.class);
-
-    protected Serializable id;
 
     protected Layer layer;
 
@@ -50,32 +47,30 @@ public class Component extends BaseComponent {
     protected boolean activated;
 
     public Component() {
+        super();
     }
 
     public Component(Rectangle2D bounds) {
+        super();
         this.bounds = bounds;
         this.absoluteBounds = bounds;
     }
 
     public Component(double x, double y, double width, double height) {
+        super();
         this.bounds = new Rectangle2D(x, y, width, height);
         this.absoluteBounds = new Rectangle2D(x, y, width, height);
     }
 
-    public Component(Rectangle2D bounds, Anchor anchor) {
-        this.bounds = bounds;
-        this.absoluteBounds = bounds;
-        this.anchor = anchor;
-    }
-
     /**
-     * Anchored child component.
+     * Anchored child component with default width and height.
      *
      * @param width
      * @param height
      * @param anchor
      */
     public Component(double width, double height, Anchor anchor) {
+        super();
         this.bounds = new Rectangle2D(0, 0, width, height);
         this.absoluteBounds = new Rectangle2D(0, 0, width, height);
         this.anchor = anchor;
@@ -106,7 +101,7 @@ public class Component extends BaseComponent {
     @Override
     public void draw(Graphics g, Context context) {
         if (log.isDebugEnabled())
-            log.debug("draw component: %s (%s)".formatted(this.getId(), this.getClass().getSimpleName()));
+            log.debug("[%s] Draw component: %s %s".formatted(this.getId(), this.getClass().getSimpleName(), RectangleUtils.rectangleInStr(this.absoluteBounds)));
         if (context.isDebugMode()) {
             g.setStroke(1, StrokeType.DASHES);
             g.drawRect(RectangleUtils.enlarge(this.absoluteBounds, 1), Color.RED, null);
@@ -177,25 +172,18 @@ public class Component extends BaseComponent {
     }
 
     public void moveTo(double x, double y) {
+        // TODO consider anchor
         this.bounds = RectangleUtils.newWithXY(this.bounds, x, y);
     }
 
     public void moveTo(Rectangle2D bounds) {
+        // TODO consider anchor
         this.bounds = bounds;
     }
 
     public void moveTo(double x, double y, double width, double height) {
+        // TODO consider anchor
         this.bounds = new Rectangle2D(x, y, width, height);
-    }
-
-    @Override
-    public Serializable getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Serializable id) {
-        this.id = id;
     }
 
     @Override
@@ -255,10 +243,14 @@ public class Component extends BaseComponent {
      */
     public double getExtentWidth() {
         return anchor == null
-                ? (this.getBounds().getMaxX())
+                ? (this.getBounds().getMaxX()) // by default is anchor to left if no anchor is specified.
                 : ((anchor.getLeft() == null
-                ? (anchor.getRight() == null ? this.getWidth() : anchor.getRight() + this.getWidth())
-                : (anchor.getRight() == null ? this.getWidth() + anchor.getLeft() : this.getWidth() + anchor.getLeftRight())));
+                ? (anchor.getRight() == null
+                ? this.getWidth()  // neither sides are anchored.
+                : anchor.getRight() + this.getWidth()) // only right side is anchored.
+                : (anchor.getRight() == null
+                ? this.getWidth() + anchor.getLeft() // only left side is anchored.
+                : this.getWidth() + anchor.getLeftRight()))); // both sides are anchored.
     }
 
     /**
@@ -268,7 +260,7 @@ public class Component extends BaseComponent {
      */
     public double getExtentHeight() {
         return anchor == null
-                ? (this.getBounds().getMaxY())
+                ? (this.getBounds().getMaxY()) // by default is anchor to top if no anchor is specified.
                 : ((anchor.getTop() == null
                 ? (anchor.getBottom() == null ? this.getHeight() : anchor.getBottom() + this.getHeight())
                 : (anchor.getBottom() == null ? this.getHeight() + anchor.getTop() : this.getHeight() + anchor.getTopBottom())));
@@ -279,6 +271,7 @@ public class Component extends BaseComponent {
         return layer;
     }
 
+    @Override
     public void setLayer(Layer layer) {
         this.layer = layer;
     }

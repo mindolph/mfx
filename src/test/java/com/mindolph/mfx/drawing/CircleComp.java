@@ -7,6 +7,7 @@ import javafx.scene.shape.Shape;
 
 public class CircleComp extends Container {
     public CircleComp() {
+        super();
     }
 
     public CircleComp(Rectangle2D bounds) {

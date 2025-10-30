@@ -51,6 +51,8 @@ public interface Graphics {
 
     void drawImage(Image image, double x, double y, double width, double height);
 
+    void drawImage(Image image, Rectangle2D rect);
+
     void setFont(Font font);
 
     double getFontMaxAscent();
