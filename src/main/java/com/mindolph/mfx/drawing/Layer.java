@@ -8,7 +8,7 @@ import javafx.geometry.Point2D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class Layer {
 
     public Layer(String name) {
         this.name = name;
-        this.drawables = new LinkedList<>();
+        this.drawables = new ArrayList<>();
     }
 
     public void add(Drawable drawable) {
@@ -83,7 +83,7 @@ public class Layer {
     }
 
     public List<Drawable> getElements(Point2D point) {
-        List<Drawable> elements = new LinkedList<>();
+        List<Drawable> elements = new ArrayList<>();
         for (Drawable drawable : drawables) {
             if (drawable.getAbsoluteBounds().contains(point)) {
                 elements.add(drawable);

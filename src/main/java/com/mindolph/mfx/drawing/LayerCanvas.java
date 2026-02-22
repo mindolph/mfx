@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -29,18 +29,18 @@ public class LayerCanvas {
     public LayerCanvas(Graphics g, Context context) {
         this.g = g;
         this.context = context;
-        this.layers = new LinkedList<>();
+        this.layers = new ArrayList<>();
         this.layers.add(baseLayer);
-        this.allDrawables = new LinkedList<>();
+        this.allDrawables = new ArrayList<>();
     }
 
     public LayerCanvas(Graphics g, Context context, List<Layer> layers) {
         this.g = g;
         this.context = context;
-        this.layers = new LinkedList<>();
+        this.layers = new ArrayList<>();
         this.layers.add(baseLayer);
         this.layers.addAll(layers);
-        this.allDrawables = new LinkedList<>();
+        this.allDrawables = new ArrayList<>();
     }
 
     public void add(Drawable drawable) {
@@ -113,7 +113,7 @@ public class LayerCanvas {
      */
     public List<Drawable> select(Predicate<Drawable> predicate) {
         Stream<Drawable> selectStream = allDrawables.stream().filter(predicate);
-        List<Drawable> select = new LinkedList<>();
+        List<Drawable> select = new ArrayList<>();
         selectStream.forEach(drawable -> {
             drawable.setActivated(true);
             select.add(drawable);
@@ -129,7 +129,7 @@ public class LayerCanvas {
      */
     public List<Drawable> unSelect(Predicate<Drawable> predicate) {
         Stream<Drawable> unselectStream = allDrawables.stream().filter(predicate);
-        List<Drawable> unselect = new LinkedList<>();
+        List<Drawable> unselect = new ArrayList<>();
         unselectStream.forEach(drawable -> {
             drawable.setActivated(false);
             unselect.add(drawable);
@@ -160,7 +160,7 @@ public class LayerCanvas {
     }
 
     public List<Drawable> getElements(Point2D point) {
-        List<Drawable> drawables = new LinkedList<>();
+        List<Drawable> drawables = new ArrayList<>();
         for (Layer layer : layers) {
             drawables.addAll(layer.getElements(point));
         }

@@ -10,12 +10,12 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <javafx.version>25</javafx.version>
+        <javafx.version>25.0.2</javafx.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <logback.version>1.5.20</logback.version>
+        <logback.version>1.5.32</logback.version>
         <swiftboot.version>2.4.11</swiftboot.version>
         <junit.version>5.13.3</junit.version>
-        <commons.io.version>2.20.0</commons.io.version>
+        <commons.io.version>2.21.0</commons.io.version>
     </properties>
 
     <dependencies>
