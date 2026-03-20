@@ -1,5 +1,6 @@
 package com.mindolph.mfx.control;
 
+import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Control;
 
@@ -19,6 +20,7 @@ public class BaseControl extends Control {
             throw new RuntimeException(String.format("The FXML file does not exist: %s", fxmlResourcePath));
         }
         FXMLLoader loader = new FXMLLoader(fxmUrl);
+        loader.setResources(I18nHelper.getInstance().getResourceBundle());
         loader.setRoot(this);
         loader.setController(this);
         try {

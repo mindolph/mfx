@@ -1,5 +1,6 @@
 package com.mindolph.mfx.dialog;
 
+import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -159,6 +160,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
                     throw new RuntimeException("can't find fxml resource: %s".formatted(fxmlUri));
                 }
                 FXMLLoader loader = new FXMLLoader(uri);
+                loader.setResources(I18nHelper.getInstance().getResourceBundle());
                 if (loader.getController() == null && controller != null) loader.setController(controller);
                 node = loader.load();
                 dialog.getDialogPane().setContent(node);

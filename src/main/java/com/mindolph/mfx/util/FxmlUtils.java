@@ -1,5 +1,6 @@
 package com.mindolph.mfx.util;
 
+import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ public class FxmlUtils {
             throw new RuntimeException(String.format("The FXML file is not exist: %s", fxmlResourceUriPath));
         }
         FXMLLoader loader = new FXMLLoader(fxmUrl);
+        loader.setResources(I18nHelper.getInstance().getResourceBundle());
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -36,6 +38,7 @@ public class FxmlUtils {
             throw new RuntimeException(String.format("The FXML file is not exist: %s", fxmlResourceUriPath));
         }
         FXMLLoader loader = new FXMLLoader(fxmUrl);
+        loader.setResources(I18nHelper.getInstance().getResourceBundle());
         loader.setRoot(rootAndController);
         loader.setController(rootAndController);
         try {

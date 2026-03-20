@@ -6,7 +6,7 @@
 
     <groupId>com.mindolph</groupId>
     <artifactId>mfx</artifactId>
-    <version>3.0</version>
+    <version>3.0.1</version>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

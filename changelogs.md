@@ -1,5 +1,8 @@
+V3.1
+* add multi-language support through new `I18nHelper` class.
+
 v3.0
-* update java language level to 21, update javafx to 25.
+* update java language level to 21, update javafx to 25.0.2.
 * new experimental `PausableChangeListener` to provide more control of value changing of `Property`.
 * new `MChoiceBox` class that extends `ChoiceBox` to provide more functionalities.
 * new `GlobalExecutor` to submit threads.

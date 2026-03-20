@@ -1,5 +1,6 @@
 package com.mindolph.mfx.util;
 
+import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -49,6 +50,7 @@ public class FxUtils {
      */
     public static void loadDialog(URL fxmlResource, Object controller, String title, int width, int height) throws IOException {
         FXMLLoader loader = new FXMLLoader(fxmlResource);
+        loader.setResources(I18nHelper.getInstance().getResourceBundle());
         if (controller != null) loader.setController(controller);
         Parent parent = loader.load();
         Stage stage = new Stage();
