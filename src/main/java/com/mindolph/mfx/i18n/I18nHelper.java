@@ -4,6 +4,7 @@ import com.mindolph.mfx.preference.FxPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -180,43 +181,23 @@ public class I18nHelper {
     }
 
     /**
-     * Get a localized string by key with parameter.
+     * Get a localized string by key with parameters.
      *
      * @param key
-     * @param p1
+     * @param params
      * @return
      */
-    public String get(String key, String p1) {
+    public String get(String key, Object... params) {
         for (ResourceBundle bundle : resourceBundles) {
             try {
-                String v = bundle.getString(key);
-                return v.formatted(p1);
+                String pattern = bundle.getString(key);
+                return MessageFormat.format(pattern, params);
             } catch (Exception e) {
                 // Continue to next bundle
             }
         }
         return key;
     }
-
-    /**
-     * Get a localized string by key with parameters.
-     * @param key
-     * @param p1
-     * @param p2
-     * @return
-     */
-    public String get(String key, String p1, String p2) {
-        for (ResourceBundle bundle : resourceBundles) {
-            try {
-                String v = bundle.getString(key);
-                return v.formatted(p1, p2);
-            } catch (Exception e) {
-                // Continue to next bundle
-            }
-        }
-        return key;
-    }
-
 
     /**
      * Get the primary resource bundle (default messages bundle).
@@ -225,7 +206,7 @@ public class I18nHelper {
      * @return the primary resource bundle
      */
     public ResourceBundle getResourceBundle() {
-        return resourceBundles.isEmpty() ? null : resourceBundles.get(0);
+        return resourceBundles.isEmpty() ? null : resourceBundles.getFirst();
     }
 
     /**
