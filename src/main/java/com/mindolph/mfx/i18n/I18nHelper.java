@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Internationalization helper class for managing application locales and resource bundles.
@@ -30,6 +27,7 @@ public class I18nHelper {
 
     private static I18nHelper instance;
 
+    private ResourceBundle resourceBundle;
     private List<ResourceBundle> resourceBundles;
     private List<String> bundleNames;
     private Locale currentLocale;
@@ -88,15 +86,30 @@ public class I18nHelper {
      */
     private void reloadResourceBundle() {
         resourceBundles.clear();
+        Map<String, Object> map = new HashMap<>();
         for (String bundleName : bundleNames) {
             try {
                 ResourceBundle bundle = ResourceBundle.getBundle(bundleName, currentLocale);
                 resourceBundles.add(bundle);
-                log.info("Resource bundle loaded: {} for locale: {}", bundleName, currentLocale);
+                log.info("Resource bundle loaded: {} for locale: {} with {} strings", bundleName, currentLocale, bundle.keySet().size());
+                for (String key : bundle.keySet()) {
+                    map.put(key, bundle.getString(key));
+                }
             } catch (Exception e) {
                 log.warn("Failed to load resource bundle: {} for locale: {}", bundleName, currentLocale, e);
             }
         }
+        this.resourceBundle = new ResourceBundle() {
+            @Override
+            protected Object handleGetObject(String key) {
+                return map.get(key);
+            }
+
+            @Override
+            public Enumeration<String> getKeys() {
+                return Collections.enumeration(map.keySet());
+            }
+        };
     }
 
     /**
@@ -206,7 +219,7 @@ public class I18nHelper {
      * @return the primary resource bundle
      */
     public ResourceBundle getResourceBundle() {
-        return resourceBundles.isEmpty() ? null : resourceBundles.getFirst();
+        return resourceBundle;
     }
 
     /**
