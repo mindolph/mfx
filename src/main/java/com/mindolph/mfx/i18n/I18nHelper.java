@@ -55,29 +55,7 @@ public class I18nHelper {
         resourceBundles = new ArrayList<>();
         bundleNames = new ArrayList<>();
         bundleNames.add(DEFAULT_BUNDLE_NAME);
-
-        String languageCode = FxPreferences.getInstance().getPreference(LANG_PREF_KEY, "");
-
-        if (languageCode == null || languageCode.isEmpty()) {
-            // Use system default locale if no preference is set
-            currentLocale = Locale.getDefault();
-        }
-        else if ("zh_CN".equals(languageCode)) {
-            currentLocale = Locale.SIMPLIFIED_CHINESE;
-        }
-        else if ("en".equals(languageCode)) {
-            currentLocale = Locale.ENGLISH;
-        }
-        else {
-            currentLocale = Locale.getDefault();
-        }
-
-        // Ensure we only support en and zh_CN
-        if (!Locale.ENGLISH.equals(currentLocale) && !Locale.SIMPLIFIED_CHINESE.equals(currentLocale)) {
-            log.warn("Locale {} is not fully supported, falling back to English", currentLocale);
-            currentLocale = Locale.ENGLISH;
-        }
-
+        this.currentLocale = Locale.getDefault();
         reloadResourceBundle();
     }
 
@@ -229,6 +207,11 @@ public class I18nHelper {
      */
     public List<ResourceBundle> getAllBundles() {
         return resourceBundles;
+    }
+
+    public boolean addBundles(List<String> bundleNames) {
+        boolean result = true;
+        return bundleNames.stream().map(this::addBundle).reduce(result, (b1, b2) -> b1 && b2);
     }
 
     /**
