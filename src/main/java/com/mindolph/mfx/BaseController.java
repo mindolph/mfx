@@ -3,12 +3,14 @@ package com.mindolph.mfx;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
+import org.swiftboot.util.I18nHelper;
 
 /**
  * @author mindolph.com@gmail.com
  */
 public abstract class BaseController {
 
+    protected I18nHelper i18n = I18nHelper.getInstance();
 
     protected void disable(Node... nodes) {
         for (Node node : nodes) {

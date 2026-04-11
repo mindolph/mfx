@@ -1,8 +1,8 @@
 package com.mindolph.mfx.control;
 
-import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Control;
+import org.swiftboot.util.I18nHelper;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,6 +1,5 @@
 package com.mindolph.mfx.dialog;
 
-import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.swiftboot.util.ClasspathResourceUtils;
+import org.swiftboot.util.I18nHelper;
 
 import java.io.IOException;
 import java.net.URL;

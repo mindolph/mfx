@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.swiftboot.util.I18nHelper;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -22,6 +23,8 @@ import java.util.function.Consumer;
 public abstract class BaseDialogController<R> extends BaseController {
 
     private static final Logger log = LoggerFactory.getLogger(BaseDialogController.class);
+
+    protected I18nHelper i18n = I18nHelper.getInstance();
 
     /**
      * The Dialog object.

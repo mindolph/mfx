@@ -1,12 +1,12 @@
 package com.mindolph.mfx.util;
 
-import com.mindolph.mfx.i18n.I18nHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.swiftboot.util.I18nHelper;
 
 import java.io.IOException;
 import java.net.URL;
