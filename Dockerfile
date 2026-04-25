@@ -1,4 +1,4 @@
-FROM maven:3.8.5-openjdk-17 as maven-build
+FROM maven:3.9.15-eclipse-temurin-25
 RUN echo '== start building MFX =='
 RUN mvn --version
 WORKDIR /workspace
