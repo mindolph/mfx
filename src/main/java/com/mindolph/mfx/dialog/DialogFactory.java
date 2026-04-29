@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.swiftboot.util.I18nHelper;
 
 import java.io.File;
 import java.util.Optional;
@@ -15,12 +16,14 @@ import java.util.Optional;
  */
 public class DialogFactory {
 
-    public static final String TITLE_INFORMATION = "Information";
-    public static final String TITLE_WARNING = "Warning";
-    public static final String TITLE_ERROR = "Error";
+    public static final String TITLE_INFORMATION = DialogFactory.i18n.get("mfx.dialog.title.information");
+    public static final String TITLE_WARNING = DialogFactory.i18n.get("mfx.dialog.title.warning");
+    public static final String TITLE_ERROR = DialogFactory.i18n.get("mfx.dialog.title.error");
 
     // Default window to set all dialog's owner.
     public static Window DEFAULT_WINDOW;
+
+    private static I18nHelper i18n = I18nHelper.getInstance();
 
     public static void infoDialog(String msg) {
         AlertBuilder alertBuilder = new AlertBuilder();
@@ -96,10 +99,10 @@ public class DialogFactory {
      */
     public static File openSaveFileDialog(Window window, File initDir, String initialFileName, FileChooser.ExtensionFilter... extensionFilters) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save as");
+        fileChooser.setTitle(i18n.get("mfx.dialog.title.saveAs"));
         fileChooser.setInitialDirectory(initDir);
         fileChooser.setInitialFileName(initialFileName);
-        if (extensionFilters != null && extensionFilters.length > 0) {
+        if (extensionFilters != null) {
             for (FileChooser.ExtensionFilter extensionFilter : extensionFilters) {
                 if (extensionFilter != null) {
                     fileChooser.getExtensionFilters().add(extensionFilter);
@@ -117,7 +120,7 @@ public class DialogFactory {
 
 
     public static boolean okCancelConfirmDialog(String msg) {
-        return okCancelConfirmDialog("Confirm", msg);
+        return okCancelConfirmDialog(i18n.get("mfx.dialog.title.confirm"), msg);
     }
 
     public static boolean okCancelConfirmDialog(String title, String msg) {
@@ -132,7 +135,7 @@ public class DialogFactory {
     }
 
     public static boolean yesNoConfirmDialog(String msg) {
-        return yesNoConfirmDialog("Confirm", msg);
+        return yesNoConfirmDialog(i18n.get("mfx.dialog.title.confirm"), msg);
     }
 
     public static boolean yesNoConfirmDialog(String title, String msg) {
@@ -147,7 +150,7 @@ public class DialogFactory {
     }
 
     public static Boolean yesNoCancelConfirmDialog(String msg) {
-        return yesNoCancelConfirmDialog("Confirm", msg);
+        return yesNoCancelConfirmDialog(i18n.get("mfx.dialog.title.confirm"), msg);
     }
 
     public static Boolean yesNoCancelConfirmDialog(String title, String msg) {
@@ -182,8 +185,8 @@ public class DialogFactory {
                 .title(title)
                 .content(msg);
 
-        ButtonType yesToAll = new ButtonType("Yest to all", ButtonBar.ButtonData.YES);
-        ButtonType noToAll = new ButtonType("No to all", ButtonBar.ButtonData.NO);
+        ButtonType yesToAll = new ButtonType(i18n.get("mfx.dialog.button.yesToAll"), ButtonBar.ButtonData.YES);
+        ButtonType noToAll = new ButtonType(i18n.get("mfx.dialog.button.noToAll"), ButtonBar.ButtonData.NO);
 
         builder.buttons(ButtonType.CANCEL, ButtonType.NO, noToAll, ButtonType.YES, yesToAll)
                 .defaultButton(ButtonType.CANCEL);

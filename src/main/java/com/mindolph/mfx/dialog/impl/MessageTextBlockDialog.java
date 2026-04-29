@@ -72,13 +72,13 @@ public class MessageTextBlockDialog extends BaseDialogController<Void> {
         textArea.setVisible(show);
         textArea.setDisable(!show);
         if (show) {
-            this.btnContent.setText("Hide Detail");
+            this.btnContent.setText(i18n.get("mfx.dialog.button.hideDetail"));
             this.vbox.getChildren().add(textArea);
             if (dialog != null) {
                 dialog.setHeight(400);
             }
         } else {
-            this.btnContent.setText("Show Detail");
+            this.btnContent.setText(i18n.get("mfx.dialog.button.showDetail"));
             this.vbox.getChildren().remove(textArea);
             if (dialog != null) {
                 dialog.setHeight(dialog.getHeight() - this.textArea.getHeight());

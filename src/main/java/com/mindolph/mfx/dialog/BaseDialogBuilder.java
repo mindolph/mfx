@@ -3,6 +3,7 @@ package com.mindolph.mfx.dialog;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Window;
 import org.apache.commons.lang3.StringUtils;
+import org.swiftboot.util.I18nHelper;
 
 /**
  * Base builder for building dialog with title, content, owner, resizable, width, height.
@@ -12,7 +13,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class BaseDialogBuilder<R> {
 
-    protected static final String DEFAULT_DLG_TITLE = "Dialog";
+    protected static final I18nHelper i18n = I18nHelper.getInstance();
+
+    protected static final String DEFAULT_DLG_TITLE = i18n.get("mfx.dialog.title.dialog");
 
     protected String title = DEFAULT_DLG_TITLE;
     protected String header;

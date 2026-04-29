@@ -185,7 +185,7 @@ public class CustomDialogBuilder<T> extends BaseInputDialogBuilder<T, CustomDial
             dialog.getDialogPane().getScene().getWindow().sizeToScene();// 不工作，大概是因为此时content还没加载完成
             return dialog;
         } catch (IOException e) {
-            throw new RuntimeException("Failed to create dialog", e);
+            throw new RuntimeException(i18n.get("mfx.dialog.error.createDialogFailed"), e);
         }
     }
 }

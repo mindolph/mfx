@@ -49,7 +49,7 @@ public class TextBlockDialog extends BaseDialogController<String> {
         dialog.initModality(Modality.NONE);
         dialog.setOnCloseRequest(event -> {
             if (!readonly) {
-                if (!confirmClosing("Text has been changed, are you sure to close the dialog")) {
+                if (!confirmClosing(i18n.get("mfx.dialog.msg.confirmClose"))) {
                     event.consume();
                 }
             }

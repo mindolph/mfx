@@ -1,5 +1,5 @@
-V3.1
-* add multi-language support through new `I18nHelper` class.
+V3.0.1
+* add multi-language support.
 
 v3.0
 * update java language level to 21, update javafx to 25.0.2.

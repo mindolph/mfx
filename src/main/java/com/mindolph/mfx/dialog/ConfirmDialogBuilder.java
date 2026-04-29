@@ -97,7 +97,7 @@ public class ConfirmDialogBuilder extends BaseDialogBuilder<ConfirmDialogBuilder
         List<ButtonType> buttons = Stream.of(positiveType, negativeType, cancelType).filter(Objects::nonNull).toList();
         log.debug("%d buttons".formatted(buttons.size()));
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, buttons.toArray(new ButtonType[]{}));
-        alert.setTitle(DEFAULT_DLG_TITLE.equals(title) ? "Confirm" : title);
+        alert.setTitle(DEFAULT_DLG_TITLE.equals(title) ? i18n.get("mfx.dialog.title.confirm") : title);
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.initOwner(DEFAULT_WINDOW);

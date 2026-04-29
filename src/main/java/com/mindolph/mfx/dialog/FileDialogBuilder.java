@@ -88,7 +88,7 @@ public class FileDialogBuilder extends BaseDialogBuilder<FileDialogBuilder> {
             selectedFile = dirChooser.showDialog(super.owner);
         }
         else {
-            throw new RuntimeException("Choose a dialog type");
+            throw new RuntimeException(i18n.get("mfx.dialog.error.chooseDialogType"));
         }
         return selectedFile;
     }
