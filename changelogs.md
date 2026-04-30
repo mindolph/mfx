@@ -1,5 +1,9 @@
+V3.0.2
+* Supports Traditional Chinese, Japanese, Korean, French, German, Italian, Spanish, European Portuguese, Brazilian Portuguese.
+
 V3.0.1
 * add multi-language support.
+* Supports English, Simplified Chinese.
 
 v3.0
 * update java language level to 21, update javafx to 25.0.2.
