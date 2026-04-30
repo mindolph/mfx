@@ -16,9 +16,9 @@ import java.util.Optional;
  */
 public class DialogFactory {
 
-    public static final String TITLE_INFORMATION = DialogFactory.i18n.get("mfx.dialog.title.information");
-    public static final String TITLE_WARNING = DialogFactory.i18n.get("mfx.dialog.title.warning");
-    public static final String TITLE_ERROR = DialogFactory.i18n.get("mfx.dialog.title.error");
+    public static final String TITLE_INFORMATION = I18nHelper.getInstance().get("mfx.dialog.title.information");
+    public static final String TITLE_WARNING = I18nHelper.getInstance().get("mfx.dialog.title.warning");
+    public static final String TITLE_ERROR = I18nHelper.getInstance().get("mfx.dialog.title.error");
 
     // Default window to set all dialog's owner.
     public static Window DEFAULT_WINDOW;
