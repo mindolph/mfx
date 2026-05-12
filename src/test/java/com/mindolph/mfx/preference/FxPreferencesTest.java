@@ -2,7 +2,9 @@ package com.mindolph.mfx.preference;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,9 +19,13 @@ class FxPreferencesTest {
     private static final String DEFAULT_STRING = "default";
     private static final Integer DEFAULT_INT = 128;
 
+    @BeforeAll
+    public static void setup() {
+        FxPreferences.getInstance().init(FxPreferencesTest.class);
+    }
+
     @Test
     void savePreference() {
-        FxPreferences.getInstance().init(FxPreferencesTest.class);
         FxPreferences fxp = FxPreferences.getInstance();
         fxp.savePreference("key", "value");
         fxp.flush();
@@ -28,7 +34,6 @@ class FxPreferencesTest {
 
     @Test
     void getPreference() {
-        FxPreferences.getInstance().init(FxPreferencesTest.class);
         FxPreferences pp = FxPreferences.getInstance();
         Assertions.assertThrows(Exception.class, () -> pp.getPreference(randomKey(), String.class, null));
         Assertions.assertEquals(DEFAULT_STRING, pp.getPreference(randomKey(), String.class, DEFAULT_STRING));
@@ -45,6 +50,17 @@ class FxPreferencesTest {
 
         Assertions.assertThrows(Exception.class, () -> pp.getPreference(randomKey(), Color.class, null));
         Assertions.assertEquals(Color.RED, pp.getPreference(randomKey(), Color.class, Color.RED));
+    }
+
+    @Test
+    public void getPreferenceSave() {
+        String newKey = RandomStringUtils.secure().nextAlphabetic(10);
+        String newValue = RandomStringUtils.secure().nextAlphabetic(10);
+        String v = FxPreferences.getInstance().getPreferenceSave(newKey, newValue);
+        Assertions.assertEquals(newValue, v);
+        FxPreferences.getInstance().flush();
+        String v2 = FxPreferences.getInstance().getPreference(newKey, String.class);
+        Assertions.assertEquals(newValue, v2);
     }
 
     @Test

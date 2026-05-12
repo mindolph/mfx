@@ -124,12 +124,21 @@ public class FxPreferences {
         return pm.getPreferenceAlias(key, alias, clazz);
     }
 
-    public <T> T getPreference(String key, T def) {
-        return pm.getPreference(key, def);
+    public <T> T getPreference(String key, T defaultValue) {
+        return pm.getPreference(key, defaultValue);
     }
 
-    public <T> T getPreferenceAlias(String key, String alias, T def) {
-        return pm.getPreferenceAlias(key, alias, def);
+    public <T> T getPreferenceAlias(String key, String alias, T defaultValue) {
+        return pm.getPreferenceAlias(key, alias, defaultValue);
+    }
+
+    public <T> T getPreferenceSave(String key, T defaultValue) {
+        T value = (T) FxPreferences.getInstance().getPreference(key);
+        if (value == null || StringUtils.isBlank(value.toString())) {
+            FxPreferences.getInstance().savePreference(key, defaultValue);
+            value = defaultValue;
+        }
+        return value;
     }
 
     public void removePreference(String key) {
